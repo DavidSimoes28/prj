@@ -121,6 +121,19 @@
                             </div>
                         </div>
 
+                        <div class="form-group row">
+                            <label for="ativo" class="col-md-4 col-form-label text-md-right">{{ __('Ativo') }}</label>
+                            <div class="col-md-6">
+                                <input type="radio" class="form{{ $errors->has('ativo') ? ' is-invalid' : '' }}" name="ativo" value="0" checked required> Ativo <br>
+                                <input type="radio" class="form-{{ $errors->has('ativo') ? ' is-invalid' : '' }}" name="ativo" value="1" required> Não Ativo
+                                @if ($errors->has('ativo'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('ativo') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">

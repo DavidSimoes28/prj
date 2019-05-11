@@ -47,7 +47,7 @@ class UserController extends Controller
         }
         $user->fill(["foto_url" => $name_foto]);
         $user->save();
-        
+        $user->sendEmailVerificationNotification();
         return redirect()->route('socios')->with("success","User successfully inserted");
     }
 
