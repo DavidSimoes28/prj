@@ -42,11 +42,11 @@
             <td>Validade: {{ Auth::user()->validade_licenca }}</td> 
         </tr>
         <tr>
-            <td>Licenca Confirmada: {{ Auth::user()->licenca_confirmada }}</td>
+            <td colspan="2">Licenca Confirmada: {{ Auth::user()->licenca_confirmada }}</td>
             @if(!Storage::exists("app/licenca_".Auth::user()->id.".pdf"))
-                <td colspan="4">Copia Digital: <a href="{{ asset('storage/app/docs_piloto/' . 'licenca_' . Auth::user()->id . '.pdf') }}" title="Licenca" target="_blank">Licenca</a>
+                <td colspan="2">Copia Digital: <a href="{{ asset('storage/app/docs_piloto/' . 'licenca_' . Auth::user()->id . '.pdf') }}" title="Licenca" target="_blank">Licenca</a>
             @else
-                <td colspan="4">Copia Digital: Não </td>
+                <td colspan="2">Copia Digital: Não </td>
             @endif
             <td></td>
             <td></td> 

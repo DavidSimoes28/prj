@@ -20,6 +20,14 @@ class Movimento extends Authenticatable
         'num_diario','num_servico','conta_horas_inicio','conta_horas_fim','num_pessoas','tipo_instrucao','instrutor_id','confirmado','observacoes'
     ];
     
+    public function pilotos(){
+        return $this->belongsTo('App\User','piloto_id','id')->withTrashed();
+    }
+
+    public function instrutores(){
+        return $this->belongsTo('App\User','instrutor_id','id')->withTrashed();
+    }
+
     public function instrucaoConfirmadaToStr()
     {
         switch ($this->confirmado) {

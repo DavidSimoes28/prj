@@ -45,9 +45,9 @@
                 <td>{{ $movimento->data }}</td>
                 <td>{{ $movimento->hora_descolagem }}</td>
                 <td>{{ $movimento->hora_aterragem }}</td>
-                <td> {{ $movimento->tempo_voo }} </td>
+                <td>{{ $movimento->tempo_voo }}</td>
                 <td>{{ $movimento->naturezaToStr() }}</td>
-                <td>{{ App\User::find($movimento->piloto_id)->nome_informal }}</td>
+                <td>{{ $movimento->pilotos->nome_informal }}</td>
                 <td>{{ $movimento->aerodromo_partida }}</td>
                 <td>{{ $movimento->aerodromo_chegada }}</td>
                 <td>{{ $movimento->num_aterragens }}</td>
@@ -58,7 +58,7 @@
                 <td>{{ $movimento->conta_horas_fim }}</td>
                 <td>{{ $movimento->num_pessoas }}</td>
                 <td>{{ $movimento->tipoInstrucaoToStr() }}</td>
-                <td>{{ $movimento->instrutor_id }}</td>
+                <td>{{ $movimento->instrutores->nome_informal ?? ""}}</td>
                 <td>{{ $movimento->instrucaoConfirmadaToStr() }}</td>
                 <!--<td>{{ $movimento->observacoes }}</td>-->
             </tr>

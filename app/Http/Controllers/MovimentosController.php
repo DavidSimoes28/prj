@@ -15,7 +15,7 @@ class MovimentosController extends Controller
     
     public function index()
     {
-        $movimentos = Movimento::orderBy('data','desc')->paginate(15);
+        $movimentos = Movimento::with("pilotos","instrutores")->orderBy('data','desc')->paginate(15);
         //$movimentos = Movimento::where("piloto_id",Auth::user()->id)->orderBy('data','desc')->paginate(15);
         return view('movimentos.listMovimentos', compact('movimentos'));
     }

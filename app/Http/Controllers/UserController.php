@@ -36,6 +36,18 @@ class UserController extends Controller
         $user->fill($request->all());
         $user->password=Hash::make($user->data_nascimento);
         $user->save();
+
+        if ($request->hasFile('foto_url')) {
+            if ($request->file('foto_url')->isValid()) {
+                $foto_url = $request->file('foto_url');
+                $name_foto = $user->id."_".$request->foto_url->hashName();
+                Storage::disk('public')->putFileAs('fotos',$foto_url,$name_foto);
+                $user->foto_url = $name_foto;
+            }
+        }
+        $user->fill(["foto_url" => $name_foto]);
+        $user->save();
+        
         return redirect()->route('socios')->with("success","User successfully inserted");
     }
 
@@ -50,13 +62,12 @@ class UserController extends Controller
         unset($validated['licenca_pdf']);
         unset($validated['certificado_pdf']);
         $user->fill($validated);
-        if ($request->hasFile($user->foto_url)) {
-            if ($request->file($user->foto_url)->isValid()) {
+        if ($request->hasFile('foto_url')) {
+            if ($request->file('foto_url')->isValid()) {
                 $foto_url = $request->file('foto_url');
-                $name_foto = time().$request->foto_url->getClientOriginalExtension();
-                Storage::disk('public')->put('fotos',$request->foto_url);
+                $name_foto = $user->id."_".$request->foto_url->hashName();
                 Storage::disk('public')->putFileAs('fotos',$foto_url,$name_foto);
-                Storage::disk('public')->delete($user->foto_url);
+                Storage::disk('public')->delete('fotos/'.$user->foto_url);
                 $user->foto_url = $name_foto;
             }
         }
