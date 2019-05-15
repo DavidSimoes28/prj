@@ -33,11 +33,11 @@ class UserController extends Controller
         $tipo_socio =  $_GET ['tipo_socio'] ?? null;
         $direcao =  $_GET ['direcao'] ?? null;
 
-        $email          != null ? /*query*/ : /*nada*/;
-        $num_socio      != null ? /*query*/ : /*nada*/;
-        $nome_informal  != null ? /*query*/ : /*nada*/;
-        $tipo_socio     != null ? /*query*/ : /*nada*/;
-        $direcao        != null ? /*query*/ : /*nada*/;
+        //$email          != null ? /*query*/ : /*nada*/;
+        //$num_socio      != null ? /*query*/ : /*nada*/;
+       // $nome_informal  != null ? /*query*/ : /*nada*/;
+        //$tipo_socio     != null ? /*query*/ : /*nada*/;
+        //$direcao        != null ? /*query*/ : /*nada*/;
 
         
     }
