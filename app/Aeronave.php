@@ -25,4 +25,13 @@ class Aeronave extends Authenticatable
     ];
 
     protected $dates = ['deleted_at'];
+
+    public function aeronaves_pilotos(){
+        return $this->belongsToMany('App\User','aeronaves_pilotos','piloto_id');
+    }
+
+    public function aeronave_movimentos(){
+        return $this->hasMany('App\Movimento','aeronave','matricula');
+    }
+
 }
