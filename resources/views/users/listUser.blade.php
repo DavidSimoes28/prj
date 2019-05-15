@@ -116,9 +116,9 @@
 
    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
     <input type="submit" class="btn btn-xs btn-primary" value = "Pesquisar">
-    <a class="btn btn-xs btn-primary" href=" {{ route('socios') }} "><i class="fa fa-trash"></i></a>
+    &nbsp;&nbsp;
+    <a class="btn btn-xs btn-danger" href=" {{ route('socios') }} "><i class="fa fa-trash"></i></a>
   
 </form>
 <br>
