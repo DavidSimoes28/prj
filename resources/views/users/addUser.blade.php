@@ -108,7 +108,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="tipo_socio" class="col-md-4 col-form-label text-md-right">{{ __('Tipo sócio') }}</label>
+                            <label for="tipo_socio" class="col-md-4 col-form-label text-md-right">{{ __('Tipo de Sócio') }}</label>
                             <div class="col-md-6">
                                 <input type="radio" class="form{{ $errors->has('tipo_socio') ? ' is-invalid' : '' }}" name="tipo_socio" value="P" checked required> Piloto<br>
                                 <input type="radio" class="form{{ $errors->has('tipo_socio') ? ' is-invalid' : '' }}" name="tipo_socio" value="NP" required> Não Piloto<br>
