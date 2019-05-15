@@ -65,4 +65,9 @@ class Movimento extends Authenticatable
         }
         return 'Unknown';
     }
+
+    public function aeronave_movimentos(){
+        return $this->belongsTo('App\Aeronave','aeronave','matricula');
+    }
+
 }
