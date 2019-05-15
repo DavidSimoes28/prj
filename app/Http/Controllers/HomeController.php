@@ -25,7 +25,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $users = User::where('ativo', true)->paginate(15);
+        $users = User::where('ativo', true)->paginate(14);
         return view('home', compact('users'));
     }
 }

@@ -86,11 +86,22 @@
 
 
 {{ __('Pesquisa') }}<br>
-<input type="radio" name="num_socio" value="1" checked > num_socio <br>
-<input type="radio" name="nome_informal" value="2" checked > nome_informal <br>
-<input type="radio" name="email" value="3" checked > email <br>
-<input type="radio" name="tipo_socio" value="5" checked > tipo_socio <br>
-<input type="radio" name="direcao" value="6" checked > direcao <br>-->
+<form action="">
+    <input type="number" name="num_socio" value="1" autofocus min = "0" max = "99999999999"> num_socio <br>
+    <input type="text"  name="nome_informal" placeholder="Nome Informal" maxlength = "40"> nome_informal <br>
+    <input type="email" name="email" placeholder="Email" checked > email <br>
+
+    <select name="tipo_socio">
+    <option value="P" selected >Piloto</option>
+    <option value="NP">Não Piloto</option>
+    <option value="A">Aeromodelista</option>
+    </select> <br>
+
+    <label for ="direcao">Direcão: </label>
+    <input type="checkbox" name="direcao"> <br>
+
+    <input type="submit">
+</form>
 
 
 <div class="container">

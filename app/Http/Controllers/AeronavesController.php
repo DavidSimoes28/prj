@@ -14,7 +14,7 @@ class AeronavesController extends Controller
     
     public function index()
     {
-        $aeronaves = Aeronave::whereNull('deleted_at')->get();//->paginate(15);
+        $aeronaves = Aeronave::whereNull('deleted_at')->get();//->paginate(14);
         return view('aeronaves.listAeronave', compact('aeronaves'));
     }
 }
