@@ -79,7 +79,7 @@
 
 
 <div class="form-group row">
-    <label for="num_certificado" class="col-md-4 col-form-label text-md-right">{{ __('Nº certificado') }}</label>
+    <label for="num_certificado" class="col-md-4 col-form-label text-md-right">{{ __('Nº Certificado') }}</label>
 
     <div class="col-md-6">
         <input id="num_certificado" type="text" class="form-control{{ $errors->has('num_certificado') ? ' is-invalid' : '' }}" name="num_certificado" value="{{ $user->num_certificado }}" autofocus>

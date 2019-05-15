@@ -89,7 +89,7 @@
 
 <form method="GET" action="{{ route('socios') }}">
 
-    <label for ="num_socio">Número de sócio:</label>
+    <label for ="num_socio">Nº Sócio:</label>
     <input type="number" name="num_socio" autofocus min="0" max="99999999999" value="{{ strval($_GET ['num_socio'] ?? '') }}">
     &nbsp;&nbsp;&nbsp;&nbsp;
     <input type="text"  name="nome_informal" placeholder="Nome Informal" maxlength = "40" value="{{ strval($_GET ['nome_informal'] ?? '') }}">
@@ -97,7 +97,7 @@
     <input type="text" name="email" placeholder="Email" value="{{ strval($_GET ['email'] ?? '') }}">
     &nbsp;&nbsp;&nbsp;&nbsp;
 
-    <label for ="tipo_socio">Tipo de sócio: </label>
+    <label for ="tipo_socio">Tipo de Sócio: </label>
     <select name="tipo_socio">
     <option value="TODOS"   {{ strval($_GET ['tipo_socio'] ?? '') == "TODOS" ? "selected":"" }} >Todos</option>
     <option value="P"       {{ strval($_GET ['tipo_socio'] ?? '') == "P"     ? "selected":"" }} >Piloto</option>
@@ -121,16 +121,18 @@
     <a class="btn btn-xs btn-primary" href=" {{ route('socios') }} "><i class="fa fa-trash"></i></a>
   
 </form>
+<br>
+<br>
+</div>
+<a class="btn btn-xs btn-primary" href="{{ route('socios.create') }}">{{ __(' Adicionar Sócio ') }}</a>
+</div>
 
-</div>
-</div>
 
 <div class="container">
-<a class="btn btn-xs btn-primary" href="{{ route('socios.create') }}">{{ __('Adicionar Sócio') }}</a>
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">Lista de Sócios</div>
+                <div class="card-header">Lista de Sócios&nbsp;&nbsp;&nbsp;&nbsp;<a class="btn btn-success btn-md" href="{{ route('socios.create') }}">{{ __(' + ') }}</a></div>
                 <div class="card-body">
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
