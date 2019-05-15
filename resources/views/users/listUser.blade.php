@@ -83,26 +83,36 @@
 </div>
 
 -->
+<div class="container">
+<div class="row justify-content-center">
 
 
-{{ __('Pesquisa') }}<br>
-<form action="">
-    <input type="number" name="num_socio" value="1" autofocus min = "0" max = "99999999999"> num_socio <br>
-    <input type="text"  name="nome_informal" placeholder="Nome Informal" maxlength = "40"> nome_informal <br>
-    <input type="email" name="email" placeholder="Email" checked > email <br>
+<form method="GET" action="{{ route('socios') }}">
+
+    <label for ="nume_socio">Número de sócio:</label>
+    <input type="number" name="num_socio" value="1" autofocus min = "0" max = "99999999999">&nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="text"  name="nome_informal" placeholder="Nome Informal" maxlength = "40">&nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="email" name="email" placeholder="Email" checked >&nbsp;&nbsp;&nbsp;&nbsp;
 
     <select name="tipo_socio">
     <option value="P" selected >Piloto</option>
     <option value="NP">Não Piloto</option>
     <option value="A">Aeromodelista</option>
-    </select> <br>
+    </select>&nbsp;&nbsp;&nbsp;&nbsp;
 
-    <label for ="direcao">Direcão: </label>
-    <input type="checkbox" name="direcao"> <br>
+    <label for ="direcao">Direção: </label>
+    <select name="tipo_socio">
+    <option value="S" selected >Sim</option>
+    <option value="N">Não</option>
+    <option value="A" checked>Ambos</option>
+    </select>&nbsp;&nbsp;&nbsp;&nbsp;
 
-    <input type="submit">
+    <input type="submit" class="btn btn-info" value ="Pesquisar">
+  
 </form>
 
+</div>
+</div>
 
 <div class="container">
 <a class="btn btn-xs btn-primary" href="{{ route('socios.create') }}">{{ __('Adicionar Socio') }}</a>

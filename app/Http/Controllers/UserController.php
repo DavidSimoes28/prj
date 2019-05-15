@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\StoreUserRequest;
+use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\SearchUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\PasswordUserRequest;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -19,9 +20,26 @@ class UserController extends Controller
     }
     
     public function index()
-    {
-        $users = User::where('ativo', true)->paginate(14);
-        return view('users.listUser', compact('users'));
+    {   
+        
+        if ( !count ( $_GET ) ){
+            $users = User::where('ativo', true)->paginate(14);
+            return view('users.listUser', compact('users'));
+        }
+
+        $email =  $_GET ['email'] ?? null;
+        $num_socio =  $_GET ['num_socio'] ?? null;
+        $nome_informal =  $_GET ['nome_informal'] ?? null;
+        $tipo_socio =  $_GET ['tipo_socio'] ?? null;
+        $direcao =  $_GET ['direcao'] ?? null;
+
+        $email          != null ? /*query*/ : /*nada*/;
+        $num_socio      != null ? /*query*/ : /*nada*/;
+        $nome_informal  != null ? /*query*/ : /*nada*/;
+        $tipo_socio     != null ? /*query*/ : /*nada*/;
+        $direcao        != null ? /*query*/ : /*nada*/;
+
+        
     }
 
     public function create(){
@@ -108,4 +126,5 @@ class UserController extends Controller
         $user->save();
         return redirect()->route('socios')->with("success","User password updated");
     }
+
 }
