@@ -33,24 +33,24 @@ class UserController extends Controller
         $tipo_socio =  $_GET ['tipo_socio'] ?? null;
         $direcao =  $_GET ['direcao'] ?? null;
 
-        if ($email != null){
-            $users = $users->where('email', $email);
+        if ( $email != null ){
+            $users = $users->where('email', 'LIKE', "%".$email."%" );
         }
 
-        if ($num_socio != null){
-            $users = $users->where('num_socio', $num_socio);
+        if ( $num_socio != null ){
+            $users = $users->where('num_socio', 'LIKE', "%".$num_socio."%" );
         }
 
-        if ($nome_informal != null){
-            //$users = $users->where('email', $email);
+        if ( $nome_informal != null ){
+            $users = $users->where('nome_informal', 'LIKE', "%".$nome_informal."%" );
         }
 
-        if ($tipo_socio != null){
-            //$users = $users->where('email', $email);
+        if ( $tipo_socio != null ){
+            $users = $users->where('tipo_socio', $tipo_socio);
         }
 
-        if ($direcao != null){
-            //$users = $users->where('email', $email);
+        if ( $direcao != null && $direcao != 'A' ){
+            $users = $users->where('direcao', $direcao);
         }
 
         $users = $users->paginate(14);

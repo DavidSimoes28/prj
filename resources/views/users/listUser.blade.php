@@ -90,9 +90,9 @@
 <form method="GET" action="{{ route('socios') }}">
 
     <label for ="nume_socio">Número de sócio:</label>
-    <input type="number" name="num_socio" autofocus min = "0" max = "99999999999">&nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="number" name="num_socio" autofocus min="0" max="99999999999">&nbsp;&nbsp;&nbsp;&nbsp;
     <input type="text"  name="nome_informal" placeholder="Nome Informal" maxlength = "40">&nbsp;&nbsp;&nbsp;&nbsp;
-    <input type="email" name="email" placeholder="Email" checked >&nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="text" name="email" placeholder="Email" checked >&nbsp;&nbsp;&nbsp;&nbsp;
 
     <select name="tipo_socio">
     <option value="P" selected >Piloto</option>
@@ -101,10 +101,10 @@
     </select>&nbsp;&nbsp;&nbsp;&nbsp;
 
     <label for ="direcao">Direção: </label>
-    <select name="tipo_socio">
-    <option value="S">Sim</option>
-    <option value="N">Não</option>
+    <select name="direcao">
     <option value="A" selected >Ambos</option>
+    <option value="1">Sim</option>
+    <option value="0">Não</option>    
     </select>&nbsp;&nbsp;&nbsp;&nbsp;                            
 
     <input type="submit" class="btn btn-info" value ="Pesquisar">
