@@ -21,9 +21,9 @@ class UserController extends Controller
     
     public function index()
     {   
-        
+        $users = User::where('ativo', true);
         if ( !count ( $_GET ) ){
-            $users = User::where('ativo', true)->paginate(14);
+            $users = $users->paginate(14);
             return view('users.listUser', compact('users'));
         }
 
@@ -33,13 +33,28 @@ class UserController extends Controller
         $tipo_socio =  $_GET ['tipo_socio'] ?? null;
         $direcao =  $_GET ['direcao'] ?? null;
 
-        //$email          != null ? /*query*/ : /*nada*/;
-        //$num_socio      != null ? /*query*/ : /*nada*/;
-       // $nome_informal  != null ? /*query*/ : /*nada*/;
-        //$tipo_socio     != null ? /*query*/ : /*nada*/;
-        //$direcao        != null ? /*query*/ : /*nada*/;
+        if ($email != null){
+            $users = $users->where('email', $email);
+        }
 
-        
+        if ($num_socio != null){
+            $users = $users->where('num_socio', $num_socio);
+        }
+
+        if ($nome_informal != null){
+            //$users = $users->where('email', $email);
+        }
+
+        if ($tipo_socio != null){
+            //$users = $users->where('email', $email);
+        }
+
+        if ($direcao != null){
+            //$users = $users->where('email', $email);
+        }
+
+        $users = $users->paginate(14);
+        return view('users.listUser', compact('users'));
     }
 
     public function create(){
