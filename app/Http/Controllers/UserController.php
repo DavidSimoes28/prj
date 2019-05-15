@@ -45,11 +45,11 @@ class UserController extends Controller
             $users = $users->where('nome_informal', 'LIKE', "%".$nome_informal."%" );
         }
 
-        if ( $tipo_socio != null ){
+        if ( $tipo_socio != null && $tipo_socio != 'TODOS' ){
             $users = $users->where('tipo_socio', $tipo_socio);
         }
 
-        if ( $direcao != null && $direcao != 'A' ){
+        if ( $direcao != null && $direcao != 'AMBOS' ){
             $users = $users->where('direcao', $direcao);
         }
 

@@ -6,7 +6,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">Editar Socio</div>
+                <div class="card-header">Editar Sócio</div>
                 <div class="card-body">
                 <form method="POST" action="{{ route('socios.update',['id'=>$users->id]) }}" enctype="multipart/form-data">
                         @csrf

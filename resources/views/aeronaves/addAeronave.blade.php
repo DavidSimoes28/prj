@@ -13,7 +13,7 @@
                         @csrf
 
                         <div class="form-group row">
-                            <label for="num_socio" class="col-md-4 col-form-label text-md-right">{{ __('Nº Socio') }}</label>
+                            <label for="num_socio" class="col-md-4 col-form-label text-md-right">{{ __('Nº Sócio') }}</label>
 
                             <div class="col-md-6">
                                 <input id="num_socio" type="text" class="form-control{{ $errors->has('num_socio') ? ' is-invalid' : '' }}" name="num_socio" required autofocus>

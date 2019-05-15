@@ -12,7 +12,7 @@
                     <form method="POST" action="{{route('socios.store')}}" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group row">
-                            <label for="num_socio" class="col-md-4 col-form-label text-md-right">{{ __('Nº Socio') }}</label>
+                            <label for="num_socio" class="col-md-4 col-form-label text-md-right">{{ __('Nº Sócio') }}</label>
 
                             <div class="col-md-6">
                                 <input id="num_socio" type="text" class="form-control{{ $errors->has('num_socio') ? ' is-invalid' : '' }}" name="num_socio" required autofocus>
@@ -26,7 +26,7 @@
                         </div>
                         
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Nome') }}</label>
 
                             <div class="col-md-6">
                                 <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" required autofocus>
@@ -68,7 +68,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="data_nascimento" class="col-md-4 col-form-label text-md-right">{{ __('Data Nascimento') }}</label>
+                            <label for="data_nascimento" class="col-md-4 col-form-label text-md-right">{{ __('Data de Nascimento') }}</label>
 
                             <div class="col-md-6">
                                 <input id="data_nascimento" type="date" class="form-control{{ $errors->has('data_nascimento') ? ' is-invalid' : '' }}" name="data_nascimento" required>
@@ -108,7 +108,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="tipo_socio" class="col-md-4 col-form-label text-md-right">{{ __('Tipo socio') }}</label>
+                            <label for="tipo_socio" class="col-md-4 col-form-label text-md-right">{{ __('Tipo sócio') }}</label>
                             <div class="col-md-6">
                                 <input type="radio" class="form{{ $errors->has('tipo_socio') ? ' is-invalid' : '' }}" name="tipo_socio" value="P" checked required> Piloto<br>
                                 <input type="radio" class="form{{ $errors->has('tipo_socio') ? ' is-invalid' : '' }}" name="tipo_socio" value="NP" required> Não Piloto<br>

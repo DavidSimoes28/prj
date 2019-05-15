@@ -33,7 +33,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        <a class="nav-link" href="{{ route('socios') }}">{{ __('Socios') }}</a>
+                        <a class="nav-link" href="{{ route('socios') }}">{{ __('Sócios') }}</a>
                         <a class="nav-link" href="{{ route('aeronaves') }}">{{ __('Aeronaves') }}</a>
                         <a class="nav-link" href="{{ route('movimentos') }}">{{ __('Movimentos') }}</a>
                     </ul>

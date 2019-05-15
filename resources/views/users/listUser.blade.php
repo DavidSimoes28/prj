@@ -89,25 +89,36 @@
 
 <form method="GET" action="{{ route('socios') }}">
 
-    <label for ="nume_socio">Número de sócio:</label>
-    <input type="number" name="num_socio" autofocus min="0" max="99999999999">&nbsp;&nbsp;&nbsp;&nbsp;
-    <input type="text"  name="nome_informal" placeholder="Nome Informal" maxlength = "40">&nbsp;&nbsp;&nbsp;&nbsp;
-    <input type="text" name="email" placeholder="Email" checked >&nbsp;&nbsp;&nbsp;&nbsp;
+    <label for ="num_socio">Número de sócio:</label>
+    <input type="number" name="num_socio" autofocus min="0" max="99999999999" value="{{ strval($_GET ['num_socio'] ?? '') }}">
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="text"  name="nome_informal" placeholder="Nome Informal" maxlength = "40" value="{{ strval($_GET ['nome_informal'] ?? '') }}">
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="text" name="email" placeholder="Email" value="{{ strval($_GET ['email'] ?? '') }}">
+    &nbsp;&nbsp;&nbsp;&nbsp;
 
+    <label for ="tipo_socio">Tipo de sócio: </label>
     <select name="tipo_socio">
-    <option value="P" selected >Piloto</option>
-    <option value="NP">Não Piloto</option>
-    <option value="A">Aeromodelista</option>
-    </select>&nbsp;&nbsp;&nbsp;&nbsp;
+    <option value="TODOS"   {{ strval($_GET ['tipo_socio'] ?? '') == "TODOS" ? "selected":"" }} >Todos</option>
+    <option value="P"       {{ strval($_GET ['tipo_socio'] ?? '') == "P"     ? "selected":"" }} >Piloto</option>
+    <option value="NP"      {{ strval($_GET ['tipo_socio'] ?? '') == "NP"    ? "selected":"" }} >Não Piloto</option>
+    <option value="A"       {{ strval($_GET ['tipo_socio'] ?? '') == "A"     ? "selected":"" }} >Aeromodelista</option>
+    </select>
+    &nbsp;&nbsp;&nbsp;&nbsp;
 
     <label for ="direcao">Direção: </label>
     <select name="direcao">
-    <option value="A" selected >Ambos</option>
-    <option value="1">Sim</option>
-    <option value="0">Não</option>    
-    </select>&nbsp;&nbsp;&nbsp;&nbsp;                            
+    <option value="AMBOS"   {{ strval($_GET ['direcao'] ?? '') == "AMBOS"  ? "selected":"" }} >Ambos</option>
+    <option value="1"       {{ strval($_GET ['direcao'] ?? '') == "1"      ? "selected":"" }} >Sim</option>
+    <option value="0"       {{ strval($_GET ['direcao'] ?? '') == "0"      ? "selected":"" }} >Não</option>    
+    </select>
+    &nbsp;&nbsp;&nbsp;&nbsp;
 
-    <input type="submit" class="btn btn-info" value ="Pesquisar">
+   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <input type="submit" class="btn btn-xs btn-primary" value = "Pesquisar">
+    <a class="btn btn-xs btn-primary" href=" {{ route('socios') }} "><i class="fa fa-trash"></i></a>
   
 </form>
 
@@ -115,11 +126,11 @@
 </div>
 
 <div class="container">
-<a class="btn btn-xs btn-primary" href="{{ route('socios.create') }}">{{ __('Adicionar Socio') }}</a>
+<a class="btn btn-xs btn-primary" href="{{ route('socios.create') }}">{{ __('Adicionar Sócio') }}</a>
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">Lista de Socios</div>
+                <div class="card-header">Lista de Sócios</div>
                 <div class="card-body">
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
@@ -132,15 +143,15 @@
                         <thead>
                             <tr>
                                 <th>Foto</th>
-                                <th>Nº Socio</th>
-                                <th>Name Informal</th>
+                                <th>Nº Sócio</th>
+                                <th>Nome Informal</th>
                                 <th>Email</th>
                                 <th>Telefone</th>
-                                <th>Tipo Socio</th>
+                                <th>Tipo de Sócio</th>
                                 @if(Auth::user()->tipo_socio == 'P')
-                                    <th>Num Licenca</th>
+                                    <th>Nº Licença</th>
                                 @endif
-                                <th>Direcao</th>
+                                <th>Direção</th>
                                 @if(Auth::user()->direcao == 1)
                                     <th>Ações</th>
                                 @endif

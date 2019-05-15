@@ -1,5 +1,5 @@
 <div class="form-group row">
-    <label for="num_licenca" class="col-md-4 col-form-label text-md-right">{{ __('Nº Licenca') }}</label>
+    <label for="num_licenca" class="col-md-4 col-form-label text-md-right">{{ __('Nº Licença') }}</label>
 
     <div class="col-md-6">
         <input id="num_licenca" type="text" class="form-control{{ $errors->has('num_licenca') ? ' is-invalid' : '' }}" name="num_licenca" value="{{ $user->num_licenca }}" autofocus>
@@ -13,7 +13,7 @@
 </div>
 
 <div class="form-group row">
-    <label for="licenca_pdf" class="col-md-4 col-form-label text-md-right">{{ __('Copia licenca') }}</label>
+    <label for="licenca_pdf" class="col-md-4 col-form-label text-md-right">{{ __('Copia licença') }}</label>
 
     <div class="col-md-6">
         <input type="file" id="licenca_pdf" name="licenca_pdf">
@@ -26,7 +26,7 @@
 </div>
 
 <div class="form-group row">
-    <label for="tipo_licenca" class="col-md-4 col-form-label text-md-right">{{ __('Tipo Licenca') }}</label>
+    <label for="tipo_licenca" class="col-md-4 col-form-label text-md-right">{{ __('Tipo Licença') }}</label>
     <div class="col-md-6">
         <input id="tipo_licenca" type="text" class="form-control{{ $errors->has('tipo_licenca') ? ' is-invalid' : '' }}" name="tipo_licenca" value="{{ $user->tipo_licenca }}" autofocus>
         @if ($errors->has('tipo_licenca'))
@@ -93,7 +93,7 @@
 </div>
 
 <div class="form-group row">
-    <label for="certificado_pdf" class="col-md-4 col-form-label text-md-right">{{ __('Copia Certificado') }}</label>
+    <label for="certificado_pdf" class="col-md-4 col-form-label text-md-right">{{ __('Cópia Certificado') }}</label>
 
     <div class="col-md-6">
         <input type="file" id="certificado_pdf" name="certificado_pdf">

@@ -68,7 +68,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="num_diario" class="col-md-4 col-form-label text-md-right">{{ __('Numero Diario') }}</label>
+                            <label for="num_diario" class="col-md-4 col-form-label text-md-right">{{ __('Numero Diário') }}</label>
 
                             <div class="col-md-6">
                                 <input id="num_diario" type="number" class="form-control{{ $errors->has('num_diario') ? ' is-invalid' : '' }}" name="num_diario" required autofocus>
@@ -82,7 +82,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="num_servico" class="col-md-4 col-form-label text-md-right">{{ __('Numero Servico') }}</label>
+                            <label for="num_servico" class="col-md-4 col-form-label text-md-right">{{ __('Numero Serviço') }}</label>
 
                             <div class="col-md-6">
                                 <input id="num_servico" type="number" class="form-control{{ $errors->has('num_servico') ? ' is-invalid' : '' }}" name="num_servico" required autofocus>
@@ -152,7 +152,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="num_aterragens" class="col-md-4 col-form-label text-md-right">{{ __('Numero de Aterragens') }}</label>
+                            <label for="num_aterragens" class="col-md-4 col-form-label text-md-right">{{ __('Número de Aterragens') }}</label>
 
                             <div class="col-md-6">
                                 <input id="num_aterragens" type="number" class="form-control{{ $errors->has('num_aterragens') ? ' is-invalid' : '' }}" name="num_aterragens" required autofocus>
@@ -166,7 +166,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="num_descolagens" class="col-md-4 col-form-label text-md-right">{{ __('Numero de Descolagens') }}</label>
+                            <label for="num_descolagens" class="col-md-4 col-form-label text-md-right">{{ __('Número de Descolagens') }}</label>
 
                             <div class="col-md-6">
                                 <input id="num_descolagens" type="number" class="form-control{{ $errors->has('num_descolagens') ? ' is-invalid' : '' }}" name="num_descolagens" required autofocus>
@@ -180,7 +180,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="num_pessoas" class="col-md-4 col-form-label text-md-right">{{ __('Numero de Pessoas a Bordo') }}</label>
+                            <label for="num_pessoas" class="col-md-4 col-form-label text-md-right">{{ __('Número de Pessoas a Bordo') }}</label>
 
                             <div class="col-md-6">
                                 <input id="num_pessoas" type="number" class="form-control{{ $errors->has('num_pessoas') ? ' is-invalid' : '' }}" name="num_pessoas" required autofocus>
@@ -236,7 +236,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="preco_voo" class="col-md-4 col-form-label text-md-right">{{ __('Preco do Voo') }}</label>
+                            <label for="preco_voo" class="col-md-4 col-form-label text-md-right">{{ __('Preço do Voo') }}</label>
 
                             <div class="col-md-6">
                                 <input id="preco_voo" type="number" class="form-control{{ $errors->has('preco_voo') ? ' is-invalid' : '' }}" name="preco_voo" pattern="^\d*(\.\d{0,2})?$" required autofocus>
@@ -265,7 +265,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="num_recibo" class="col-md-4 col-form-label text-md-right">{{ __('Numero do Recibo') }}</label>
+                            <label for="num_recibo" class="col-md-4 col-form-label text-md-right">{{ __('Número do Recibo') }}</label>
 
                             <div class="col-md-6">
                                 <input id="num_recibo" type="text" class="form-control{{ $errors->has('num_recibo') ? ' is-invalid' : '' }}" name="num_recibo" required autofocus>
@@ -279,7 +279,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="observacoes" class="col-md-4 col-form-label text-md-right">{{ __('Observacoes') }}</label>
+                            <label for="observacoes" class="col-md-4 col-form-label text-md-right">{{ __('Observações') }}</label>
 
                             <div class="col-md-6">
                                 <input id="observacoes" type="text" class="form-control{{ $errors->has('observacoes') ? ' is-invalid' : '' }}" name="observacoes" required autofocus>

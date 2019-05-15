@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="container">
-<a class="btn btn-xs btn-primary" href="{{ route('socios.create') }}">{{ __('Adicionar Socio') }}</a>
+<a class="btn btn-xs btn-primary" href="{{ route('socios.create') }}">{{ __('Adicionar Sócio') }}</a>
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">

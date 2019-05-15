@@ -6,13 +6,13 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">Editar Socio</div>
+                <div class="card-header">Editar Sócio</div>
                 <div class="card-body">
                 <form method="POST" action="{{ route('socios.update',['id'=>$user->id]) }}" enctype="multipart/form-data">
                         @csrf
                         @method("PUT")
                         <div class="form-group row">
-                            <label for="num_socio" class="col-md-4 col-form-label text-md-right">{{ __('Nº Socio') }}</label>
+                            <label for="num_socio" class="col-md-4 col-form-label text-md-right">{{ __('Nº Sócio') }}</label>
 
                             <div class="col-md-6">
                                 <input id="num_socio" type="text" class="form-control{{ $errors->has('num_socio') ? ' is-invalid' : '' }}" name="num_socio" value="{{ $user->num_socio }}" autofocus>
@@ -67,7 +67,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="tipo_socio" class="col-md-4 col-form-label text-md-right">{{ __('Tipo socio') }}</label>
+                            <label for="tipo_socio" class="col-md-4 col-form-label text-md-right">{{ __('Tipo sócio') }}</label>
                             <div class="col-md-6">
                                 <input type="radio" class="form{{ $errors->has('tipo_socio') ? ' is-invalid' : '' }}" name="tipo_socio" value="P" {{ strval(old('tipo_socio',$user->tipo_socio)) == "P"?"checked":"" }}> Piloto<br>
                                 <input type="radio" class="form{{ $errors->has('tipo_socio') ? ' is-invalid' : '' }}" name="tipo_socio" value="NP" {{ strval(old('tipo_socio',$user->tipo_socio)) == "NP"?"checked":"" }}> Não Piloto<br>
@@ -149,7 +149,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="endereco" class="col-md-4 col-form-label text-md-right">{{ __('Endereco') }}</label>
+                            <label for="endereco" class="col-md-4 col-form-label text-md-right">{{ __('Endereço') }}</label>
 
                             <div class="col-md-6">
                                 <textarea name="endereco" class="form-control{{ $errors->has('endereco') ? ' is-invalid' : '' }}"> {{ $user->endereco }}</textarea>
