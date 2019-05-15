@@ -2,6 +2,7 @@
 
 @section('content')
 
+<a class="btn btn-xs btn-primary" href="{{ route('movimentos.create') }}">{{ __('Adicionar Movimento') }}</a>
 
 @if (session('status'))
     <div class="alert alert-success" role="alert">
