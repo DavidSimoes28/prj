@@ -1,11 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-
+<!--
 <div class="container">
 <div class="row justify-content-center">
+
 <table class="table table-striped">
-<thead>
+
+    <thead>
     <tr colspan="4">Dados Pessoais</tr>
 </thead>
 <tbody>
@@ -80,8 +82,10 @@
 </div>
 </div>
 
+-->
 
-<!--{{_('Pesquisa')}}<br>
+
+{{ __('Pesquisa') }}<br>
 <input type="radio" name="num_socio" value="1" checked > num_socio <br>
 <input type="radio" name="nome_informal" value="2" checked > nome_informal <br>
 <input type="radio" name="email" value="3" checked > email <br>
