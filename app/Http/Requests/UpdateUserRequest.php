@@ -31,16 +31,16 @@ class UpdateUserRequest extends FormRequest
             'nome_informal' => 'string|max:40',
             'nif' => 'max:9',
             'telefone'=> ['max:20','regex:/^([\+][\d]{3}[ ])?[\d]+$/'],
-            'endereco'=> 'string',
-            'data_nascimento' => 'date',
+            'endereco'=> 'string|max:255|nullable',
+            'data_nascimento' => 'date|date_format:"Y-m-d"',
             'file_foto' => 'mimes:jpeg,bmp,png,gif',
             'file_certificado' => 'mimes:pdf',
-            'num_certificado' => 'max:9',
-            'validade_certificado' => 'date',
+            'num_certificado' => 'max:30',
+            'validade_certificado' => 'date|date_format:"Y-m-d"|nullable',
             'file_licenca' => 'mimes:pdf',
-            'instrutor' => 'max:9',
-            'num_licenca' => 'max:9',
-            'validade_licenca' => 'date'
+            'instrutor' => 'max:1',
+            'num_licenca' => 'max:30',
+            'validade_licenca' => 'date|date_format:"Y-m-d"|nullable'
         ];
     }
 }
