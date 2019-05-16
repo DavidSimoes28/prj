@@ -13,13 +13,13 @@
 </div>
 
 <div class="form-group row">
-    <label for="licenca_pdf" class="col-md-4 col-form-label text-md-right">{{ __('Copia licença') }}</label>
+    <label for="file_licenca" class="col-md-4 col-form-label text-md-right">{{ __('Copia licença') }}</label>
 
     <div class="col-md-6">
-        <input type="file" id="licenca_pdf" name="licenca_pdf">
-        @if ($errors->has('licenca_pdf'))
+        <input type="file" id="file_licenca" name="file_licenca">
+        @if ($errors->has('file_licenca'))
             <span class="invalid-feedback" role="alert">
-                <strong>{{ $errors->first('licenca_pdf') }}</strong>
+                <strong>{{ $errors->first('file_licenca') }}</strong>
             </span>
         @endif
     </div>
@@ -93,13 +93,13 @@
 </div>
 
 <div class="form-group row">
-    <label for="certificado_pdf" class="col-md-4 col-form-label text-md-right">{{ __('Cópia Certificado') }}</label>
+    <label for="file_certificado" class="col-md-4 col-form-label text-md-right">{{ __('Cópia Certificado') }}</label>
 
     <div class="col-md-6">
-        <input type="file" id="certificado_pdf" name="certificado_pdf">
-        @if ($errors->has('certificado_pdf'))
+        <input type="file" id="file_certificado" name="file_certificado">
+        @if ($errors->has('file_certificado'))
             <span class="invalid-feedback" role="alert">
-                <strong>{{ $errors->first('certificado_pdf') }}</strong>
+                <strong>{{ $errors->first('file_certificado') }}</strong>
             </span>
         @endif
     </div>

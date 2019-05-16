@@ -5,6 +5,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
+            @include("partials.errors")
             <div class="card">
                 <div class="card-header">{{ __('Adicionar Sócio') }}</div>
 
@@ -95,13 +96,13 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="foto_url" class="col-md-4 col-form-label text-md-right">{{ __('Foto') }}</label>
+                            <label for="file_foto" class="col-md-4 col-form-label text-md-right">{{ __('Foto') }}</label>
 
                             <div class="col-md-6">
-                                <input type="file" id="foto_url" name="foto_url">
-                                @if ($errors->has('foto_url'))
+                                <input type="file" id="file_foto" name="file_foto">
+                                @if ($errors->has('file_foto'))
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('foto_url') }}</strong>
+                                        <strong>{{ $errors->first('file_foto') }}</strong>
                                     </span>
                                 @endif
                             </div>

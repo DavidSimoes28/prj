@@ -70,10 +70,10 @@ class UserController extends Controller
         $user->password=Hash::make($user->data_nascimento);
         $user->save();
 
-        if ($request->hasFile('foto_url')) {
-            if ($request->file('foto_url')->isValid()) {
-                $foto_url = $request->file('foto_url');
-                $name_foto = $user->id."_".$request->foto_url->hashName();
+        if ($request->hasFile('file_foto')) {
+            if ($request->file('file_foto')->isValid()) {
+                $foto_url = $request->file('file_foto');
+                $name_foto = $user->id."_".$request->file_foto->hashName();
                 Storage::disk('public')->putFileAs('fotos',$foto_url,$name_foto);
                 $user->foto_url = $name_foto;
             }
@@ -92,29 +92,30 @@ class UserController extends Controller
     public function update(UpdateUserRequest $request, User $user){
         $this->authorize('update',$user);
         $validated = $request->all();
-        unset($validated['licenca_pdf']);
-        unset($validated['certificado_pdf']);
+        unset($validated['file_licenca']);
+        unset($validated['file_certificado']);
         $user->fill($validated);
-        if ($request->hasFile('foto_url')) {
-            if ($request->file('foto_url')->isValid()) {
-                $foto_url = $request->file('foto_url');
-                $name_foto = $user->id."_".$request->foto_url->hashName();
-                Storage::disk('public')->putFileAs('fotos',$foto_url,$name_foto);
+        if ($request->hasFile('file_foto')) {
+            if ($request->file('file_foto')->isValid()) {
+                $file_foto = $request->file('file_foto');
+                $name_foto = $user->id."_".$request->file_foto->hashName();
+                Storage::disk('public')->putFileAs('fotos',$file_foto,$name_foto);
                 Storage::disk('public')->delete('fotos/'.$user->foto_url);
                 $user->foto_url = $name_foto;
             }
         }
-        if($request->certificado_pdf!=NULL){
-            $certificado = $request->file('certificado_pdf');
+        if($request->file_certificado!=NULL){
+            $certificado = $request->file('file_certificado');
             Storage::putFileAs('docs_piloto',$certificado,"certificado_".$user->id.".pdf");
-            $user->certificado_confirmada == 0;
+            $user->certificado_confirmada = 0;
         }
 
-        if($request->licenca_pdf!=NULL){
-            $licenca = $request->file('licenca_pdf');
+        if($request->file_licenca!=NULL){
+            $licenca = $request->file('file_licenca');
             Storage::putFileAs('docs_piloto',$licenca,"licenca_".$user->id.".pdf");
-            $user->licenca_confirmada == 0;
+            $user->licenca_confirmada = 0;
         }
+        unset($validated['file_foto']);
         $user->save();
         return redirect()->route('socios')->with("success","User successfully updated");
     }
@@ -128,15 +129,15 @@ class UserController extends Controller
     public function showPass(){
         
         $user = Auth::user();
-        return view('passwords.replace',compact('user'));
+        return view('auth.passwords.replace',compact('user'));
     }
 
     public function updatePass(PasswordUserRequest $request){
         
         if (!Hash::check($request->old_password,Auth::user()->password)){
-            return redirect()->route('password.showPass')->with("error","Passwords don't match"); 
+            return redirect()->route('password.showPass')->withErrors(['old_password'=>'Old Password is not correct !!']); 
         }
-        $user = Auth::user();
+        $user = User::findOrFail(Auth::user()->id);
         $user->password=Hash::make($request->password);
         $user->save();
         return redirect()->route('socios')->with("success","User password updated");

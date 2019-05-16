@@ -85,7 +85,9 @@
 -->
 <div class="container">
 <div class="row justify-content-center">
-
+@if($errors)
+    @include("partials.errors")
+@endif
 
 <form method="GET" action="{{ route('socios') }}">
 

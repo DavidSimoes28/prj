@@ -22,7 +22,6 @@ Route::middleware(['auth', 'verified', 'ativo'])->group(function () {
 
     Route::GET('/home', 'HomeController@index')->name('home');
     Route::GET('/socios', 'UserController@index')->name('socios');
-    //Route::GET('/socioss', 'UserController@search')->name('socios.search');
     Route::get('/socios/create', 'UserController@create')->name('socios.create');
     Route::post('/socios', 'UserController@store')->name('socios.store');
     Route::get('/socios/{user}/edit', 'UserController@edit')->name('socios.edit');

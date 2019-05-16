@@ -16,7 +16,7 @@ class Ativo
      */
     public function handle($request, Closure $next)
     {
-        if($request->user()->ativo == 0){
+        if($request->user()->ativo == 0 || $request->user()->trashed()){
             Auth::logout();
             return redirect()->route('login')->withErrors(["errors" => "Utilizador não está ativo"]);
         }

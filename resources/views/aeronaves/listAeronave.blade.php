@@ -6,6 +6,7 @@
 <a class="btn btn-xs btn-primary" href="{{ route('socios.create') }}">{{ __('Adicionar Sócio') }}</a>
     <div class="row justify-content-center">
         <div class="col-md-12">
+            @include("partials.errors")
             <div class="card">
                 <div class="card-header">Lista de Aeronaves</div>
                 <div class="card-body">
