@@ -151,10 +151,8 @@
                                 <th>Nome Informal</th>
                                 <th>Email</th>
                                 <th>Telefone</th>
+                                <th>Nº Licença</th>
                                 <th>Tipo de Sócio</th>
-                                @if(Auth::user()->tipo_socio == 'P')
-                                    <th>Nº Licença</th>
-                                @endif
                                 <th>Direção</th>
                                 @if(Auth::user()->direcao == 1)
                                     <th>Ações</th>
@@ -165,18 +163,20 @@
                             @foreach ($users as $user)
                                 <tr>
                                     <td>
-                                    @if(!empty($user->foto_url))
-                                        <img halt="foto $user->nome_informal" src ="{{ asset('storage/fotos/' . $user->foto_url) }}" >
+                                    @if (!empty($user->foto_url))
+                                        <img alt="Photo of {{ $user->nome_informal }}" src="{{ asset('storage/fotos/' . $user->foto_url) }}">
                                     @endif
                                     </td>
                                     <td>{{ $user->num_socio }}</td>
                                     <td>{{ $user->nome_informal }}</td>
                                     <td>{{ $user->email }}</td>
                                     <td>{{ $user->telefone }}</td>
-                                    <td>{{ $user->tipoSocioToStr() }}</td>
-                                    @if(Auth::user()->tipo_socio == 'P')
-                                        <td>{{ $user->num_licenca }}</td>
+                                    <td>
+                                    @if($user->isPiloto())
+                                        {{ $user->num_licenca }}
                                     @endif
+                                    </td>
+                                    <td>{{ $user->tipoSocioToStr() }}</td>
                                     <td>{{ $user->isDirecaoToStr() }}</td>
 
                                     @if(Auth::user()->direcao == 1)
@@ -190,7 +190,7 @@
                                             <input type="hidden" name="id" value="{{$user->id}}">
                                             <input type="submit" class="btn btn-xs btn-danger" value="Delete">
                                         </form>
-                                        @if(Auth::user()->ativo == 1)
+                                        @if($user->ativo == 1)
                                             <a class="btn btn-xs btn-danger" href="">Desativar</a>
                                         @else
                                             <a class="btn btn-xs btn-primary" href="">Ativar</a>

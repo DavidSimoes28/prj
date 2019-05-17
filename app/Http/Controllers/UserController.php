@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\SearchUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\PasswordUserRequest;
+use Illuminate\Support\Arr;
 
 class UserController extends Controller
 {
@@ -20,10 +21,15 @@ class UserController extends Controller
     }
     
     public function index()
-    {   
-        $users = User::where('ativo', true);
+    {
+        if(Auth::User()->isAdmin()){
+            $users = User::all();
+        }else{
+            $users = User::where('ativo', true);
+        }
+        
         if ( !count ( $_GET ) ){
-            $users = $users->paginate(14);
+            $users = $users->paginate(800);
             return view('users.listUser', compact('users'));
         }
 
@@ -53,7 +59,7 @@ class UserController extends Controller
             $users = $users->where('direcao', $direcao);
         }
 
-        $users = $users->paginate(14);
+        $users = $users->paginate(800);
         return view('users.listUser', compact('users'));
     }
 
@@ -94,7 +100,12 @@ class UserController extends Controller
         $validated = $request->all();
         unset($validated['file_licenca']);
         unset($validated['file_certificado']);
-        $user->fill($validated);
+        
+        if(!$user->isAdmin()){
+            $user->fill(Arr::except($validated,["id","num_socio","ativo","password_inicial","quota_paga","sexo","tipo_socio","direcao","instrutor","aluno","certificado_confirmado" ,"licenca_confirmada","num_licenca","tipo_licenca","validade_licenca","num_certificado","classe_certificado","validade_certificado"]));
+        }else{
+            $user->fill($validated);
+        }
         if ($request->hasFile('file_foto')) {
             if ($request->file('file_foto')->isValid()) {
                 $file_foto = $request->file('file_foto');
