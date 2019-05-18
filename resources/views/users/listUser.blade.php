@@ -111,6 +111,24 @@
     </select>
     &nbsp;&nbsp;&nbsp;&nbsp;
 
+    @if(Auth::user()->isAdmin())
+        <label for ="quotas_pagas">Quotas pagas: </label>
+        <select name="quotas_pagas">
+        <option value=""       {{ strval(old('quotas_pagas' ,request()->quotas_pagas)) == ""      ? "selected":"" }} ></option>
+        <option value="1"       {{ strval(old('quotas_pagas' ,request()->quotas_pagas)) == "1"      ? "selected":"" }} >Sim</option>
+        <option value="0"       {{ strval(old('quotas_pagas' ,request()->quotas_pagas)) == "0"      ? "selected":"" }} >Não</option>    
+        </select>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+
+        <label for ="ativo">Ativo: </label>
+        <select name="ativo">
+        <option value=""       {{ strval(old('ativo' ,request()->ativo)) == ""      ? "selected":"" }} ></option>
+        <option value="1"       {{ strval(old('ativo' ,request()->ativo)) == "1"      ? "selected":"" }} >Sim</option>
+        <option value="0"       {{ strval(old('ativo' ,request()->ativo)) == "0"      ? "selected":"" }} >Não</option>    
+        </select>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+    @endif
+
     <label for ="direcao">Direção: </label>
     <select name="direcao">
     <option value="AMBOS"   {{ strval(old('direcao' ,request()->direcao)) == "AMBOS"  ? "selected":"" }} >Ambos</option>

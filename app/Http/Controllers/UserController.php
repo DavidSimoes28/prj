@@ -23,7 +23,7 @@ class UserController extends Controller
     public function index()
     {   
       
-        if ( !count ( $_GET ) ){
+        if ( !request()->query() ){
 
             if(Auth::User()->isAdmin()){
                 $users = User::paginate(800);
@@ -33,24 +33,7 @@ class UserController extends Controller
             }
 
             return view('users.listUser', compact('users'));
-
         }
-
-        //dd(request(), request()->num_socio ,request()->num_socio , request()->query("num_socio") , request()->nome_informal, request()->query("nome_informal"), 
-        //request()->tipo_socio, request()->query("tipo_socio"), request()->direcao, request()->query("direcao"));
-        //no request na WEB está nos +request: ParameterBag {#51 ▶}  -->  #parameters: array:5 [▶]   OR    +query: ParameterBag {#51 ▶} --> #parameters: array:5 [▶]
-        //Já traz valores null por default
-        // request()->num_socio ou request()->query('num_socio')
-        //Acho que o Query deve ser mais incidicado não sei
-        
-        //$users = User::whereNull('deleted_at');
-        //$users = User::where('ativo', true );
-
-        /*$email =  $_GET ['email'] ?? null;
-        $num_socio =  $_GET ['num_socio'] ?? null;
-        $nome_informal =  $_GET ['nome_informal'] ?? null;
-        $tipo_socio =  $_GET ['tipo'] ?? null;
-        $direcao =  $_GET ['direcao'] ?? null;*/
 
         $users = User::where(function ($query) {
 
@@ -58,29 +41,31 @@ class UserController extends Controller
             $num_socio =  request()->num_socio;
             $nome_informal =  request()->nome_informal;
             $tipo =  request()->tipo;
+            $ativo =  request()->ativo;
+            $quotas_pagas =  request()->quotas_pagas;
             $direcao =  request()->direcao;
 
             if ( !Auth::User()->isAdmin() ) $query->where('ativo', true );
 
-            if ( $email != null ) $query->where('email', $email );
+            if ( Auth::User()->isAdmin() ){
+                if(!is_null($ativo)) $query->where('ativo', $ativo ); 
+                if(!is_null($quotas_pagas)) $query->where('quota_paga', $quotas_pagas );
+            }
 
-            if ( $num_socio != null ) $query->where('num_socio', $num_socio);
+            if ( !empty($email) ) $query->where('email','LIKE','%'.$email.'%');
 
-            if ( $nome_informal != null ) $query->where('nome_informal', $nome_informal);
+            if ( !empty($num_socio) ) $query->where('num_socio', $num_socio);
 
-            if ( $tipo != null && $tipo != 'TODOS' ) $query->where('tipo_socio', $tipo);
+            if ( !empty($nome_informal)) $query->where('nome_informal', 'LIKE' ,'%'.$nome_informal.'%');
 
-            if ( $direcao != null && $direcao != 'AMBOS' ) $query->where('direcao', $direcao);
+            if ( !empty($tipo) && $tipo != 'TODOS' ) $query->where('tipo_socio', $tipo);
+
+            if ( !empty($direcao) && $direcao != 'AMBOS' ) $query->where('direcao', $direcao);
                     
             })
             ->paginate(800)->appends(request()->query());
-
-            // se nao der procura no Google "laravel query builder"
-
-        
-
-        //$users = $users->paginate(800); //->appends(request()->query()) or  ->appends(request())  ||isto permite usar o old no form sem usar $_get (Pesquisa se não tiveres a ver como é)
-        return view('users.listUser', compact('users'));
+            
+            return view('users.listUser', compact('users'));
     }
 
     public function create(){
