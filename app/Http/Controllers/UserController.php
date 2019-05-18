@@ -21,9 +21,9 @@ class UserController extends Controller
     }
     
     public function index()
-    {
-        if(!Auth::User()->isAdmin()){
-            $users = User::where('ativo', true);
+    {   
+       if(!Auth::User()->isAdmin()){
+            $users =  User::where('ativo', true);
         }
         
         if ( !count ( $_GET ) ){
@@ -34,18 +34,19 @@ class UserController extends Controller
             }
             return view('users.listUser', compact('users'));
         }
-        dd(request(), request()->num_socio ,request()->num_socio , request()->query("num_socio") , request()->nome_informal, request()->query("nome_informal"), 
-        request()->tipo_socio, request()->query("tipo_socio"), request()->direcao, request()->query("direcao"));
+        //dd(request(), request()->num_socio ,request()->num_socio , request()->query("num_socio") , request()->nome_informal, request()->query("nome_informal"), 
+        //request()->tipo_socio, request()->query("tipo_socio"), request()->direcao, request()->query("direcao"));
         //no request na WEB está nos +request: ParameterBag {#51 ▶}  -->  #parameters: array:5 [▶]   OR    +query: ParameterBag {#51 ▶} --> #parameters: array:5 [▶]
         //Já traz valores null por default
         // request()->num_socio ou request()->query('num_socio')
         //Acho que o Query deve ser mais incidicado não sei
 
-        
+        $users = User::whereNull('deleted_at');
+
         $email =  $_GET ['email'] ?? null;
         $num_socio =  $_GET ['num_socio'] ?? null;
         $nome_informal =  $_GET ['nome_informal'] ?? null;
-        $tipo_socio =  $_GET ['tipo_socio'] ?? null;
+        $tipo_socio =  $_GET ['tipo'] ?? null;
         $direcao =  $_GET ['direcao'] ?? null;
 
         /*
@@ -60,15 +61,15 @@ class UserController extends Controller
         */
 
         if ( $email != null ){
-            $users = $users->where('email', 'LIKE', "%".$email."%" );
+            $users = $users->where('email', $email );
         }
 
         if ( $num_socio != null ){
-            $users = $users->where('num_socio', 'LIKE', "%".$num_socio."%" );
+            $users = $users->where('num_socio', $num_socio);
         }
 
         if ( $nome_informal != null ){
-            $users = $users->where('nome_informal', 'LIKE', "%".$nome_informal."%" );
+            $users = $users->where('nome_informal', $nome_informal);
         }
 
         if ( $tipo_socio != null && $tipo_socio != 'TODOS' ){

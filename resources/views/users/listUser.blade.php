@@ -99,12 +99,12 @@
     <input type="text" name="email" placeholder="Email" value="{{ strval($_GET ['email'] ?? '') }}">
     &nbsp;&nbsp;&nbsp;&nbsp;
 
-    <label for ="tipo_socio">Tipo de Sócio: </label>
-    <select name="tipo_socio">
-    <option value="TODOS"   {{ strval($_GET ['tipo_socio'] ?? '') == "TODOS" ? "selected":"" }} >Todos</option>
-    <option value="P"       {{ strval($_GET ['tipo_socio'] ?? '') == "P"     ? "selected":"" }} >Piloto</option>
-    <option value="NP"      {{ strval($_GET ['tipo_socio'] ?? '') == "NP"    ? "selected":"" }} >Não Piloto</option>
-    <option value="A"       {{ strval($_GET ['tipo_socio'] ?? '') == "A"     ? "selected":"" }} >Aeromodelista</option>
+    <label for ="tipo">Tipo de Sócio: </label>
+    <select name="tipo">
+    <option value="TODOS"   {{ strval($_GET ["tipo"] ?? '') == "TODOS" ? "selected":"" }} >Todos</option>
+    <option value="A"       {{ strval($_GET ["tipo"] ?? '') == "A"     ? "selected":"" }} >Aeromodelista</option>
+    <option value="P"       {{ strval($_GET ["tipo"] ?? '') == "P"     ? "selected":"" }} >Piloto</option>
+    <option value="NP"      {{ strval($_GET ["tipo"] ?? '') == "NP"    ? "selected":"" }} >Não Piloto</option>
     </select>
     &nbsp;&nbsp;&nbsp;&nbsp;
 

@@ -66,7 +66,7 @@
             <th>ID</th>
             <th>Matricula</th>
             <th>Data</th>
-            <th>Hora Delocamento</th>
+            <th>Hora Deslocamento</th>
             <th>Hora Aterragem</th>
             <th>Tempo Voo</th>
             <th>Natureza</th>
@@ -75,7 +75,7 @@
             <th>Aerodromo Chegada</th>
             <th>Nº Aterragens</th>
             <th>Nº Deslocamentos</th>
-            <th>Nº Diario</th>
+            <th>Nº Diário</th>
             <th>Nº Serviço</th>
             <th>Conta-horas Inicial</th>
             <th>Conta-horas Final</th>
