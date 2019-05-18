@@ -69,7 +69,7 @@ class MovimentosController extends Controller
 
         if ( $natureza != null && ($natureza == "T" || $natureza == "E" || $natureza == "I") ) $query->where('natureza', $natureza );
 
-        //if ( $confirmado != null ) $query->where('confirmado', $confirmado );
+        if ( $confirmado != null && ( $confirmado == "1" || $confirmado == "0" ) ) $query->where('confirmado', $confirmado );
                 
         });
     
