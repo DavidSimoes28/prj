@@ -89,47 +89,60 @@
     @include("partials.errors")
 @endif
 
-<form method="GET" action="{{ route('socios') }}">
+<form method="GET" action="{{ route('socios') }}" class="form-inline">
 
-    <label for ="num_socio">Nº Sócio:</label>
-    <input type="number" name="num_socio" autofocus min="0" max="99999999999" value="{{ strval(old('num_socio',request()->num_socio )) }}">
-    
-    &nbsp;&nbsp;&nbsp;&nbsp;
-    <input type="text"  name="nome_informal" placeholder="Nome Informal" maxlength = "40" value="{{ strval(old('nome_informal',request()->nome_informal )) }}">
-    &nbsp;&nbsp;&nbsp;&nbsp;
-    <input type="text" name="email" placeholder="E-mail" value="{{ strval(old('email',request()->email )) }}">
-    &nbsp;&nbsp;&nbsp;&nbsp;
-
-    
-
-    <label for ="tipo">Tipo de Sócio: </label>
-    <select name="tipo">
-    <option value="TODOS"   {{ strval(old('tipo' ,request()->tipo)) == "TODOS" ? "selected":"" }} >Todos</option>
-    <option value="A"       {{ strval(old('tipo' ,request()->tipo)) == "A" ? "selected":""     }} >Aeromodelista</option>
-    <option value="P"       {{ strval(old('tipo' ,request()->tipo)) == "P" ? "selected":""     }} >Piloto</option>
-    <option value="NP"      {{ strval(old('tipo' ,request()->tipo)) == "NP" ? "selected":""    }} >Não Piloto</option>
+    <div class="col-xs-2">
+        <label for ="num_socio"><strong>{{ __('Nº Sócio') }}</strong></label>
+        <input type="number" class="form-control" name="num_socio" autofocus min="0" max="99999999999" value="{{ strval(old('num_socio',request()->num_socio )) }}" autofocus>
+    </div>
+    &nbsp;&nbsp;&nbsp;
+    <div class="col-xs-2">
+        <label for ="nome_informal"><strong>{{ __('Nome Informal') }}</strong></label>
+        <input type="text" class="form-control" name="nome_informal" maxlength = "40" value="{{ strval(old('nome_informal',request()->nome_informal )) }}">
+    </div>
+    &nbsp;&nbsp;&nbsp;
+    <div class="col-xs-2">
+        <label for ="email"><strong>{{ __('E-mail') }}</strong></label>
+        <input type="text" class="form-control" name="email" value="{{ strval(old('email',request()->email )) }}">
+    </div>
+    &nbsp;&nbsp;&nbsp;
+    <div class="col-xs-2">
+        <label for ="tipo"><strong>{{ __('Tipo de Sócio') }}</strong></label>
+        <select name="tipo" class="btn btn-xs btn-secondary dropdown-toggle">
+        <option value="TODOS"   {{ strval(old('tipo' ,request()->tipo)) == "TODOS" ? "selected":"" }} >Todos</option>
+        <option value="A"       {{ strval(old('tipo' ,request()->tipo)) == "A" ? "selected":""     }} >Aeromodelista</option>
+        <option value="P"       {{ strval(old('tipo' ,request()->tipo)) == "P" ? "selected":""     }} >Piloto</option>
+        <option value="NP"      {{ strval(old('tipo' ,request()->tipo)) == "NP" ? "selected":""    }} >Não Piloto</option>
+        </select>
+    </div>
+    &nbsp;&nbsp;&nbsp;
+    <div class="col-xs-2">
+        <label for ="direcao"><strong>{{ __('Direção') }}</strong></label>
+        <select name="direcao" class="btn btn-xs btn-secondary dropdown-toggle">
+        <option value="AMBOS"   {{ strval(old('direcao' ,request()->direcao)) == "AMBOS"  ? "selected":"" }} >Ambos</option>
+        <option value="1"       {{ strval(old('direcao' ,request()->direcao)) == "1"      ? "selected":"" }} >Sim</option>
+        <option value="0"       {{ strval(old('direcao' ,request()->direcao)) == "0"      ? "selected":"" }} >Não</option>    
     </select>
-    &nbsp;&nbsp;&nbsp;&nbsp;
 
-    <label for ="direcao">Direção: </label>
-    <select name="direcao">
-    <option value="AMBOS"   {{ strval(old('direcao' ,request()->direcao)) == "AMBOS"  ? "selected":"" }} >Ambos</option>
-    <option value="1"       {{ strval(old('direcao' ,request()->direcao)) == "1"      ? "selected":"" }} >Sim</option>
-    <option value="0"       {{ strval(old('direcao' ,request()->direcao)) == "0"      ? "selected":"" }} >Não</option>    
-    </select>
-    &nbsp;&nbsp;&nbsp;&nbsp;
+    </div>
+    &nbsp;&nbsp;&nbsp;
+    <div class="col-xs-2">
+        <label>&nbsp;</label>
+        <div class="btn-group">
+            <input type="submit" class="btn btn-xs btn-primary" value = "Pesquisar">
+            <a class="btn btn-xs btn-danger" href=" {{ route('socios') }} "><i class="fa fa-trash"></i></a>
+        </div>
+    </div>
+    </div>
 
    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <input type="submit" class="btn btn-xs btn-primary" value = "Pesquisar">
-    &nbsp;&nbsp;
-    <a class="btn btn-xs btn-danger" href=" {{ route('socios') }} "><i class="fa fa-trash"></i></a>
+    
   
 </form>
 <br>
 <br>
 </div>
-<a class="btn btn-xs btn-primary" href="{{ route('socios.create') }}">{{ __(' Adicionar Sócio ') }}</a>
 </div>
 
 
@@ -137,8 +150,8 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">Lista de Sócios&nbsp;&nbsp;&nbsp;&nbsp;<a class="btn btn-success btn-md" href="{{ route('socios.create') }}">{{ __(' + ') }}</a></div>
-                <div class="card-body">
+                <div class="card-header"><h3>Lista de Sócios&nbsp;&nbsp;&nbsp;&nbsp;<a class="btn btn-success btn-lg" href="{{ route('socios.create') }}">{{ __(' + ') }}</a></div>
+                </h3><div class="card-body ">
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}
@@ -184,20 +197,22 @@
 
                                     @if(Auth::user()->direcao == 1)
                                     <td>
+                                        <div class="btn-group">
                                         <!-- fill with edit and delete actions -->
-                                        <a class="btn btn-xs btn-primary" href="{{route('socios.edit',['id'=>$user->id])}}">Edit</a>
-                                        <form action="{{route('socios.destroy',['id'=>$user->id])}}" method="post" class="inline">
+                                        <a class="btn btn-xs btn-primary" href="{{route('socios.edit',['id'=>$user->id])}}">Editar</a>
+                                        <form action="{{route('socios.destroy',['id'=>$user->id])}}" method="post">
                                             @csrf
                                             @method('DELETE')
 
                                             <input type="hidden" name="id" value="{{$user->id}}">
-                                            <input type="submit" class="btn btn-xs btn-danger" value="Delete">
+                                            <input type="submit" class="btn btn-xs btn-danger btn-block" value="Apagar">
                                         </form>
                                         @if($user->ativo == 1)
-                                            <a class="btn btn-xs btn-danger" href="">Desativar</a>
+                                            <a class="btn btn-xs btn-secondary btn-block" href="">Desativar</a>
                                         @else
-                                            <a class="btn btn-xs btn-primary" href="">Ativar</a>
+                                            <a class="btn btn-xs btn-success btn-block" href="">  Ativar</a>
                                         @endif
+                                        </div>
                                     </td>
                                    @endif
                                 </tr>
@@ -206,7 +221,7 @@
                         </table>
                         {{ $users->links() }}
                     @else
-                        <h2>No users found</h2>
+                        <h2>Nenhum sócio encontrado.</h2>
                     @endif
                 </div>
             </div>

@@ -7,43 +7,69 @@
 @include("partials.errors")
 
 
-<form method="GET" action="{{ route('movimentos') }}">
-    <table class="table table-bordered texter-center">
+<form method="GET" action="{{ route('movimentos') }}" class="form-inline">
 
-        <tr>
-            <th><label for ="id">{{ __('ID do movimento') }}</label></td>
-            <th><label for ="piloto_id">{{ __('Piloto') }}</label></td>
-            <th><label for ="instrutor_id">{{ __('Instrutor') }}</label></td>
-            <th rowspan="2"><input type="text"  name="aeronave" placeholder="Aeronave" maxlength = "8" value="{{ strval($_GET ['aeronave'] ?? '') }}"></th>
-            <th><label for="data_inicio" class="col-form-label text-md-right">{{ __('Data de Início') }}</label></th>
-            <th><label for="data_fim" class="col-form-label text-md-right">{{ __('Data do Fim') }}</label></th>
-            <th rowspan="2"><input type="text" name="email" placeholder="natureza" value="{{ strval($_GET ['email'] ?? '') }}"></th>
-            <th><label for="confirmado">Confirmado&nbsp;</label></th>
-            
-            <th rowspan="2">
+    <div class="col-xs-2">
+        <label for ="id"><strong>{{ __('ID do movimento') }}</strong></label>
+        <input type="number" class="form-control" name="id" autofocus min="0" value="{{ strval(old('id',request()->id )) }}" autofocus>
+    </div>
+    &nbsp;&nbsp;&nbsp;
+    <div class="col-xs-2">
+        <label for ="piloto_id"><strong>{{ __('Piloto') }}</strong></label>
+        <input type="text" class="form-control" name="piloto_id" value="{{ strval(old('piloto_id',request()->piloto_id )) }}">
+    </div>
+    &nbsp;&nbsp;&nbsp;
+    <div class="col-xs-2">
+        <label for ="instrutor_id"><strong>{{ __('Instrutor') }}</strong></label>
+        <input type="text" class="form-control" name="instrutor_id" value="{{ strval(old('instrutor_id',request()->instrutor_id )) }}">
+    </div>
+    <div class="col-xs-2">
+        <label for ="aeronave"><strong>{{ __('Aeronave') }}</strong></label>
+        <input type="text" class="form-control" name="aeronave" value="{{ strval(old('aeronave',request()->aeronave )) }}">
+    </div>
+    &nbsp;&nbsp;&nbsp;
+
+    <div class="col-xs-2">
+        <label for ="data_inicio"><strong>{{ __('Data Inicial') }}</strong></label>
+        <input type="date" class="form-control" name="data_inicio" value="{{ strval(old('data_inicio',request()->data_inicio )) }}">
+    </div>
+    &nbsp;&nbsp;&nbsp;
+    <div class="col-xs-2">
+        <label for ="data_fim"><strong>{{ __('Data Final') }}</strong></label>
+        <input type="date" class="form-control" name="data_fim" value="{{ strval(old('data_fim',request()->data_fim )) }}">
+    </div>
+    &nbsp;&nbsp;&nbsp;
+
+    <div class="col-xs-2">
+        <label for ="natureza"><strong>{{ __('Natureza') }}</strong></label>
+        <input type="text" class="form-control" name="natureza" value="{{ strval(old('natureza',request()->natureza )) }}">
+    </div>
+    &nbsp;&nbsp;&nbsp;
+    <div class="col-xs-2">
+        <label for ="confirmado"><strong>{{ __('Confirmado') }}</strong></label>
+        <select name="confirmado" class="btn btn-xs btn-secondary dropdown-toggle">
+        <option value="AMBOS"   {{ strval(old('confirmado' ,request()->confirmado)) == "AMBOS"  ? "selected":"" }} >Ambos</option>
+        <option value="1"       {{ strval(old('confirmado' ,request()->confirmado)) == "1"      ? "selected":"" }} >Sim</option>
+        <option value="0"       {{ strval(old('confirmado' ,request()->confirmado)) == "0"      ? "selected":"" }} >Não</option>    
+    </select>
+
+    </div>
+    &nbsp;&nbsp;&nbsp;
+    <div class="col-xs-2">
+        <label>&nbsp;</label>
+        <div class="btn-group">
             <input type="submit" class="btn btn-xs btn-primary" value = "Pesquisar">
-            &nbsp;&nbsp;
             <a class="btn btn-xs btn-danger" href=" {{ route('socios') }} "><i class="fa fa-trash"></i></a>
-            </th>
+        </div>
+    </div>
+    </div>
 
-        </tr>
-        <tr>
-            <td><input type="number" name="id" autofocus min="0"  value="{{ strval($_GET ['id'] ?? '') }}"></td>
-            <td><input type="number" name="piloto_id" min = "0"  value="{{ strval($_GET ['piloto_id'] ?? '') }}"></td>
-            <td><input type="number" name="instrutor_id" min = "0"  value="{{ strval($_GET ['instrutor_id'] ?? '') }}"></td>
-            <td><input type="date" name="data_inicio" class = "form-control-inline" required></td>
-            <td><input type="date" name="data_fim" class = "form-control-inline" required></td>
-            <td><select name="confirmado">
-            <option value="AMBOS"   {{ strval($_GET ['direcao'] ?? '') == "AMBOS"  ? "selected":"" }} >Ambos</option>
-            <option value="1"       {{ strval($_GET ['direcao'] ?? '') == "1"      ? "selected":"" }} >Sim</option>
-            <option value="0"       {{ strval($_GET ['direcao'] ?? '') == "0"      ? "selected":"" }} >Não</option>    
-            </select></td>
-
-        </tr>
-
-    </table>
-
+   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+  
 </form>
+
 <br>
 <br>
 </div>
@@ -64,7 +90,7 @@
         <tr>
             
             <th>ID</th>
-            <th>Matricula</th>
+            <th>Matrícula</th>
             <th>Data</th>
             <th>Hora Deslocamento</th>
             <th>Hora Aterragem</th>
@@ -73,8 +99,8 @@
             <th>Piloto</th>
             <th>Aerodromo Partida</th>
             <th>Aerodromo Chegada</th>
-            <th>Nº Aterragens</th>
-            <th>Nº Deslocamentos</th>
+            <th>Aterragens</th>
+            <th>Deslocamentos</th>
             <th>Nº Diário</th>
             <th>Nº Serviço</th>
             <th>Conta-horas Inicial</th>
@@ -115,7 +141,7 @@
     </table>
     {{ $movimentos->links() }}
 @else
-    <h2>No users found</h2>
+    <h2>Nenhum movimento encontrado.</h2>
 @endif
 
 @endsection
