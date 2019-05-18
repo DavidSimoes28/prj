@@ -23,6 +23,7 @@
         <label for ="instrutor_id"><strong>{{ __('Instrutor') }}</strong></label>
         <input type="text" class="form-control" name="instrutor_id" value="{{ strval(old('instrutor_id',request()->instrutor_id )) }}">
     </div>
+    &nbsp;&nbsp;&nbsp;
     <div class="col-xs-2">
         <label for ="aeronave"><strong>{{ __('Aeronave') }}</strong></label>
         <input type="text" class="form-control" name="aeronave" value="{{ strval(old('aeronave',request()->aeronave )) }}">
