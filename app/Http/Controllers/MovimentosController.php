@@ -33,8 +33,12 @@ class MovimentosController extends Controller
             $aeronave =  request()->aeronave;
             $data_inicio =  request()->data_inicio;
             $data_fim =  request()->data_fim;
-            $natureza =  request()->natureza;
+            $natureza = request()->natureza;
             $confirmado =  request()->confirmado;
+
+
+
+            
 
             //$query->where("piloto_id",Auth::user()->id);
 
@@ -54,9 +58,10 @@ class MovimentosController extends Controller
 
             if ( $data_fim != null ) $query->where('data_fim', $data_fim );
 
-            if ( $natureza != null ) $query->where('natureza', $natureza );
+            if ( $natureza != null && ($natureza=="T" || $natureza=="E" || $natureza=="I") ) $query->where('natureza', $natureza );
+                
 
-            if ( $confirmado != null ) $query->where('confirmado', $confirmado );
+            //if ( $confirmado != null ) $query->where('confirmado', $confirmado );
                     
             })
             ->orderBy('data','desc')->paginate(14)->appends(request()->query());

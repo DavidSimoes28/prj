@@ -42,7 +42,13 @@
 
     <div class="col-xs-2">
         <label for ="natureza"><strong>{{ __('Natureza') }}</strong></label>
-        <input type="text" class="form-control" name="natureza" value="{{ strval(old('natureza',request()->natureza )) }}">
+        <select class="btn btn-xs btn-secondary dropdown-toggle" name="natureza" value="{{ strval(old('natureza',request()->natureza )) }}" >
+        <option value="TODOS"   {{ strval(old('natureza' ,request()->natureza)) == "TODOS"  ? "selected":"" }} >Todos</option>
+        <option value="T"       {{ strval(old('natureza' ,request()->natureza)) == "T"      ? "selected":"" }} >Treino</option>
+        <option value="I"       {{ strval(old('natureza' ,request()->natureza)) == "I"      ? "selected":"" }} >Instrução</option>
+        <option value="E"       {{ strval(old('natureza' ,request()->natureza)) == "E"      ? "selected":"" }} >Especial</option>
+        </select>
+
     </div>
     &nbsp;&nbsp;&nbsp;
     <div class="col-xs-2">
@@ -59,7 +65,7 @@
         <label>&nbsp;</label>
         <div class="btn-group">
             <input type="submit" class="btn btn-xs btn-primary" value = "Pesquisar">
-            <a class="btn btn-xs btn-danger" href=" {{ route('socios') }} "><i class="fa fa-trash"></i></a>
+            <a class="btn btn-xs btn-danger" href=" {{ route('movimentos') }} "><i class="fa fa-trash"></i></a>
         </div>
     </div>
     </div>
