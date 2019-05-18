@@ -22,65 +22,64 @@ class UserController extends Controller
     
     public function index()
     {   
-       if(!Auth::User()->isAdmin()){
-            $users =  User::where('ativo', true);
-        }
-        
+      
         if ( !count ( $_GET ) ){
+
             if(Auth::User()->isAdmin()){
                 $users = User::paginate(800);
             }else{
+                $users =  User::where('ativo', true);
                 $users = $users->paginate(800);
             }
+
             return view('users.listUser', compact('users'));
+
         }
+
         //dd(request(), request()->num_socio ,request()->num_socio , request()->query("num_socio") , request()->nome_informal, request()->query("nome_informal"), 
         //request()->tipo_socio, request()->query("tipo_socio"), request()->direcao, request()->query("direcao"));
         //no request na WEB está nos +request: ParameterBag {#51 ▶}  -->  #parameters: array:5 [▶]   OR    +query: ParameterBag {#51 ▶} --> #parameters: array:5 [▶]
         //Já traz valores null por default
         // request()->num_socio ou request()->query('num_socio')
         //Acho que o Query deve ser mais incidicado não sei
+        
+        //$users = User::whereNull('deleted_at');
+        //$users = User::where('ativo', true );
 
-        $users = User::whereNull('deleted_at');
-
-        $email =  $_GET ['email'] ?? null;
+        /*$email =  $_GET ['email'] ?? null;
         $num_socio =  $_GET ['num_socio'] ?? null;
         $nome_informal =  $_GET ['nome_informal'] ?? null;
         $tipo_socio =  $_GET ['tipo'] ?? null;
-        $direcao =  $_GET ['direcao'] ?? null;
+        $direcao =  $_GET ['direcao'] ?? null;*/
 
-        /*
-            $users = User::where(function ($query) {
-                if(nome_informal != null ) $query->where('votes', '>', 100);
-                if(nome_informal != null ) $query->where('votes', '>', 100);
-                ...
+        $users = User::where(function ($query) {
+
+            $email =  request()->email;
+            $num_socio =  request()->num_socio;
+            $nome_informal =  request()->nome_informal;
+            $tipo =  request()->tipo;
+            $direcao =  request()->direcao;
+
+            if ( !Auth::User()->isAdmin() ) $query->where('ativo', true );
+
+            if ( $email != null ) $query->where('email', $email );
+
+            if ( $num_socio != null ) $query->where('num_socio', $num_socio);
+
+            if ( $nome_informal != null ) $query->where('nome_informal', $nome_informal);
+
+            if ( $tipo != null && $tipo != 'TODOS' ) $query->where('tipo_socio', $tipo);
+
+            if ( $direcao != null && $direcao != 'AMBOS' ) $query->where('direcao', $direcao);
+                    
             })
-
+            ->paginate(800)->appends(request()->query());
 
             // se nao der procura no Google "laravel query builder"
-        */
 
-        if ( $email != null ){
-            $users = $users->where('email', $email );
-        }
+        
 
-        if ( $num_socio != null ){
-            $users = $users->where('num_socio', $num_socio);
-        }
-
-        if ( $nome_informal != null ){
-            $users = $users->where('nome_informal', $nome_informal);
-        }
-
-        if ( $tipo_socio != null && $tipo_socio != 'TODOS' ){
-            $users = $users->where('tipo_socio', $tipo_socio);
-        }
-
-        if ( $direcao != null && $direcao != 'AMBOS' ){
-            $users = $users->where('direcao', $direcao);
-        }
-
-        $users = $users->paginate(800); //->appends(request()->query()) or  ->appends(request())  ||isto permite usar o old no form sem usar $_get (Pesquisa se não tiveres a ver como é)
+        //$users = $users->paginate(800); //->appends(request()->query()) or  ->appends(request())  ||isto permite usar o old no form sem usar $_get (Pesquisa se não tiveres a ver como é)
         return view('users.listUser', compact('users'));
     }
 

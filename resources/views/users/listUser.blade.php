@@ -92,27 +92,30 @@
 <form method="GET" action="{{ route('socios') }}">
 
     <label for ="num_socio">Nº Sócio:</label>
-    <input type="number" name="num_socio" autofocus min="0" max="99999999999" value="{{ strval($_GET ['num_socio'] ?? '') }}">
+    <input type="number" name="num_socio" autofocus min="0" max="99999999999" value="{{ strval(old('num_socio',request()->num_socio )) }}">
+    
     &nbsp;&nbsp;&nbsp;&nbsp;
-    <input type="text"  name="nome_informal" placeholder="Nome Informal" maxlength = "40" value="{{ strval($_GET ['nome_informal'] ?? '') }}">
+    <input type="text"  name="nome_informal" placeholder="Nome Informal" maxlength = "40" value="{{ strval(old('nome_informal',request()->nome_informal )) }}">
     &nbsp;&nbsp;&nbsp;&nbsp;
-    <input type="text" name="email" placeholder="Email" value="{{ strval($_GET ['email'] ?? '') }}">
+    <input type="text" name="email" placeholder="E-mail" value="{{ strval(old('email',request()->email )) }}">
     &nbsp;&nbsp;&nbsp;&nbsp;
+
+    
 
     <label for ="tipo">Tipo de Sócio: </label>
     <select name="tipo">
-    <option value="TODOS"   {{ strval($_GET ["tipo"] ?? '') == "TODOS" ? "selected":"" }} >Todos</option>
-    <option value="A"       {{ strval($_GET ["tipo"] ?? '') == "A"     ? "selected":"" }} >Aeromodelista</option>
-    <option value="P"       {{ strval($_GET ["tipo"] ?? '') == "P"     ? "selected":"" }} >Piloto</option>
-    <option value="NP"      {{ strval($_GET ["tipo"] ?? '') == "NP"    ? "selected":"" }} >Não Piloto</option>
+    <option value="TODOS"   {{ strval(old('tipo' ,request()->tipo)) == "TODOS" ? "selected":"" }} >Todos</option>
+    <option value="A"       {{ strval(old('tipo' ,request()->tipo)) == "A" ? "selected":""     }} >Aeromodelista</option>
+    <option value="P"       {{ strval(old('tipo' ,request()->tipo)) == "P" ? "selected":""     }} >Piloto</option>
+    <option value="NP"      {{ strval(old('tipo' ,request()->tipo)) == "NP" ? "selected":""    }} >Não Piloto</option>
     </select>
     &nbsp;&nbsp;&nbsp;&nbsp;
 
     <label for ="direcao">Direção: </label>
     <select name="direcao">
-    <option value="AMBOS"   {{ strval($_GET ['direcao'] ?? '') == "AMBOS"  ? "selected":"" }} >Ambos</option>
-    <option value="1"       {{ strval($_GET ['direcao'] ?? '') == "1"      ? "selected":"" }} >Sim</option>
-    <option value="0"       {{ strval($_GET ['direcao'] ?? '') == "0"      ? "selected":"" }} >Não</option>    
+    <option value="AMBOS"   {{ strval(old('direcao' ,request()->direcao)) == "AMBOS"  ? "selected":"" }} >Ambos</option>
+    <option value="1"       {{ strval(old('direcao' ,request()->direcao)) == "1"      ? "selected":"" }} >Sim</option>
+    <option value="0"       {{ strval(old('direcao' ,request()->direcao)) == "0"      ? "selected":"" }} >Não</option>    
     </select>
     &nbsp;&nbsp;&nbsp;&nbsp;
 
