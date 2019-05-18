@@ -16,65 +16,67 @@ class MovimentosController extends Controller
     public function index()
     {
         
-        if ( !request()->query() ){
+    if ( !request()->query() ){
 
-            $movimentos = Movimento::with("pilotos","instrutores")->orderBy('data','desc')->paginate(14);
-            //$movimentos = Movimento::where("piloto_id",Auth::user()->id)->orderBy('data','desc')->paginate(14);
-            return view('movimentos.listMovimentos', compact('movimentos'));
+        $movimentos = Movimento::with("pilotos","instrutores")->orderBy('data','desc')->paginate(14);
+        //$movimentos = Movimento::where("piloto_id",Auth::user()->id)->orderBy('data','desc')->paginate(14);
+        return view('movimentos.listMovimentos', compact('movimentos'));
 
-        }
+    }
+    
+    $movimentos = Movimento::with("pilotos","instrutores");
 
-            
+    if (request()->nome_informal_piloto != null){
 
-            
+        $movimentos = $movimentos->whereHas('pilotos', function ($query) {
+
+            $nome_informal_piloto =  request()->nome_informal_piloto;
+            $query->where('nome_informal', $nome_informal_piloto );
+
+        });
+
+    }
+
+    if (request()->nome_informal_instrutor != null){
+
+        $movimentos =  $movimentos->whereHas('instrutores', function ($query) {
+
+            $nome_informal_instrutor =  request()->nome_informal_instrutor;
+            $query->where('nome_informal', $nome_informal_instrutor );
+
+        });
+
+    }
+
+    $movimentos = $movimentos->where(function ($query) {
+
+        $id =  request()->id;
+        $aeronave =  request()->aeronave;
+        $data_inicio =  request()->data_inicio;
+        $data_fim =  request()->data_fim;
+        $natureza = request()->natureza;
+        $confirmado =  request()->confirmado;
+
+        if ( $id != null ) $query->where('id', $id );
+
+        if ( $aeronave != null ) $query->where('aeronave', $aeronave );
+
+        if ( $data_inicio != null ) $query->where('data_inicio', $data_inicio );
+
+        if ( $data_fim != null ) $query->where('data_fim', $data_fim );
+
+        if ( $data_fim != null ) $query->where('data_fim', $data_fim );
+
+        if ( $natureza != null && ($natureza == "T" || $natureza == "E" || $natureza == "I") ) $query->where('natureza', $natureza );
+
+        //if ( $confirmado != null ) $query->where('confirmado', $confirmado );
                 
-            $movimentos = Movimento::whereHas('pilotos', function ($query) {
-
-                $piloto_id =  request()->piloto_id;
-
-
-                if ( $piloto_id != null ) $query->where('nome_informal', $piloto_id );
-
-            });
-
-            $movimentos =  $movimentos->whereHas('instrutores', function ($query) {
-
-                $instrutor_id =  request()->instrutor_id;
-
-
-                if ( $instrutor_id != null ) $query->where('nome_informal', $instrutor_id );
-
-            });
-
-            $movimentos =$movimentos->where(function ($query) {
-
-                $id =  request()->id;
-                $aeronave =  request()->aeronave;
-                $data_inicio =  request()->data_inicio;
-                $data_fim =  request()->data_fim;
-                $natureza = request()->natureza;
-                $confirmado =  request()->confirmado;
+        });
     
-                if ( $id != null ) $query->where('id', $id );
-    
-                if ( $aeronave != null ) $query->where('aeronave', $aeronave );
-    
-                if ( $data_inicio != null ) $query->where('data_inicio', $data_inicio );
-    
-                if ( $data_fim != null ) $query->where('data_fim', $data_fim );
-    
-                if ( $data_fim != null ) $query->where('data_fim', $data_fim );
-    
-                if ( $natureza != null && ($natureza=="T" || $natureza=="E" || $natureza=="I") ) $query->where('natureza', $natureza );
-    
-                //if ( $confirmado != null ) $query->where('confirmado', $confirmado );
-                        
-                });
-            
 
-            $movimentos = $movimentos->orderBy('data','desc')->paginate(14)->appends(request()->query());
-        
-            return view('movimentos.listMovimentos', compact('movimentos'));
+    $movimentos = $movimentos->orderBy('data','desc')->paginate(14)->appends(request()->query());
+
+    return view('movimentos.listMovimentos', compact('movimentos'));
 
     }
 }

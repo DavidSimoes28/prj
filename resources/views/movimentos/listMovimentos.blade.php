@@ -15,13 +15,13 @@
     </div>
     &nbsp;&nbsp;&nbsp;
     <div class="col-xs-2">
-        <label for ="piloto_id"><strong>{{ __('Piloto') }}</strong></label>
-        <input type="text" class="form-control" name="piloto_id" value="{{ strval(old('piloto_id',request()->piloto_id )) }}">
+        <label for ="nome_informal_piloto"><strong>{{ __('Piloto') }}</strong></label>
+        <input type="text" class="form-control" name="nome_informal_piloto" value="{{ strval(old('nome_informal_piloto',request()->nome_informal_piloto )) }}">
     </div>
     &nbsp;&nbsp;&nbsp;
     <div class="col-xs-2">
-        <label for ="instrutor_id"><strong>{{ __('Instrutor') }}</strong></label>
-        <input type="text" class="form-control" name="instrutor_id" value="{{ strval(old('instrutor_id',request()->instrutor_id )) }}">
+        <label for ="nome_informal_instrutor"><strong>{{ __('Instrutor') }}</strong></label>
+        <input type="text" class="form-control" name="nome_informal_instrutor" value="{{ strval(old('nome_informal_instrutor',request()->nome_informal_instrutor )) }}">
     </div>
     &nbsp;&nbsp;&nbsp;
     <div class="col-xs-2">
