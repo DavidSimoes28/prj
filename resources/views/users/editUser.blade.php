@@ -167,6 +167,10 @@
                         @if(Auth::user()->isPiloto())
                             @include('users.piloto.editPiloto')
                         @endif
+                        
+                        @if(Auth::user()->isPiloto() && Auth::user()->isAdmin() || !Auth::user()->isPiloto() && !Auth::user()->isAdmin())
+                            @include('users.direcao.editDirecao')
+                        @endif
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">

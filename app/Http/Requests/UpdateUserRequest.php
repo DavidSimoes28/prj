@@ -40,7 +40,10 @@ class UpdateUserRequest extends FormRequest
             'file_licenca' => 'mimes:pdf',
             'instrutor' => 'max:1',
             'num_licenca' => 'max:30',
-            'validade_licenca' => 'date|nullable'
+            'validade_licenca' => 'date|nullable',
+            'ativo' => 'nullable|in:0,1',
+            'quota_paga' => 'nullable|in:0,1',
+            'direcao' => 'nullable|in:0,1'
         ];
     }
 }

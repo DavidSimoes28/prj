@@ -22,22 +22,42 @@ class UserController extends Controller
     
     public function index()
     {
-        if(Auth::User()->isAdmin()){
-            $users = User::all();
-        }else{
+        if(!Auth::User()->isAdmin()){
             $users = User::where('ativo', true);
         }
         
         if ( !count ( $_GET ) ){
-            $users = $users->paginate(800);
+            if(Auth::User()->isAdmin()){
+                $users = User::paginate(800);
+            }else{
+                $users = $users->paginate(800);
+            }
             return view('users.listUser', compact('users'));
         }
+        dd(request(), request()->num_socio ,request()->num_socio , request()->query("num_socio") , request()->nome_informal, request()->query("nome_informal"), 
+        request()->tipo_socio, request()->query("tipo_socio"), request()->direcao, request()->query("direcao"));
+        //no request na WEB está nos +request: ParameterBag {#51 ▶}  -->  #parameters: array:5 [▶]   OR    +query: ParameterBag {#51 ▶} --> #parameters: array:5 [▶]
+        //Já traz valores null por default
+        // request()->num_socio ou request()->query('num_socio')
+        //Acho que o Query deve ser mais incidicado não sei
 
+        
         $email =  $_GET ['email'] ?? null;
         $num_socio =  $_GET ['num_socio'] ?? null;
         $nome_informal =  $_GET ['nome_informal'] ?? null;
         $tipo_socio =  $_GET ['tipo_socio'] ?? null;
         $direcao =  $_GET ['direcao'] ?? null;
+
+        /*
+            $users = User::where(function ($query) {
+                if(nome_informal != null ) $query->where('votes', '>', 100);
+                if(nome_informal != null ) $query->where('votes', '>', 100);
+                ...
+            })
+
+
+            // se nao der procura no Google "laravel query builder"
+        */
 
         if ( $email != null ){
             $users = $users->where('email', 'LIKE', "%".$email."%" );
@@ -59,7 +79,7 @@ class UserController extends Controller
             $users = $users->where('direcao', $direcao);
         }
 
-        $users = $users->paginate(800);
+        $users = $users->paginate(800); //->appends(request()->query()) or  ->appends(request())  ||isto permite usar o old no form sem usar $_get (Pesquisa se não tiveres a ver como é)
         return view('users.listUser', compact('users'));
     }
 
@@ -101,8 +121,10 @@ class UserController extends Controller
         unset($validated['file_licenca']);
         unset($validated['file_certificado']);
         
-        if(!$user->isAdmin()){
-            $user->fill(Arr::except($validated,["id","num_socio","ativo","password_inicial","quota_paga","sexo","tipo_socio","direcao","instrutor","aluno","certificado_confirmado" ,"licenca_confirmada","num_licenca","tipo_licenca","validade_licenca","num_certificado","classe_certificado","validade_certificado"]));
+        if(!Auth::User()->isAdmin()){
+            $user->fill(Arr::except($validated,["id","num_socio","ativo","password_inicial","quota_paga",
+            "sexo","tipo_socio","direcao","instrutor","aluno","certificado_confirmado" ,"licenca_confirmada","num_licenca",
+            "tipo_licenca","validade_licenca","num_certificado","classe_certificado","validade_certificado"]));
         }else{
             $user->fill($validated);
         }
