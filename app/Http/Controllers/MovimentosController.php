@@ -61,11 +61,11 @@ class MovimentosController extends Controller
 
         if ( $aeronave != null ) $query->where('aeronave', $aeronave );
 
-        if ( $data_inicio != null ) $query->where('data_inicio', $data_inicio );
+        if ( $data_inicio != null && $data_fim != null ) {
 
-        if ( $data_fim != null ) $query->where('data_fim', $data_fim );
+            $query->whereBetween('data', array($data_inicio, $data_fim));
 
-        if ( $data_fim != null ) $query->where('data_fim', $data_fim );
+        }
 
         if ( $natureza != null && ($natureza == "T" || $natureza == "E" || $natureza == "I") ) $query->where('natureza', $natureza );
 
