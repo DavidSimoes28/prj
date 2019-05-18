@@ -116,6 +116,26 @@
         </select>
     </div>
     &nbsp;&nbsp;&nbsp;
+    @if(Auth::user()->isAdmin())
+        <div class="col-xs-2">
+            <label for ="quotas_pagas"><strong>{{ __('Quotas pagas') }}</strong></label>
+            <select name="quotas_pagas" class="btn btn-xs btn-secondary dropdown-toggle">
+            <option value=""       {{ strval(old('quotas_pagas' ,request()->quotas_pagas)) == ""      ? "selected":"" }} ></option>
+            <option value="1"       {{ strval(old('quotas_pagas' ,request()->quotas_pagas)) == "1"      ? "selected":"" }} >Sim</option>
+            <option value="0"       {{ strval(old('quotas_pagas' ,request()->quotas_pagas)) == "0"      ? "selected":"" }} >Não</option>    
+            </select>
+        </div>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <div class="col-xs-2">
+            <label for ="ativo"><strong>{{ __('Ativo') }} </strong> </label>
+            <select name="ativo" class="btn btn-xs btn-secondary dropdown-toggle">
+            <option value=""       {{ strval(old('ativo' ,request()->ativo)) == ""      ? "selected":"" }} ></option>
+            <option value="1"       {{ strval(old('ativo' ,request()->ativo)) == "1"      ? "selected":"" }} >Sim</option>
+            <option value="0"       {{ strval(old('ativo' ,request()->ativo)) == "0"      ? "selected":"" }} >Não</option>
+            </select>
+        </div>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+    @endif
     <div class="col-xs-2">
         <label for ="direcao"><strong>{{ __('Direção') }}</strong></label>
         <select name="direcao" class="btn btn-xs btn-secondary dropdown-toggle">
