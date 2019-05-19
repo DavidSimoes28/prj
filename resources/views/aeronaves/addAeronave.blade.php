@@ -9,7 +9,7 @@
                 <div class="card-header"><h3 class="text-center">{{ __('Adicionar Aeronave') }}<h3></div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{route('aeronaves.create',['maticula'=>$aeronave->marca])}}">
+                    <form method="POST" action="{{route('aeronaves.store',['maticula'=>$aeronave->marca])}}">
                         @csrf
 
                         <div class="form-group row">
@@ -104,7 +104,7 @@
                                 <button type="submit" class="btn btn-success">
                                     {{ __('Adicionar') }}
                                 </button>
-                                <a class="btn btn-xs btn-danger" href="{{ route('socios') }}">{{ __('Cancelar') }}</a>
+                                <a class="btn btn-xs btn-danger" href="{{ route('aeronaves') }}">{{ __('Cancelar') }}</a>
                             </div>
                         </div>
                         

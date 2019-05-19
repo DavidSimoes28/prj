@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Aeronave;
+use Illuminate\Http\Request;
+use App\Http\Requests\StoreAeronaveRequest;
 
 class AeronavesController extends Controller
 {
@@ -20,8 +21,17 @@ class AeronavesController extends Controller
 
     public function create()
     {
-        //$this->authorize('create',Aeronave::class); DAVIDDDDDDDDDDDDDDD
+        //$this->authorize('create',Aeronave::class);           //DAVIDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
         $aeronave = new Aeronave();
         return view('aeronaves.addAeronave',compact('aeronave'));
+    }
+
+    public function store(StoreAeronaveRequest $request){
+        //$this->authorize('create',Aeronave::class);           //DAVIDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
+        
+        $aeronave = new Aeronave();
+        $aeronave->fill($request->all());
+        $aeronave->save();
+        return redirect()->route('aeronaves')->with("success","aeronave successfully inserted");
     }
 }
