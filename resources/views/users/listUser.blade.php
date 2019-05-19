@@ -29,7 +29,7 @@
     <div class="col-xs-2">
         <label for ="tipo"><strong>{{ __('Tipo de Sócio') }}</strong></label>
         <select name="tipo" class="btn btn-xs btn-secondary dropdown-toggle">
-        <option value="TODOS"   {{ strval(old('tipo' ,request()->tipo)) == "TODOS" ? "selected":"" }} >Todos</option>
+        <option value="TODOS"   {{ strval(old('tipo' ,request()->tipo)) == "TODOS" ? "selected":"" }} >--</option>
         <option value="A"       {{ strval(old('tipo' ,request()->tipo)) == "A" ? "selected":""     }} >Aeromodelista</option>
         <option value="P"       {{ strval(old('tipo' ,request()->tipo)) == "P" ? "selected":""     }} >Piloto</option>
         <option value="NP"      {{ strval(old('tipo' ,request()->tipo)) == "NP" ? "selected":""    }} >Não Piloto</option>
@@ -40,26 +40,26 @@
         <div class="col-xs-2">
             <label for ="quotas_pagas"><strong>{{ __('Quotas pagas') }}</strong></label>
             <select name="quotas_pagas" class="btn btn-xs btn-secondary dropdown-toggle">
-            <option value=""       {{ strval(old('quotas_pagas' ,request()->quotas_pagas)) == ""      ? "selected":"" }} ></option>
+            <option value=""       {{ strval(old('quotas_pagas' ,request()->quotas_pagas)) == ""      ? "selected":"" }} >--</option>
             <option value="1"       {{ strval(old('quotas_pagas' ,request()->quotas_pagas)) == "1"      ? "selected":"" }} >Sim</option>
             <option value="0"       {{ strval(old('quotas_pagas' ,request()->quotas_pagas)) == "0"      ? "selected":"" }} >Não</option>    
             </select>
         </div>
-        &nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;
         <div class="col-xs-2">
             <label for ="ativo"><strong>{{ __('Ativo') }} </strong> </label>
             <select name="ativo" class="btn btn-xs btn-secondary dropdown-toggle">
-            <option value=""       {{ strval(old('ativo' ,request()->ativo)) == ""      ? "selected":"" }} ></option>
+            <option value=""       {{ strval(old('ativo' ,request()->ativo)) == ""      ? "selected":"" }} >--</option>
             <option value="1"       {{ strval(old('ativo' ,request()->ativo)) == "1"      ? "selected":"" }} >Sim</option>
             <option value="0"       {{ strval(old('ativo' ,request()->ativo)) == "0"      ? "selected":"" }} >Não</option>
             </select>
         </div>
-        &nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;
     @endif
     <div class="col-xs-2">
         <label for ="direcao"><strong>{{ __('Direção') }}</strong></label>
         <select name="direcao" class="btn btn-xs btn-secondary dropdown-toggle">
-        <option value="AMBOS"   {{ strval(old('direcao' ,request()->direcao)) == "AMBOS"  ? "selected":"" }} >Ambos</option>
+        <option value="AMBOS"   {{ strval(old('direcao' ,request()->direcao)) == "AMBOS"  ? "selected":"" }} >--</option>
         <option value="1"       {{ strval(old('direcao' ,request()->direcao)) == "1"      ? "selected":"" }} >Sim</option>
         <option value="0"       {{ strval(old('direcao' ,request()->direcao)) == "0"      ? "selected":"" }} >Não</option>    
     </select>
@@ -119,6 +119,7 @@
                                 @endif
                             </tr>
                         </thead>
+                        
                         <tbody>
                             @foreach ($users as $user)
                                 <tr>
@@ -143,35 +144,45 @@
                                     <td>{{ $user->isQuotaPagaToStr() }}</td>
 
                                     <td>
-                                        <div class="btn-group">
-                                            <!-- fill with edit and delete actions -->
-                                            <a class="btn btn-xs btn-primary" href="{{route('socios.edit',['id'=>$user->id])}}">Editar</a>
-                                            <form action="{{route('socios.destroy',['id'=>$user->id])}}" method="post">
+                                        <div class="btn-group dropright">
+                                            <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                {{ __('Ações') }}
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <a class="btn btn-primary btn-block" href="{{route('socios.edit',['id'=>$user->id])}}">Editar</a>
+                                                <div class="dropdown-divider"></div>
+
+                                                <form action="{{route('socios.destroy',['id'=>$user->id])}}" method="post">
                                                 @csrf
                                                 @method('DELETE')
 
                                                 <input type="hidden" name="id" value="{{$user->id}}">
-                                                <input type="submit" class="btn btn-xs btn-danger btn-block" value="Apagar">
-                                            </form>
-                                            @if($user->isAtivo())
-                                                <a class="btn btn-xs btn-secondary btn-block" href="">Desativar</a>
-                                            @else
-                                                <a class="btn btn-xs btn-success btn-block" href="">  Ativar</a>
-                                            @endif
-                                        </div>
-                                        <div class="btn-group">
-                                            <!-- fill with edit and delete actions -->
-                                            @if($user->isQuotaPaga())
-                                                <a class="btn btn-xs btn-secondary btn-block" href=""> Definir Quota Como Não Paga </a>
-                                            @else
-                                                <a class="btn btn-xs btn-success btn-block" href="">  Definir Quota Como Paga </a>
-                                            @endif
+                                                <input type="submit" class="btn btn-danger btn-block" value="Apagar">
+                                                </form>
+                                                <div class="dropdown-divider"></div>            
+
+
+                                                @if($user->isAtivo())
+                                                    <a class="btn btn-dark btn-block" href="">Desativar</a>
+                                                @else
+                                                    <a class="btn btn-success btn-block" href="">Ativar</a>
+                                                @endif
+                                                <div class="dropdown-divider"></div>
+
+                                                @if($user->isQuotaPaga())
+                                                    <a class="btn btn-warning btn-block" href="">Sócio não pagou</a>
+                                                @else
+                                                    <a class="btn btn-info btn-block" href="">Sócio já pagou</a>
+                                                @endif
+
+                                            </div>
+
                                         </div>
                                     </td>
                                    @endif
                                 </tr>
-
                             @endforeach
+                        </tbody>
                         </table>
                         {{ $users->links() }}
                     @else
