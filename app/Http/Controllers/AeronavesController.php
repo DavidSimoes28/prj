@@ -17,4 +17,11 @@ class AeronavesController extends Controller
         $aeronaves = Aeronave::whereNull('deleted_at')->get();//->paginate(14);
         return view('aeronaves.listAeronave', compact('aeronaves'));
     }
+
+    public function create()
+    {
+        //$this->authorize('create',Aeronave::class); DAVIDDDDDDDDDDDDDDD
+        $aeronave = new Aeronave();
+        return view('aeronaves.addAeronave',compact('aeronave'));
+    }
 }

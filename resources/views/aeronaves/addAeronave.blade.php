@@ -6,129 +6,109 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Adicionar Sócio') }}</div>
+                <div class="card-header"><h3 class="text-center">{{ __('Adicionar Aeronave') }}<h3></div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{route('socios.create',['id'=>$user->id])}}" enctype="multipart/form-data">
+                    <form method="POST" action="{{route('aeronaves.create',['maticula'=>$aeronave->marca])}}">
                         @csrf
 
                         <div class="form-group row">
-                            <label for="num_socio" class="col-md-4 col-form-label text-md-right">{{ __('Nº Sócio') }}</label>
+                            <label for="matricula" class="col-md-4 col-form-label text-md-right">{{ __('Matrícula') }}</label>
 
                             <div class="col-md-6">
-                                <input id="num_socio" type="text" class="form-control{{ $errors->has('num_socio') ? ' is-invalid' : '' }}" name="num_socio" required autofocus>
+                                <input id="matricula" type="text" class="form-control{{ $errors->has('matricula') ? ' is-invalid' : '' }}" name="matricula" required autofocus>
 
-                                @if ($errors->has('num_socio'))
+                                @if ($errors->has('matricula'))
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('num_socio') }}</strong>
+                                        <strong>{{ $errors->first('matricula') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="marca" class="col-md-4 col-form-label text-md-right">{{ __('Marca') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="marca" type="text" class="form-control{{ $errors->has('marca') ? ' is-invalid' : '' }}" name="marca" required autofocus>
+
+                                @if ($errors->has('marca'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('marca') }}</strong>
                                     </span>
                                 @endif
                             </div>
                         </div>
                         
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+                            <label for="modelo" class="col-md-4 col-form-label text-md-right">{{ __('Modelo') }}</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" required autofocus>
+                                <input id="modelo" type="text" class="form-control{{ $errors->has('modelo') ? ' is-invalid' : '' }}" name="modelo" required autofocus>
 
-                                @if ($errors->has('name'))
+                                @if ($errors->has('modelo'))
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('name') }}</strong>
+                                        <strong>{{ $errors->first('modelo') }}</strong>
                                     </span>
                                 @endif
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label for="nome_informal" class="col-md-4 col-form-label text-md-right">{{ __('Nome Informal') }}</label>
+                            <label for="num_lugares" class="col-md-4 col-form-label text-md-right">{{ __('Nº de lugares') }}</label>
 
                             <div class="col-md-6">
-                                <input id="nome_informal" type="text" class="form-control{{ $errors->has('nome_informal') ? ' is-invalid' : '' }}" name="nome_informal" required autofocus>
+                                <input id="num_lugares" type="text" class="form-control{{ $errors->has('num_lugares') ? ' is-invalid' : '' }}" name="num_lugares" required autofocus>
 
-                                @if ($errors->has('nome_informal'))
+                                @if ($errors->has('num_lugares'))
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('nome_informal') }}</strong>
+                                        <strong>{{ $errors->first('num_lugares') }}</strong>
                                     </span>
                                 @endif
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                            <label for="conta_horas" class="col-md-4 col-form-label text-md-right">{{ __('Total de Horas') }}</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" required>
+                                <input id="conta_horas" type="text" class="form-control{{ $errors->has('conta_horas') ? ' is-invalid' : '' }}" name="conta_horas" required autofocus>
 
-                                @if ($errors->has('email'))
+                                @if ($errors->has('conta_horas'))
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('email') }}</strong>
+                                        <strong>{{ $errors->first('conta_horas') }}</strong>
                                     </span>
                                 @endif
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label for="data_nascimento" class="col-md-4 col-form-label text-md-right">{{ __('Data Nascimento') }}</label>
+                            <label for="preco_hora" class="col-md-4 col-form-label text-md-right">{{ __('Preço por Hora') }}</label>
 
                             <div class="col-md-6">
-                                <input id="data_nascimento" type="date" class="form-control{{ $errors->has('data_nascimento') ? ' is-invalid' : '' }}" name="data_nascimento" required>
+                                <input id="preco_hora" type="text" class="form-control{{ $errors->has('preco_hora') ? ' is-invalid' : '' }}" name="preco_hora" required autofocus>
 
-                                @if ($errors->has('data_nascimento'))
+                                @if ($errors->has('preco_hora'))
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('data_nascimento') }}</strong>
+                                        <strong>{{ $errors->first('preco_hora') }}</strong>
                                     </span>
                                 @endif
                             </div>
                         </div>
 
-                        <div class="form-group row">
-                            <label for="sexo" class="col-md-4 col-form-label text-md-right">{{ __('Sexo') }}</label>
-                            <div class="col-md-6">
-                                <input type="radio" class="form{{ $errors->has('sexo') ? ' is-invalid' : '' }}" name="sexo" value="M" checked required> Masculino <br>
-                                <input type="radio" class="form-{{ $errors->has('sexo') ? ' is-invalid' : '' }}" name="sexo" value="F" required> Feminino
-                                @if ($errors->has('sexo'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('sexo') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="foto_url" class="col-md-4 col-form-label text-md-right">{{ __('Foto') }}</label>
-
-                            <div class="col-md-6">
-                                <input type="file" id="foto_url" name="foto_url">
-                                @if ($errors->has('foto_url'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('foto_url') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="tipo_socio" class="col-md-4 col-form-label text-md-right">{{ __('Tipo socio') }}</label>
-                            <div class="col-md-6">
-                                <input type="radio" class="form{{ $errors->has('tipo_socio') ? ' is-invalid' : '' }}" name="tipo_socio" value="P" checked required> Piloto<br>
-                                <input type="radio" class="form{{ $errors->has('tipo_socio') ? ' is-invalid' : '' }}" name="tipo_socio" value="NP" required> Não Piloto<br>
-                                <input type="radio" class="form{{ $errors->has('tipo_socio') ? ' is-invalid' : '' }}" name="tipo_socio" value="A" required> Aeromodelista
-                                @if ($errors->has('tipo_socio'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('tipo_socio') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
+                        
 
                         <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                        
+                            <div class="col-md-6 offset-md-4 btn-group">
+                                <button type="submit" class="btn btn-success">
                                     {{ __('Adicionar') }}
                                 </button>
+                                <a class="btn btn-xs btn-danger" href="{{ route('socios') }}">{{ __('Cancelar') }}</a>
                             </div>
                         </div>
+                        
+                       
                     </form>
                 </div>
             </div>

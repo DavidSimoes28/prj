@@ -3,12 +3,21 @@
 @section('content')
 
 <div class="container">
-<a class="btn btn-xs btn-primary" href="{{ route('socios.create') }}">{{ __('Adicionar Sócio') }}</a>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
     <div class="row justify-content-center">
         <div class="col-md-12">
             @include("partials.errors")
             <div class="card">
-                <div class="card-header">Lista de Aeronaves</div>
+                <div class="card-header"><h4>Lista de Aeronaves&nbsp;&nbsp;&nbsp;&nbsp;
+                    @if(Auth::user()->isAdmin())
+                    <a class="btn btn-success btn-lg" data-toggle="tooltip" title="Adicionar aeronave" href="{{ route('aeronaves.create') }}">{{ __(' + ') }}</a>
+                    @endif
+                    </h4>
+                    </div>
                 <div class="card-body">
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
@@ -21,43 +30,58 @@
                         <thead>
                             <tr>
                                 
-                                <th>Matricula</th>
-                                <th>Marca</th>
-                                <th>Modelo</th>
-                                <th>Nº de Lugares</th>
-                                <th>Total de Horas</th>
-                                <th>Preço Hora</th>
-                                <th>Ações</th>
+                                <th class="text-center">Matrícula</th>
+                                <th class="text-center">Marca</th>
+                                <th class="text-center">Modelo</th>
+                                <th class="text-center">Nº de Lugares</th>
+                                <th class="text-center">Total de Horas</th>
+                                <th class="text-center">Preço por Hora</th>
+                                @if(Auth::user()->isAdmin())
+                                <th class="text-center">Ações</th>
+                                @endif
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($aeronaves as $aeronave)
                                 <tr>
-                                    <td>{{ $aeronave->matricula }}</td>
-                                    <td>{{ $aeronave->marca }}</td>
-                                    <td>{{ $aeronave->modelo }}</td>
-                                    <td>{{ $aeronave->num_lugares }}</td>
-                                    <td>{{ $aeronave->conta_horas }}</td>
-                                    <td>{{ $aeronave->preco_hora }}</td>
-                                    <td>
-                                    <div class="btn-group">
-                                        <a class="btn btn-xs btn-primary" href="{{route('socios.edit',['maticula'=>$aeronave->matricula])}}">Edit</a>
-                                        <form action="{{route('socios.destroy',['maticula'=>$aeronave->matricula])}}" method="post" class="inline">
-                                            @csrf
-                                            @method('DELETE')
+                                    <td class="text-center">{{ $aeronave->matricula }}</td>
+                                    <td class="text-center">{{ $aeronave->marca }}</td>
+                                    <td class="text-center">{{ $aeronave->modelo }}</td>
+                                    <td class="text-center">{{ $aeronave->num_lugares }}</td>
+                                    <td class="text-center">{{ $aeronave->conta_horas }}&nbsp;h</td>
+                                    <td class="text-center">{{ $aeronave->preco_hora }}&nbsp;€/h</td>
+                                    @if(Auth::user()->isAdmin())
+                                    <td class="text-center">
+                                        <div class="btn-group dropright">
+                                            <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                            data-toggle="tooltip" title="Ações">
+                                                {{ __('Ações') }}
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <a class="btn btn-primary btn-block" href="{{route('socios.edit',['maticula'=>$aeronave->matricula])}}">Editar</a>
+                                                <div class="dropdown-divider"></div>
 
-                                            <input type="hidden" name="id" value="{{$aeronave->matricula}}">
-                                            <input type="submit" class="btn btn-xs btn-danger" value="Delete">
-                                        </form>
-                                            <a class="btn btn-xs btn-dark" href="">Desativar</a>
-                                            <a class="btn btn-xs btn-success" href="">Ativar</a>
+                                                <form action="{{route('socios.destroy',['maticula'=>$aeronave->matricula])}}" method="post">
+                                                @csrf
+                                                @method('DELETE')
+
+                                                <input type="hidden" name="id" value="{{$aeronave->matricula}}">
+                                                <input type="submit" class="btn btn-danger btn-block" value="Apagar">
+                                                </form>
+                                                <div class="dropdown-divider"></div>   
+
+                                            </div>
+
+                                        </div>
+
                                     </div>
                                     </td>
+                                    @endif
                                 </tr>
                             @endforeach
                         </table>
                     @else
-                        <h2>No users found</h2>
+                        <h2>Não foram encontradas aeronaves.</h2>
                     @endif
                 </div>
             </div>

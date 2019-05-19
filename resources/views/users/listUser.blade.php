@@ -91,10 +91,11 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header"><h3>Lista de Sócios&nbsp;&nbsp;&nbsp;&nbsp;
+                <div class="card-header"><h4>Lista de Sócios&nbsp;&nbsp;&nbsp;&nbsp;
                     @if(Auth::user()->isAdmin())
                     <a class="btn btn-success btn-lg" data-toggle="tooltip" title="Adicionar sócio" href="{{ route('socios.create') }}">{{ __(' + ') }}</a>
                     @endif
+                    </h4>
                 </div>
                 
                 </h3><div class="card-body">

@@ -9,7 +9,7 @@
     @include("partials.errors")
 @endif
             <div class="card">
-                <div class="card-header">Editar Sócio</div>
+                <div class="card-header"><h3 class="text-center">Editar Sócio</h3></div>
                 <div class="card-body">
                 <form method="POST" action="{{ route('socios.update',['id'=>$user->id]) }}" enctype="multipart/form-data">
                         @csrf
@@ -178,7 +178,7 @@
                                 <button type="submit" class="btn btn-success">
                                     {{ __('Guardar') }}
                                 </button>
-                                <a class="btn btn-xs btn-dark" href="{{ route('socios') }}">{{ __('Cancelar') }}</a>
+                                <a class="btn btn-xs btn-danger" href="{{ route('socios') }}">{{ __('Cancelar') }}</a>
                             </div>
                         </div>
                     </form>

@@ -7,7 +7,7 @@
         <div class="col-md-8">
             @include("partials.errors")
             <div class="card">
-                <div class="card-header">{{ __('Adicionar Sócio') }}</div>
+                <div class="card-header"><h3 class="text-center">{{ __('Adicionar Sócio') }}</h3></div>
 
                 <div class="card-body">
                     <form method="POST" action="{{route('socios.store')}}" enctype="multipart/form-data">
@@ -136,10 +136,12 @@
                         </div>
 
                         <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                        
+                            <div class="col-md-6 offset-md-4 btn-group">
+                                <button type="submit" class="btn btn-success">
                                     {{ __('Adicionar') }}
                                 </button>
+                                <a class="btn btn-xs btn-danger" href="{{ route('socios') }}">{{ __('Cancelar') }}</a>
                             </div>
                         </div>
                     </form>

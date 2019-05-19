@@ -54,27 +54,33 @@
                         
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                    {{ Auth::user()->name }} <span class="  "></span>
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                         
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-
-                                    <!--
-                                        -->
                                         <a href="#response" class="dropdown-item" data-toggle="modal" data-target="#response">
                                         {{ __('Perfil') }}
                                         </a>
-                                         <li>  
+                                        
+                                        <a class="dropdown-item" href="{{ route('logout') }}"
+                                            onclick="event.preventDefault();
+                                                            document.getElementById('logout-form').submit();">
+                                    
+                                            {{ __('Logout') }}
+                                        </a>
+                                        
+
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                        </form>
+
+                                        <li>
                                         </li>
+
+                                        <!--
+                                        -->
+                                        
 
                                         <div class="modal" id="response">
                                             <div class="modal-dialog modal-lg">
@@ -90,7 +96,7 @@
                                                                     <div class="row justify-content-center">
                                                                     <table class="table table-striped">
                                                                         <thead>
-                                                                            <tr><h3>Dados Pessoais</h3></tr>                                                                          
+                                                                            <tr><h4>Dados Pessoais</h4></tr>                                                                          
                                                                         </thead>
                                                                         <div class="card-body ">
                                                                             
@@ -143,13 +149,13 @@
                                                                         </thead>
                                                                         <tbody>
                                                                             <tr>
-                                                                                <td>Nº Licenca: {{ Auth::user()->num_licenca }}</td>
-                                                                                <td>Tipo Licenca: {{ Auth::user()->tipo_licenca }}</td>
+                                                                                <td>Nº Licença: {{ Auth::user()->num_licenca }}</td>
+                                                                                <td>Tipo de Licença: {{ Auth::user()->tipo_licenca }}</td>
                                                                                 <td>Instrutor: {{ Auth::user()->instrutor }}</td>
-                                                                                <td>Validade: {{ Auth::user()->validade_licenca }}</td> 
+                                                                                <td>Válida até {{ Auth::user()->validade_licenca }}</td> 
                                                                             </tr>
                                                                             <tr>
-                                                                                <td colspan="2">Licenca Confirmada: {{ Auth::user()->licenca_confirmada }}</td>
+                                                                                <td colspan="2">Licença Confirmada: {{ Auth::user()->licenca_confirmada }}</td>
                                                                             </tr>
                                                                         </table>
 
@@ -166,7 +172,7 @@
                                                                             <tr>
                                                                                 <td>Nº Certificado: {{ Auth::user()->num_certificado }}</td>
                                                                                 <td>Classe: {{ Auth::user()->classe_certificado }}</td>
-                                                                                <td>Validade: {{ Auth::user()->validade_certificado }}</td>
+                                                                                <td>Válido até {{ Auth::user()->validade_certificado }}</td>
                                                                                 <td>Confirmado: {{ Auth::user()->certificado_confirmado }}</td> 
                                                                             </tr>
                                                                         </table>
@@ -181,7 +187,7 @@
                                                     </div>
                                                     <div class="modal-footer">
                                                         <div class = "btn-group">
-                                                            <a class="btn btn-xs btn-info" href="{{ route('socios.edit', ['id'=> Auth::user()->id]) }}"><strong>{{ __('Alterar Perfil') }}</strong></a>
+                                                            <a class="btn btn-xs btn-primary" href="{{ route('socios.edit', ['id'=> Auth::user()->id]) }}">{{ __('Alterar Perfil') }}</a>
                                                             <a class="btn btn-xs btn-dark" href="{{ route('password.showPass', ['id'=> Auth::user()->id]) }}">{{ __('Alterar Password') }}</a>
                                                         </div>
                                                     </div>
@@ -191,7 +197,13 @@
                                        
                                         <!--
                                         -->
+                                        
 
+                                        
+                                    
+
+                                    
+                                        
                                         
                                 </div>
                                 
