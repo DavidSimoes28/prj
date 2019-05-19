@@ -1,3 +1,41 @@
+User Stories
+
+US01 - &#10004;\
+US02 - &#10004;\
+US03 - &#10004;\
+US04 - &#10004;\
+US05 - &#10004;\
+US06 - &#10004;\
+US07 - &#10004;\
+US08 - &#10006; &#10140; Erro no Teste por causa da foto - Desconheço o motivo do erro\
+US09 - &#10004;\
+US10 - &#10004;\
+US11 - &#10004;\
+US12 - &#10004; Sem Teste\
+US13 - &#10006; Grafico &#10140; Fica para o fim\
+US14 - &#10004; &#10140; Sem Teste\
+US15 - &#10004; &#10140; Sem Teste\
+US16 - &#10006;\
+US17 - &#10006;\
+US18 - &#10006;\
+US19 - &#10006;\
+US20 - &#10006;\
+US21 - &#10006;\
+US22 - &#10006;\
+US23 - &#10006; &#10140; Teste praticamente feitos - Falta as rotas nos botões do Listar Sócios\
+US24 - &#10006;\
+US25 - &#10006;\
+US26 - &#10006;\
+US27 - &#10006;\
+US28 - &#10006;\
+US29 - &#10006;\
+US30 - &#10006;\
+US31 - &#10006;\
+US32 - &#10006;\
+US33 - &#10006;
+
+
+
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
 <p align="center">
