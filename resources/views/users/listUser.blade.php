@@ -2,87 +2,13 @@
 
 @section('content')
 <!--
-<div class="container">
-<div class="row justify-content-center">
-
-<table class="table table-striped">
-
-    <thead>
-    <tr colspan="4">Dados Pessoais</tr>
-</thead>
-<tbody>
-    <tr>
-        <td>Nº Socio: {{ Auth::user()->num_socio }}</td>
-        <td>Nome: {{ Auth::user()->name }}</td>
-        <td>Telefone: {{ Auth::user()->telefone }}</td>
-        <td>Nome Informal: {{ Auth::user()->nome_informal }}</td>
-    </tr>
-    <tr>
-        <td>Sexo: {{ Auth::user()->sexoToStr() }}</td>
-        <td>Data Nascimento: {{ Auth::user()->data_nascimento }}</td>
-        <td>E-mail: {{ Auth::user()->email }}</td>
-        <td>Tipo_socio: {{ Auth::user()->tipoSocioToStr() }}</td>
-    </tr>
-    <tr>
-        <td>NIF: {{ Auth::user()->nif }}</td>
-        <td>Direcao: {{ Auth::user()->isDirecaoToStr() }}</td>
-        <td>Quota: {{ Auth::user()->isQuotaPagaToStr() }}</td>
-        <td>Ativo: {{ Auth::user()->isAtivoToStr() }}</td>
-    </tr>
-</table>
-
-@if(Auth::user()->isPiloto())
-<table class="table table-striped">
-<thead>
-    <tr colspan="4">Licenca</tr>
-</thead>
-    <tbody>
-        <tr>
-            <td>Nº Licenca: {{ Auth::user()->num_licenca }}</td>
-            <td>Tipo Licenca: {{ Auth::user()->tipo_licenca }}</td>
-            <td>Instrutor: {{ Auth::user()->instrutor }}</td>
-            <td>Validade: {{ Auth::user()->validade_licenca }}</td> 
-        </tr>
-        <tr>
-            <td colspan="2">Licenca Confirmada: {{ Auth::user()->licenca_confirmada }}</td>
-            @if(!Storage::exists("app/licenca_".Auth::user()->id.".pdf"))
-                <td colspan="2">Copia Digital: <a href="{{ asset('storage/app/docs_piloto/' . 'licenca_' . Auth::user()->id . '.pdf') }}" title="Licenca" target="_blank">Licenca</a>
-            @else
-                <td colspan="2">Copia Digital: Não </td>
-            @endif
-            <td></td>
-            <td></td> 
-        </tr>
-</table>
-
-<table class="table table-striped">
-    <thead>
-        <tr colspan="4">Certificado</tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>Nº Certificado: {{ Auth::user()->num_certificado }}</td>
-            <td>Classe: {{ Auth::user()->classe_certificado }}</td>
-            <td>Validade: {{ Auth::user()->validade_certificado }}</td>
-            <td>Confirmado: {{ Auth::user()->certificado_confirmado }}</td> 
-        </tr>
-        <tr>
-            @if(!Storage::exists("app/certificado_".Auth::user()->id.".pdf"))
-                <td colspan="4">Copia Digital: <a href="{{ asset('storage/app/docs_piloto/' . 'certificado_' . Auth::user()->id . '.pdf') }}" title="Certificado" target="_blank">Certificado</a>
-            @else
-                <td colspan="4">Copia Digital: Não </td>
-            @endif
-        </tr>
-</table>
-@endif
-
-<a class="btn btn-xs btn-primary" href="{{ route('socios.edit', ['id'=> Auth::user()->id]) }}">{{ __('Alterar Perfil') }}</a>
-&nbsp &nbsp
-<a class="btn btn-xs btn-primary" href="{{ route('password.showPass', ['id'=> Auth::user()->id]) }}">{{ __('Alterar Password') }}</a>
-</div>
-</div>
-
 -->
+
+
+<!--
+-->
+
+
 <div class="container">
 <div class="row justify-content-center">
 @if($errors)
@@ -149,8 +75,9 @@
     <div class="col-xs-2">
         <label>&nbsp;</label>
         <div class="btn-group">
-            <input type="submit" class="btn btn-xs btn-primary" value = "Pesquisar">
-            <a class="btn btn-xs btn-danger" href=" {{ route('socios') }} "><i class="fa fa-trash"></i></a>
+            <input type="submit" class="btn btn-xs btn-primary" value = "Pesquisar" data-toggle="tooltip" data-placement="top" title="Pesquisar">
+            <a class="btn btn-xs btn-danger" href=" {{ route('socios') }} " data-toggle="tooltip" data-placement="top" title="Limpar pesquisa">
+            <i class="fa fa-trash"></i></a>
         </div>
     </div>
     </div>
@@ -170,8 +97,9 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header"><h3>Lista de Sócios&nbsp;&nbsp;&nbsp;&nbsp;<a class="btn btn-success btn-lg" href="{{ route('socios.create') }}">{{ __(' + ') }}</a></div>
-                </h3><div class="card-body ">
+                <div class="card-header"><h3>Lista de Sócios&nbsp;&nbsp;&nbsp;&nbsp;
+                <a class="btn btn-success btn-lg" data-toggle="tooltip" data-placement="top" title="Adicionar sócio" href="{{ route('socios.create') }}">{{ __(' + ') }}</a></div>
+                </h3><div class="card-body">
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}
@@ -225,12 +153,12 @@
                                             @method('DELETE')
 
                                             <input type="hidden" name="id" value="{{$user->id}}">
-                                            <input type="submit" class="btn btn-xs btn-danger btn-block" value="Apagar">
+                                            <input type="submit" class="btn btn-xs btn-danger" value="Apagar">
                                         </form>
                                         @if($user->ativo == 1)
-                                            <a class="btn btn-xs btn-secondary btn-block" href="">Desativar</a>
+                                            <a class="btn btn-xs btn-secondary btn-dark" href="">Desativar</a>
                                         @else
-                                            <a class="btn btn-xs btn-success btn-block" href="">  Ativar</a>
+                                            <a class="btn btn-xs btn-success" href="">  Ativar</a>
                                         @endif
                                         </div>
                                     </td>

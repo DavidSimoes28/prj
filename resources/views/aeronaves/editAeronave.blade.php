@@ -122,13 +122,11 @@
                         </div>
 
                         <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
+                            <div class="col-md-6 offset-md-4 btn-group">
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Editar') }}
                                 </button>
-                            </div>
-                            <div class="col-md-6 offset-md-4">
-                                <a class="btn btn-xs btn-primary" href="{{ route('socios') }}">{{ __('Voltar') }}</a>
+                                <a class="btn btn-xs btn-dark" href="{{ route('aeronaves') }}">{{ __('Voltar') }}</a>
                             </div>
                         </div>
                     </form>

@@ -40,6 +40,7 @@
                                     <td>{{ $aeronave->conta_horas }}</td>
                                     <td>{{ $aeronave->preco_hora }}</td>
                                     <td>
+                                    <div class="btn-group">
                                         <a class="btn btn-xs btn-primary" href="{{route('socios.edit',['maticula'=>$aeronave->matricula])}}">Edit</a>
                                         <form action="{{route('socios.destroy',['maticula'=>$aeronave->matricula])}}" method="post" class="inline">
                                             @csrf
@@ -48,8 +49,9 @@
                                             <input type="hidden" name="id" value="{{$aeronave->matricula}}">
                                             <input type="submit" class="btn btn-xs btn-danger" value="Delete">
                                         </form>
-                                            <a class="btn btn-xs btn-danger" href="">Desativar</a>
-                                            <a class="btn btn-xs btn-primary" href="">Ativar</a>
+                                            <a class="btn btn-xs btn-dark" href="">Desativar</a>
+                                            <a class="btn btn-xs btn-success" href="">Ativar</a>
+                                    </div>
                                     </td>
                                 </tr>
                             @endforeach

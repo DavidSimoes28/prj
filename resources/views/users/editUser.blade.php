@@ -83,7 +83,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail') }}</label>
 
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ $user->email }}" required>
@@ -97,7 +97,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="data_nascimento" class="col-md-4 col-form-label text-md-right">{{ __('Data Nascimento') }}</label>
+                            <label for="data_nascimento" class="col-md-4 col-form-label text-md-right">{{ __('Data de nascimento') }}</label>
 
                             <div class="col-md-6">
                                 <input id="data_nascimento" type="date" class="form-control{{ $errors->has('data_nascimento') ? ' is-invalid' : '' }}" name="data_nascimento" value="{{ $user->data_nascimento }}" required>
@@ -171,15 +171,14 @@
                         @if(Auth::user()->isPiloto() && Auth::user()->isAdmin() || !Auth::user()->isPiloto() && !Auth::user()->isAdmin())
                             @include('users.direcao.editDirecao')
                         @endif
-
+                        
                         <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
+                        
+                            <div class="col-md-6 offset-md-4 btn-group">
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Editar') }}
                                 </button>
-                            </div>
-                            <div class="col-md-6 offset-md-4">
-                                <a class="btn btn-xs btn-primary" href="{{ route('socios') }}">{{ __('Voltar') }}</a>
+                                <a class="btn btn-xs btn-dark" href="{{ route('socios') }}">{{ __('Voltar') }}</a>
                             </div>
                         </div>
                     </form>

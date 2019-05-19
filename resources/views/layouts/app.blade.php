@@ -51,22 +51,152 @@
                                 </li>
                             @endif
                         @else
+                        
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                        
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
+
+                                    <!--
+                                        -->
+                                        <a href="#response" class="dropdown-item" data-toggle="modal" data-target="#response">
+                                        {{ __('Perfil') }}
+                                        </a>
+                                         <li>  
+                                        </li>
+
+                                        <div class="modal" id="response">
+                                            <div class="modal-dialog modal-lg">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button class="close" data-dismiss="modal">&times;</button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="list-group">
+                                                            <div class="d-flex w-100 justify-content-between">
+
+                                                                <div class="container">
+                                                                    <div class="row justify-content-center">
+                                                                    <table class="table table-striped">
+                                                                        <thead>
+                                                                            <tr><h3>Dados Pessoais</h3></tr>                                                                          
+                                                                        </thead>
+                                                                        <div class="card-body ">
+                                                                            
+                                                                                <tr>
+                                                                                    <td><span class="input-group-text">Nº Sócio: {{ Auth::user()->num_socio }}</span></td>
+                                                                                    <td><span class="input-group-text">Nome: {{ Auth::user()->name }}</span></td>
+                                                                                </tr>
+
+                                                                                <tr>
+                                                                                    <td><span class="input-group-text">Telefone: {{ Auth::user()->telefone }}</span></td>
+                                                                                    <td><span class="input-group-text">Nome Informal: {{ Auth::user()->nome_informal }}</span></td>
+                                                                                </tr>
+
+                                                                                <tr>
+                                                                                    <td><span class="input-group-text">Sexo: {{ Auth::user()->sexoToStr() }}</span></td>
+                                                                                    <td><span class="input-group-text">Data de nascimento: {{ Auth::user()->data_nascimento }}</span></td>
+                                                                                </tr>
+
+                                                                                <tr>
+                                                                                    <td><span class="input-group-text">E-mail: {{ Auth::user()->email }}</span></td>
+                                                                                    <td><span class="input-group-text">Tipo de sócio: {{ Auth::user()->tipoSocioToStr() }}</span></td>
+                                                                                </tr>
+
+                                                                                <tr>
+                                                                                    <td><span class="input-group-text">NIF: {{ Auth::user()->nif }}</span></td>
+                                                                                    <td><span class="input-group-text">Direção: {{ Auth::user()->isDirecaoToStr() }}</span></td>
+                                                                                </tr>
+
+                                                                                <tr>
+                                                                                    <td><span class="input-group-text">Quota: {{ Auth::user()->isQuotaPagaToStr() }}</span></td>
+                                                                                    <td><span class="input-group-text">Ativo: {{ Auth::user()->isAtivoToStr() }}</span></td>
+                                                                                    
+                                                                                </tr>
+
+
+                                                                            </table>
+                                            
+                                                                        </div>
+                                                                
+
+                                                                        @if(Auth::user()->isPiloto())
+                                                                        <table class="table table-striped">
+                                                                        <thead>
+                                                                            <tr><h4 class="d-inline">Licença -</h4><h5 class="d-inline">
+                                                                                @if(!Storage::exists("app/licenca_".Auth::user()->id.".pdf"))
+                                                                                <a href="{{ asset('storage/app/docs_piloto/' . 'licenca_' . Auth::user()->id . '.pdf') }}" title="Licenca" target="_blank"> Cópia Digital</a>
+                                                                                @else
+                                                                                Não possui Cópia Digital
+                                                                                @endif</h5><h1 ></tr>                                                                          
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td>Nº Licenca: {{ Auth::user()->num_licenca }}</td>
+                                                                                <td>Tipo Licenca: {{ Auth::user()->tipo_licenca }}</td>
+                                                                                <td>Instrutor: {{ Auth::user()->instrutor }}</td>
+                                                                                <td>Validade: {{ Auth::user()->validade_licenca }}</td> 
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td colspan="2">Licenca Confirmada: {{ Auth::user()->licenca_confirmada }}</td>
+                                                                            </tr>
+                                                                        </table>
+
+                                                                        <table class="table table-striped">
+                                                                        <thead>
+                                                                            <tr><h4 class="d-inline">Certificado -</h4><h5 class="d-inline">
+                                                                                @if(!Storage::exists("app/certificado_".Auth::user()->id.".pdf"))
+                                                                                <a href="{{ asset('storage/app/docs_piloto/' . 'certificado_' . Auth::user()->id . '.pdf') }}" title="Certificado" target="_blank"> Cópia Digital</a>
+                                                                                @else
+                                                                                Não possui Cópia Digital </td>
+                                                                                @endif</h5></tr>                                                                          
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td>Nº Certificado: {{ Auth::user()->num_certificado }}</td>
+                                                                                <td>Classe: {{ Auth::user()->classe_certificado }}</td>
+                                                                                <td>Validade: {{ Auth::user()->validade_certificado }}</td>
+                                                                                <td>Confirmado: {{ Auth::user()->certificado_confirmado }}</td> 
+                                                                            </tr>
+                                                                        </table>
+                                                                        @endif
+                                                            
+                                                            
+                                                                    </div>
+                                                        
+                                                                </div>
+                                                        </div>
+                                                    
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <div class = "btn-group">
+                                                            <a class="btn btn-xs btn-info" href="{{ route('socios.edit', ['id'=> Auth::user()->id]) }}"><strong>{{ __('Alterar Perfil') }}</strong></a>
+                                                            <a class="btn btn-xs btn-dark" href="{{ route('password.showPass', ['id'=> Auth::user()->id]) }}">{{ __('Alterar Password') }}</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                       
+                                        <!--
+                                        -->
+
+                                        
                                 </div>
+                                
+                                        
+                                       
                             </li>
                         @endguest
                     </ul>
@@ -80,3 +210,6 @@
     </div>
 </body>
 </html>
+
+
+
