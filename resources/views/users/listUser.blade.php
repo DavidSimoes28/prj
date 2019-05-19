@@ -190,7 +190,9 @@
                                 <th>Nº Licença</th>
                                 <th>Tipo de Sócio</th>
                                 <th>Direção</th>
-                                @if(Auth::user()->direcao == 1)
+                                @if(Auth::user()->isAdmin())
+                                    <th>Ativo</th>
+                                    <th>Quota</th>
                                     <th>Ações</th>
                                 @endif
                             </tr>
@@ -214,24 +216,34 @@
                                     </td>
                                     <td>{{ $user->tipoSocioToStr() }}</td>
                                     <td>{{ $user->isDirecaoToStr() }}</td>
+                                    @if(Auth::user()->isAdmin())
+                                    <td>{{ $user->isAtivoToStr() }}</td>
+                                    <td>{{ $user->isQuotaPagaToStr() }}</td>
 
-                                    @if(Auth::user()->direcao == 1)
                                     <td>
                                         <div class="btn-group">
-                                        <!-- fill with edit and delete actions -->
-                                        <a class="btn btn-xs btn-primary" href="{{route('socios.edit',['id'=>$user->id])}}">Editar</a>
-                                        <form action="{{route('socios.destroy',['id'=>$user->id])}}" method="post">
-                                            @csrf
-                                            @method('DELETE')
+                                            <!-- fill with edit and delete actions -->
+                                            <a class="btn btn-xs btn-primary" href="{{route('socios.edit',['id'=>$user->id])}}">Editar</a>
+                                            <form action="{{route('socios.destroy',['id'=>$user->id])}}" method="post">
+                                                @csrf
+                                                @method('DELETE')
 
-                                            <input type="hidden" name="id" value="{{$user->id}}">
-                                            <input type="submit" class="btn btn-xs btn-danger btn-block" value="Apagar">
-                                        </form>
-                                        @if($user->ativo == 1)
-                                            <a class="btn btn-xs btn-secondary btn-block" href="">Desativar</a>
-                                        @else
-                                            <a class="btn btn-xs btn-success btn-block" href="">  Ativar</a>
-                                        @endif
+                                                <input type="hidden" name="id" value="{{$user->id}}">
+                                                <input type="submit" class="btn btn-xs btn-danger btn-block" value="Apagar">
+                                            </form>
+                                            @if($user->isAtivo())
+                                                <a class="btn btn-xs btn-secondary btn-block" href="">Desativar</a>
+                                            @else
+                                                <a class="btn btn-xs btn-success btn-block" href="">  Ativar</a>
+                                            @endif
+                                        </div>
+                                        <div class="btn-group">
+                                            <!-- fill with edit and delete actions -->
+                                            @if($user->isQuotaPaga())
+                                                <a class="btn btn-xs btn-secondary btn-block" href=""> Definir Quota Como Não Paga </a>
+                                            @else
+                                                <a class="btn btn-xs btn-success btn-block" href="">  Definir Quota Como Paga </a>
+                                            @endif
                                         </div>
                                     </td>
                                    @endif

@@ -122,4 +122,12 @@ class User extends Authenticatable implements MustVerifyEmail
     public function isPiloto(){
         return $this->tipo_socio=="P";
     }
+
+    public function isAtivo(){
+        return $this->ativo==1;
+    }
+
+    public function isQuotaPaga(){
+        return $this->quota_paga==1;
+    }
 }
