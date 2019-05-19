@@ -19,7 +19,7 @@ US16 - &#10006;\
 US17 - &#10006;\
 US18 - &#10006;\
 US19 - &#10006;\
-US20 - &#10004; Por testar\
+US20 - &#10004; Sem teste  &#10140; por testar\
 US21 - &#10006;\
 US22 - &#10006;\
 US23 - &#10006; &#10140; Teste praticamente feitos - Falta as rotas nos botões do Listar Sócios\
