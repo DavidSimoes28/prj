@@ -70,7 +70,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="tipo_socio" class="col-md-4 col-form-label text-md-right">{{ __('Tipo sócio') }}</label>
+                            <label for="tipo_socio" class="col-md-4 col-form-label text-md-right">{{ __('Tipo de sócio') }}</label>
                             <div class="col-md-6">
                                 <input type="radio" class="form{{ $errors->has('tipo_socio') ? ' is-invalid' : '' }}" name="tipo_socio" value="P" {{ strval(old('tipo_socio',$user->tipo_socio)) == "P"?"checked":"" }}> Piloto<br>
                                 <input type="radio" class="form{{ $errors->has('tipo_socio') ? ' is-invalid' : '' }}" name="tipo_socio" value="NP" {{ strval(old('tipo_socio',$user->tipo_socio)) == "NP"?"checked":"" }}> Não Piloto<br>
@@ -175,10 +175,10 @@
                         <div class="form-group row mb-0">
                         
                             <div class="col-md-6 offset-md-4 btn-group">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Editar') }}
+                                <button type="submit" class="btn btn-success">
+                                    {{ __('Guardar') }}
                                 </button>
-                                <a class="btn btn-xs btn-dark" href="{{ route('socios') }}">{{ __('Voltar') }}</a>
+                                <a class="btn btn-xs btn-dark" href="{{ route('socios') }}">{{ __('Cancelar') }}</a>
                             </div>
                         </div>
                     </form>

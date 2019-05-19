@@ -28,7 +28,7 @@
     </div>
 @endif
 <div class="form-group row">
-    <label for="direcao" class="col-md-4 col-form-label text-md-right">{{ __('Direcao') }}</label>
+    <label for="direcao" class="col-md-4 col-form-label text-md-right">{{ __('Direção') }}</label>
     <div class="col-md-6">
     <input type="radio" class="form{{ $errors->has('direcao') ? ' is-invalid' : '' }}" name="direcao" value="0" {{ intval(old('direcao',$user->direcao)) == 0?"checked":"" }}> Não <br>
         <input type="radio" class="form{{ $errors->has('direcao') ? ' is-invalid' : '' }}" name="direcao" value="1" {{ intval(old('direcao',$user->direcao)) == 1?"checked":"" }}> Sim <br>

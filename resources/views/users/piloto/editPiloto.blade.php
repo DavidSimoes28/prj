@@ -13,7 +13,7 @@
 </div>
 
 <div class="form-group row">
-    <label for="file_licenca" class="col-md-4 col-form-label text-md-right">{{ __('Copia licença') }}</label>
+    <label for="file_licenca" class="col-md-4 col-form-label text-md-right">{{ __('Cópia da Licença') }}</label>
 
     <div class="col-md-6">
         <input type="file" id="file_licenca" name="file_licenca">
@@ -26,7 +26,7 @@
 </div>
 
 <div class="form-group row">
-    <label for="tipo_licenca" class="col-md-4 col-form-label text-md-right">{{ __('Tipo Licença') }}</label>
+    <label for="tipo_licenca" class="col-md-4 col-form-label text-md-right">{{ __('Tipo de Licença') }}</label>
     <div class="col-md-6">
         <input id="tipo_licenca" type="text" class="form-control{{ $errors->has('tipo_licenca') ? ' is-invalid' : '' }}" name="tipo_licenca" value="{{ $user->tipo_licenca }}" autofocus>
         @if ($errors->has('tipo_licenca'))
@@ -93,7 +93,7 @@
 </div>
 
 <div class="form-group row">
-    <label for="file_certificado" class="col-md-4 col-form-label text-md-right">{{ __('Cópia Certificado') }}</label>
+    <label for="file_certificado" class="col-md-4 col-form-label text-md-right">{{ __('Cópia de Certificado') }}</label>
 
     <div class="col-md-6">
         <input type="file" id="file_certificado" name="file_certificado">

@@ -92,7 +92,11 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header"><h3>Lista de Sócios&nbsp;&nbsp;&nbsp;&nbsp;
-                <a class="btn btn-success btn-lg" data-toggle="tooltip" title="Adicionar sócio" href="{{ route('socios.create') }}">{{ __(' + ') }}</a></div>
+                    @if(Auth::user()->isAdmin())
+                    <a class="btn btn-success btn-lg" data-toggle="tooltip" title="Adicionar sócio" href="{{ route('socios.create') }}">{{ __(' + ') }}</a>
+                    @endif
+                </div>
+                
                 </h3><div class="card-body">
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">

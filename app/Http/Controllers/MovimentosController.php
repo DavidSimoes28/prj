@@ -23,30 +23,41 @@ class MovimentosController extends Controller
         return view('movimentos.listMovimentos', compact('movimentos'));
 
     }
+
     
     $movimentos = Movimento::with("pilotos","instrutores");
+    $isPiloto = Auth::user()->tipo_socio == 'P';
 
-    if (request()->nome_informal_piloto != null){
 
-        $movimentos = $movimentos->whereHas('pilotos', function ($query) {
+    // PROCURA NA DB OS PILOTOS QUE TÊM O NOME INFORMAL IGUAL AO INSERIDO NO FILTRO E QUE PARTICIPARAM EM MOVIMENTOS
+    $piloto_filtro = request()->nome_informal_piloto;
 
-            $nome_informal_piloto =  request()->nome_informal_piloto;
-            $query->where('nome_informal', $nome_informal_piloto );
+    if ( $piloto_filtro != null ){
 
-        });
+        $movimentos =  $movimentos->whereHas( 'pilotos', function ( $query ){
 
+            $nome =  request()->nome_informal_piloto;
+            if ( $nome != null ) $query->where( 'nome_informal', $nome );
+
+    } );
     }
 
-    if (request()->nome_informal_instrutor != null){
 
-        $movimentos =  $movimentos->whereHas('instrutores', function ($query) {
+    // PROCURA NA DB OS INSTRUTORES QUE TÊM O NOME INFORMAL IGUAL AO INSERIDO NO FILTRO E QUE PARTICIPARAM EM MOVIMENTOS
+    $instrutor_filtro = request()->nome_informal_instrutor;
 
-            $nome_informal_instrutor =  request()->nome_informal_instrutor;
-            $query->where('nome_informal', $nome_informal_instrutor );
+    if (  $instrutor_filtro != null ){
 
-        });
+        $movimentos =  $movimentos->whereHas( 'instrutores',function ( $query ){
 
+            $nome =  request()->nome_informal_instrutor;
+            if ( $nome != null ) $query->where( 'nome_informal', $nome );
+
+    } );
     }
+
+
+    //PROCURA POR ID, AERONAVE, DATAS DE VOO, NATUREZA E CONFIRMADO DOS MOVIMENTOS
 
     $movimentos = $movimentos->where(function ($query) {
 
@@ -65,21 +76,72 @@ class MovimentosController extends Controller
         
         if ($data_fim != null ) $query->where('data', "<=" , $data_fim);
 
-            
-        
         //$query->whereBetween('data', array($data_inicio, $data_fim));
-
 
         if ( $natureza != null && ($natureza == "T" || $natureza == "E" || $natureza == "I") ) $query->where('natureza', $natureza );
 
         if ( $confirmado != null && ( $confirmado == "1" || $confirmado == "0" ) ) $query->where('confirmado', $confirmado );
-                
-        });
+        
+    });
     
+
+        //SE O UTILIZADOR LOGADO FOR UM PILOTO TEM O FILTROS EXTRAS
+        //VERIFICAR SE FOI INSERIDO ALGUM VALOR VALIDO
+
+        if ( $isPiloto ){
+
+            $voos_pessoais =  request()->voos_pessoais;
+
+            if (  $voos_pessoais != null && (  $voos_pessoais=="I" ||  $voos_pessoais=="P" || $voos_pessoais=="TODOS" ) ){
+
+                if ($voos_pessoais=="I"){
+                    $movimentos =  $movimentos->whereHas( 'instrutores',function ( $query ){
+
+                        $nome =  Auth::user()->nome_informal;
+                        $query->where( 'nome_informal', $nome );
+
+                    });
+                }
+                elseif ($voos_pessoais=="P"){
+                    $movimentos =  $movimentos->whereHas( 'pilotos', function ( $query ){
+
+                        $nome =  Auth::user()->nome_informal;
+                        $query->where( 'nome_informal', $nome );
+
+                    });
+                }
+                else{
+
+                    $movimentos_intrutor = $movimentos
+                    ->WhereHas( 'instrutores',function ( $query ){
+
+                        $nome =  Auth::user()->nome_informal;
+                        $query->where( 'nome_informal', $nome );
+
+                    })
+                    ->orWhereHas( 'pilotos', function ( $query ){
+
+                        $nome =  Auth::user()->nome_informal;
+                        $query->where( 'nome_informal', $nome );
+
+                    });
+
+                    
+                }
+
+            }
+
+        }
+        
+
+        
+
+
 
     $movimentos = $movimentos->orderBy('data','desc')->paginate(14)->appends(request()->query());
 
     return view('movimentos.listMovimentos', compact('movimentos'));
 
     }
+
 }

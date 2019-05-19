@@ -49,8 +49,8 @@
         <option value="I"       {{ strval(old('natureza' ,request()->natureza)) == "I"      ? "selected":"" }} >Instrução</option>
         <option value="E"       {{ strval(old('natureza' ,request()->natureza)) == "E"      ? "selected":"" }} >Especial</option>
         </select>
-
     </div>
+
     &nbsp;&nbsp;&nbsp;
     <div class="col-xs-2">
         <label for ="confirmado"><strong>{{ __('Confirmado') }}</strong></label>
@@ -58,17 +58,31 @@
         <option value="AMBOS"   {{ strval(old('confirmado' ,request()->confirmado)) == "AMBOS"  ? "selected":"" }} >--</option>
         <option value="1"       {{ strval(old('confirmado' ,request()->confirmado)) == "1"      ? "selected":"" }} >Sim</option>
         <option value="0"       {{ strval(old('confirmado' ,request()->confirmado)) == "0"      ? "selected":"" }} >Não</option>    
-    </select>
-
+        </select>
     </div>
+
     &nbsp;&nbsp;&nbsp;
+    
+    @if (Auth::user()->tipo_socio == 'P')
+    <div class="col-xs-2">
+        <label for ="voos_pessoais"><strong>{{ __('Voos pessoais') }}</strong></label>
+        <select name= "voos_pessoais" class="btn btn-xs btn-secondary dropdown-toggle">
+        <option value=""        {{ strval(old('voos_pessoais' ,request()->voos_pessoais)) == ""       ? "selected":"" }} >--</option>
+        <option value="I"       {{ strval(old('voos_pessoais' ,request()->voos_pessoais)) == "I"      ? "selected":"" }} >Instrutor</option>
+        <option value="P"       {{ strval(old('voos_pessoais' ,request()->voos_pessoais)) == "P"      ? "selected":"" }} >Piloto</option>  
+        <option value="TODOS"   {{ strval(old('voos_pessoais' ,request()->voos_pessoais)) == "TODOS"  ? "selected":"" }} >Todos</option>
+        </select>
+    </div>
+
+    &nbsp;&nbsp;&nbsp;
+    @endif
+
     <div class="col-xs-2">
         <label>&nbsp;</label>
         <div class="btn-group">
             <input type="submit" class="btn btn-xs btn-primary" value = "Pesquisar" data-toggle="tooltip" title="Pesquisar">
             <a class="btn btn-xs btn-danger" href=" {{ route('movimentos') }} " data-toggle="tooltip" title="Limpar pesquisa"><i class="fa fa-trash"></i></a>
         </div>
-    </div>
     </div>
 
    
