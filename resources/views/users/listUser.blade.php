@@ -69,8 +69,8 @@
     <div class="col-xs-2">
         <label>&nbsp;</label>
         <div class="btn-group">
-            <input type="submit" class="btn btn-xs btn-primary" value = "Pesquisar" data-toggle="tooltip" data-placement="top" title="Pesquisar">
-            <a class="btn btn-xs btn-danger" href=" {{ route('socios') }} " data-toggle="tooltip" data-placement="top" title="Limpar pesquisa">
+            <input type="submit" class="btn btn-xs btn-primary" value = "Pesquisar" data-toggle="tooltip"  title="Pesquisar">
+            <a class="btn btn-xs btn-danger" href=" {{ route('socios') }} " data-toggle="tooltip" title="Limpar pesquisa">
             <i class="fa fa-trash"></i></a>
         </div>
     </div>
@@ -92,7 +92,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header"><h3>Lista de Sócios&nbsp;&nbsp;&nbsp;&nbsp;
-                <a class="btn btn-success btn-lg" data-toggle="tooltip" data-placement="top" title="Adicionar sócio" href="{{ route('socios.create') }}">{{ __(' + ') }}</a></div>
+                <a class="btn btn-success btn-lg" data-toggle="tooltip" title="Adicionar sócio" href="{{ route('socios.create') }}">{{ __(' + ') }}</a></div>
                 </h3><div class="card-body">
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
@@ -145,7 +145,8 @@
 
                                     <td>
                                         <div class="btn-group dropright">
-                                            <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                            data-toggle="tooltip" title="Ações">
                                                 {{ __('Ações') }}
                                             </button>
                                             <div class="dropdown-menu">

@@ -44,7 +44,7 @@
     <div class="col-xs-2">
         <label for ="natureza"><strong>{{ __('Natureza') }}</strong></label>
         <select class="btn btn-xs btn-secondary dropdown-toggle" name="natureza" value="{{ strval(old('natureza',request()->natureza )) }}" >
-        <option value="TODOS"   {{ strval(old('natureza' ,request()->natureza)) == "TODOS"  ? "selected":"" }} >Todos</option>
+        <option value="TODOS"   {{ strval(old('natureza' ,request()->natureza)) == "TODOS"  ? "selected":"" }} >--</option>
         <option value="T"       {{ strval(old('natureza' ,request()->natureza)) == "T"      ? "selected":"" }} >Treino</option>
         <option value="I"       {{ strval(old('natureza' ,request()->natureza)) == "I"      ? "selected":"" }} >Instrução</option>
         <option value="E"       {{ strval(old('natureza' ,request()->natureza)) == "E"      ? "selected":"" }} >Especial</option>
@@ -55,7 +55,7 @@
     <div class="col-xs-2">
         <label for ="confirmado"><strong>{{ __('Confirmado') }}</strong></label>
         <select name="confirmado" class="btn btn-xs btn-secondary dropdown-toggle">
-        <option value="AMBOS"   {{ strval(old('confirmado' ,request()->confirmado)) == "AMBOS"  ? "selected":"" }} >Ambos</option>
+        <option value="AMBOS"   {{ strval(old('confirmado' ,request()->confirmado)) == "AMBOS"  ? "selected":"" }} >--</option>
         <option value="1"       {{ strval(old('confirmado' ,request()->confirmado)) == "1"      ? "selected":"" }} >Sim</option>
         <option value="0"       {{ strval(old('confirmado' ,request()->confirmado)) == "0"      ? "selected":"" }} >Não</option>    
     </select>
@@ -65,8 +65,8 @@
     <div class="col-xs-2">
         <label>&nbsp;</label>
         <div class="btn-group">
-            <input type="submit" class="btn btn-xs btn-primary" value = "Pesquisar">
-            <a class="btn btn-xs btn-danger" href=" {{ route('movimentos') }} "><i class="fa fa-trash"></i></a>
+            <input type="submit" class="btn btn-xs btn-primary" value = "Pesquisar" data-toggle="tooltip" title="Pesquisar">
+            <a class="btn btn-xs btn-danger" href=" {{ route('movimentos') }} " data-toggle="tooltip" title="Limpar pesquisa"><i class="fa fa-trash"></i></a>
         </div>
     </div>
     </div>
@@ -80,7 +80,7 @@
 <br>
 <br>
 </div>
-<a class="btn btn-xs btn-primary" href="{{ route('movimentos.create') }}">{{ __('Adicionar Movimento') }}</a>
+<a class="btn btn-xs btn-primary" href="{{ route('movimentos.create') }}" data-toggle="tooltip" title="Adicionar Movimento">{{ __('Adicionar Movimento') }}</a>
 
 
 
