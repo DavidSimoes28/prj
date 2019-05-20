@@ -165,22 +165,30 @@
                                                 <input type="hidden" name="id" value="{{$user->id}}">
                                                 <input type="submit" class="btn btn-danger btn-block" value="Apagar">
                                                 </form>
+
                                                 <div class="dropdown-divider"></div>            
+                                                <form method="post" action="{{route('socios.ativo',['id'=>$user->id])}}">
+                                                    @csrf
+                                                    @method('patch')
 
+                                                    @if($user->isAtivo())
+                                                        <input type="submit" class="btn btn-dark btn-block" name = "ativo" value="Desativar">
+                                                    @else
+                                                        <input type="submit" class="btn btn-dark btn-block" name = "ativo" value="Ativar">
+                                                    @endif
+                                                </form>
 
-                                                @if($user->isAtivo())
-                                                    <a class="btn btn-dark btn-block" href="">Desativar</a>
-                                                @else
-                                                    <a class="btn btn-success btn-block" href="">Ativar</a>
-                                                @endif
                                                 <div class="dropdown-divider"></div>
-
-                                                @if($user->isQuotaPaga())
-                                                    <a class="btn btn-warning btn-block" href="">Sócio não pagou</a>
-                                                @else
-                                                    <a class="btn btn-info btn-block" href="">Sócio já pagou</a>
-                                                @endif
-
+                                                <form method="post" action="{{route('socios.quotas',['id'=>$user->id])}}">
+                                                    @csrf
+                                                    @method('patch')
+                                                    
+                                                    @if($user->isQuotaPaga())
+                                                        <input type="submit" class="btn btn-dark btn-block" name = "quota_paga" value="Sócio não pagou">
+                                                    @else
+                                                        <input type="submit" class="btn btn-dark btn-block" name = "quota_paga" value="Sócio já pagou">
+                                                    @endif
+                                                </form>
                                             </div>
 
                                         </div>
