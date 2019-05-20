@@ -141,8 +141,8 @@
                                                                         <table class="table table-striped">
                                                                         <thead>
                                                                             <tr><h4 class="d-inline">Licença -</h4><h5 class="d-inline">
-                                                                                @if(!Storage::exists("app/licenca_".Auth::user()->id.".pdf"))
-                                                                                <a href="{{ asset('storage/app/docs_piloto/' . 'licenca_' . Auth::user()->id . '.pdf') }}" title="Licenca" target="_blank"> Cópia Digital</a>
+                                                                                @if(Storage::exists(storage_path('app/docs_piloto/' . 'licenca_' . Auth::user()->id . '.pdf')))
+                                                                                <a href="{{ route('pilotos.licenca',['id'=>Auth::user()->id]) }}" title="Licenca" target="_blank"> Cópia Digital</a>
                                                                                 @else
                                                                                 Não possui Cópia Digital
                                                                                 @endif</h5><h1 ></tr>                                                                          
@@ -162,8 +162,8 @@
                                                                         <table class="table table-striped">
                                                                         <thead>
                                                                             <tr><h4 class="d-inline">Certificado -</h4><h5 class="d-inline">
-                                                                                @if(!Storage::exists("app/certificado_".Auth::user()->id.".pdf"))
-                                                                                <a href="{{ asset('storage/app/docs_piloto/' . 'certificado_' . Auth::user()->id . '.pdf') }}" title="Certificado" target="_blank"> Cópia Digital</a>
+                                                                                @if(Storage::exists(storage_path('app/docs_piloto/' . 'certificado_' . Auth::user()->id . '.pdf')))
+                                                                                <a href="{{ route('pilotos.certificado',['id'=>Auth::user()->id]) }}" title="Certificado" target="_blank"> Cópia Digital</a>
                                                                                 @else
                                                                                 Não possui Cópia Digital </td>
                                                                                 @endif</h5></tr>                                                                          

@@ -12,6 +12,7 @@ use App\Http\Requests\SearchUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\PasswordUserRequest;
 use Illuminate\Support\Arr;
+use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller
 {
@@ -125,7 +126,7 @@ class UserController extends Controller
         if($request->file_certificado!=NULL){
             $certificado = $request->file('file_certificado');
             Storage::putFileAs('docs_piloto',$certificado,"certificado_".$user->id.".pdf");
-            $user->certificado_confirmada = 0;
+            $user->certificado_confirmado = 0;
         }
 
         if($request->file_licenca!=NULL){
@@ -161,4 +162,27 @@ class UserController extends Controller
         return redirect()->route('socios')->with("success","Password atualizada com sucesso.");
     }
 
+    public function mostrarLicenca(User $user){
+        $path = storage_path('app/docs_piloto/' . 'licenca_' . $user->id . '.pdf');
+        return response()->file($path);
+    }
+    public function mostrarCertificado(User $user){
+        $path = storage_path('app/docs_piloto/' . 'certificado_' . $user->id . '.pdf');
+        return response()->file($path);
+    }
+    public function downloadLicenca(User $user){
+        return Response::download(asset('storage/app/docs_piloto/' . 'licenca_' . $user->id . '.pdf'));
+    }
+    public function downloadCertificado(User $user){
+        return Response::download(storage_path('app/docs_piloto/' . 'certificado_' . $user->id . '.pdf'));
+    }
+
+    public function definirQuotas(User $user){
+        $user->update(['quota_paga' => !$user->quota_paga]);
+        return redirect()->route('socios');
+    }
+    public function definirAtivo(User $user){
+        $user->update(['ativo' => !$user->ativo]);
+        return redirect()->route('socios');
+    }
 }
