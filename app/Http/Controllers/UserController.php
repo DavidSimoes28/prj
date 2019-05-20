@@ -92,7 +92,7 @@ class UserController extends Controller
         $user->fill(["foto_url" => $name_foto]);
         $user->save();
         $user->sendEmailVerificationNotification();
-        return redirect()->route('socios')->with("success","User successfully inserted");
+        return redirect()->route('socios')->with("success","Sócio inserido com sucesso.");
     }
 
     public function edit(User $user){
@@ -135,13 +135,13 @@ class UserController extends Controller
         }
         unset($validated['file_foto']);
         $user->save();
-        return redirect()->route('socios')->with("success","User successfully updated");
+        return redirect()->route('socios')->with("success","Sócio atualizado com sucesso.");
     }
 
     public function destroy(User $user){
         $this->authorize('delete',$user);
         $user->delete();
-        return redirect()->route('socios')->with("success","User successfully updated");
+        return redirect()->route('socios')->with("success","Sócio apagado com sucesso.");
     }
 
     public function showPass(){
@@ -158,7 +158,7 @@ class UserController extends Controller
         $user = User::findOrFail(Auth::user()->id);
         $user->password=Hash::make($request->password);
         $user->save();
-        return redirect()->route('socios')->with("success","User password updated");
+        return redirect()->route('socios')->with("success","Password atualizada com sucesso.");
     }
 
 }
