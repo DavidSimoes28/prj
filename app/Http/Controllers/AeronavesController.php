@@ -61,11 +61,8 @@ class AeronavesController extends Controller
     public function destroy(Aeronave $aeronave){
         $this->authorize('delete',$aeronave);
 
-
         if ( !$aeronave->aeronave_movimentos->count() ) $aeronave->forceDelete();
-        else $aeronave->delete();
-
-       
+        else $aeronave->delete();     
         
         return redirect()->route('aeronaves')->with("success","Aeronave apagada com sucesso.");
     }

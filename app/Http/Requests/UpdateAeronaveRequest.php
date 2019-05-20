@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateAeronaveRequest extends FormRequest
@@ -14,7 +15,6 @@ class UpdateAeronaveRequest extends FormRequest
      */
     public function authorize()
     {
-        //return Auth::user()->isAdmin();
         return true;
     }
 
@@ -25,15 +25,15 @@ class UpdateAeronaveRequest extends FormRequest
      */
     public function rules()
     {   
-        //$aeronave = $this->route('aeronave');
+        $aeronave = $this->route('aeronave');
 
         return [
-            // 'matricula' => ['required', 'string', 'max:8', Rule::unique('aeronaves')->ignore($aeronave->matricula)],
+            //'matricula' => ['required', 'string', 'max:8', Rule::unique('aeronaves')->ignore($aeronave->matricula)],
             'marca' => 'required|string|max:40',
             'modelo' => 'required|max:40',
-            'num_lugares' => 'required|integer|min:1',
-            'conta_horas' => 'required|integer|min:1',
-            'preco_hora' => 'required|numeric|min:0'
+            'num_lugares' => 'required|integer|min:1|max:999 999 999 99',
+            'conta_horas' => 'required|integer|min:1|max:999 999 999 99',
+            'preco_hora'  => 'required|numeric|min:0|max:999 999 999 99,99'
         ];
     }
 }

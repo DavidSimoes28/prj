@@ -13,7 +13,6 @@ class StoreAeronaveRequest extends FormRequest
      */
     public function authorize()
     {
-        //return Auth::user()->isAdmin();
         return true;
     }
 
@@ -28,9 +27,9 @@ class StoreAeronaveRequest extends FormRequest
             'matricula' => 'required|string|max:8|unique:aeronaves',
             'marca' => 'required|string|max:40',
             'modelo' => 'required|max:40',
-            'num_lugares' => 'required|integer|min:1|max:99999999999',
-            'conta_horas' => 'required|integer|min:1|max:99999999999',
-            'preco_hora' => 'required|numeric|min:0|max:99999999999.99'
+            'num_lugares' => 'required|integer|min:1|max:999 999 999 99',
+            'conta_horas' => 'required|integer|min:1|max:999 999 999 99',
+            'preco_hora'  => 'required|numeric|min:0|max:999 999 999 99,99'
         ];
     }
 }

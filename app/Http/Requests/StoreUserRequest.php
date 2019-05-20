@@ -26,7 +26,7 @@ class StoreUserRequest extends FormRequest
         return [
             'name' => ['required','max:255','regex:/^[a-zA-ZçÇáÁéÉíÍóÓúÚàÀèÈìÌòÒùÙãÃõÕâÂêÊîÎôÔûÛ ]+$/'],
             'email' => 'required|string|email|unique:users',
-            'num_socio' => 'required|integer|unique:users|max:11',
+            'num_socio' => 'required|integer|unique:users|min:1|max:99999999999',
             'nome_informal' => 'required|string|max:40',
             'tipo_socio' => 'required|in:P,NP,A',
             'sexo' => 'required|in:M,F',
