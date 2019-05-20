@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Aeronave;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreAeronaveRequest;
+use App\Http\Requests\UpdateAeronaveRequest;
 
 class AeronavesController extends Controller
 {
@@ -22,6 +23,7 @@ class AeronavesController extends Controller
     public function create()
     {
         $this->authorize('create',Aeronave::class);
+
         $aeronave = new Aeronave();
         return view('aeronaves.addAeronave',compact('aeronave'));
         
@@ -31,6 +33,32 @@ class AeronavesController extends Controller
         $aeronave = new Aeronave();
         $aeronave->fill($request->all());
         $aeronave->save();
-        return redirect()->route('aeronaves')->with("success","aeronave successfully inserted");
+        return redirect()->route('aeronaves')->with("success","Aeronave inserida com sucesso.");
+    }
+
+    public function edit(Aeronave $aeronave)
+    {
+        $this->authorize('update',$aeronave);
+        return view('aeronaves.editAeronave',compact('aeronave'));
+               
+    }    
+
+    public function update(UpdateAeronaveRequest $request, Aeronave $aeronave){
+        //dd ($request);
+        $this->authorize('update',$aeronave);
+        $matricula = $aeronave->matricula;
+
+        $aeronave->fill($request->all());
+
+        $aeronave->matricula = $matricula;
+
+        $aeronave->save();
+        return redirect()->route('aeronaves')->with("success","Aeronave editada com sucesso.");
+    }
+
+    public function destroy(Aeronave $aeronave){
+        $this->authorize('delete',$aeronave);
+        $aeronave->delete();
+        return redirect()->route('aeronaves')->with("success","Aeronave apagada com sucesso.");
     }
 }
