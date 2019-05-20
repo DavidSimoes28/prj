@@ -32,6 +32,8 @@ Route::middleware(['auth', 'verified', 'ativo'])->group(function () {
     Route::GET('/pilotos/{user}/certificado', 'UserController@mostrarCerificado')->name('pilotos.certificado');
     Route::PATCH('/socios/{user}/quota', 'UserController@definirQuotas')->name('socios.quotas');
     Route::PATCH('/socios/{user}/ativo', 'UserController@definirAtivo')->name('socios.ativo');
+    Route::PATCH('/socios/reset_quotas', 'UserController@reset_quotas')->name('socios.reset_quotas');
+    Route::PATCH('/socios/desativar_sem_quotas', 'UserController@desativar_sem_quotas')->name('socios.desativar_sem_quotas');
 
     Route::GET('/aeronaves', 'AeronavesController@index')->name('aeronaves');
     Route::GET('/aeronaves/create', 'AeronavesController@create')->name('aeronaves.create');
