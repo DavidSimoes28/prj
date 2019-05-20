@@ -58,10 +58,10 @@
                                                 {{ __('Ações') }}
                                             </button>
                                             <div class="dropdown-menu">
-                                                <a class="btn btn-primary btn-block" href="{{route('socios.edit',['maticula'=>$aeronave->matricula])}}">Editar</a>
+                                                <a class="btn btn-primary btn-block" href="{{route('aeronaves.edit',['maticula'=>$aeronave->matricula])}}">Editar</a>
                                                 <div class="dropdown-divider"></div>
 
-                                                <form action="{{route('socios.destroy',['maticula'=>$aeronave->matricula])}}" method="post">
+                                                <form action="{{route('aeronaves.destroy',['maticula'=>$aeronave->matricula])}}" method="post">
                                                 @csrf
                                                 @method('DELETE')
 
