@@ -13,8 +13,8 @@ US10 - &#10004;\
 US11 - &#10004;\
 US12 - &#10004; Sem Teste\
 US13 - &#10006; Grafico &#10140; Fica para o fim\
-US14 - &#10004; &#10140; Sem Teste\
-US15 - &#10004; &#10140; Sem Teste\
+US14 - &#10006; &#10140; Erro nos Testes\
+US15 - &#10006; &#10140; Erro nos Testes\
 US16 - &#10006;\
 US17 - &#10006;\
 US18 - &#10006;\
