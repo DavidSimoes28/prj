@@ -11,7 +11,7 @@ class UserPolicy
 
     public function before($user, $ability)
     {
-        return $user->isAdmin();
+        if ( $user->isAdmin() ) return true;
     }
 
     public function view(User $user, user $model)

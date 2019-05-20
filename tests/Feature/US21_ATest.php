@@ -85,7 +85,7 @@ class US21_ATest extends USTestBase
     public function testValidacaoMatricula()
     {
         // Update
-        /*$newdata = ["matricula" => null];
+        $newdata = ["matricula" => null];
         $requestData = array_merge($this->getRequestArrayFromAeronave($this->aeronave), $newdata);
         $this->actingAs($this->userToSimulate)->put($this->urlPut, $requestData)
             ->assertInvalid('matricula', 'Update Aeronaves: aceita valores vazios');
@@ -95,7 +95,7 @@ class US21_ATest extends USTestBase
         $requestData = array_merge($this->getRequestArrayFromAeronave($this->aeronave), $newdata);
         $this->actingAs($this->userToSimulate)->put($this->urlPut, $requestData)
             ->assertInvalid('matricula', 'Update Aeronaves: Matricula aceita valores com mais de 8 caracteres');
-        $this->assertDatabaseMissing('aeronaves', $newdata);    */    
+        $this->assertDatabaseMissing('aeronaves', $newdata);        
 
         // Create
         $newdata = ["matricula" => null];
