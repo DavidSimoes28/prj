@@ -31,7 +31,7 @@ class AeronavesController extends Controller
 
     public function store (StoreAeronaveRequest $request){ 
         $this->authorize('create',Aeronave::class);
-               
+
         $aeronave = new Aeronave();
         $aeronave->fill($request->all());
         $aeronave->save();
@@ -46,21 +46,34 @@ class AeronavesController extends Controller
     }    
 
     public function update(UpdateAeronaveRequest $request, Aeronave $aeronave){
-        //dd ($request);
+        
         $this->authorize('update',$aeronave);
-        $matricula = $aeronave->matricula;
 
-        $aeronave->fill($request->all());
+        $validated = $request->all();
+        unset($validated['matricula']);
 
-        $aeronave->matricula = $matricula;
-
+        $aeronave->fill( $validated );
+        
         $aeronave->save();
         return redirect()->route('aeronaves')->with("success","Aeronave editada com sucesso.");
     }
 
     public function destroy(Aeronave $aeronave){
         $this->authorize('delete',$aeronave);
+
+        dd ( Aeronave::where('matricula', $aeronave->matricula)->with('aeronave_movimentos')->first() );
+
+
+        if ( $aeronave->with('movimentos')->get()->count ) {
+            $aeronave->forceDelete();
+        }
+
         $aeronave->delete();
+
+       
+        
         return redirect()->route('aeronaves')->with("success","Aeronave apagada com sucesso.");
     }
+
+
 }
