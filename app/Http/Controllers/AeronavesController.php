@@ -21,14 +21,13 @@ class AeronavesController extends Controller
 
     public function create()
     {
-        //$this->authorize('create',Aeronave::class);           //DAVIDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
+        $this->authorize('create',Aeronave::class);
         $aeronave = new Aeronave();
         return view('aeronaves.addAeronave',compact('aeronave'));
+        
     }
 
-    public function store(StoreAeronaveRequest $request){
-        //$this->authorize('create',Aeronave::class);           //DAVIDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
-        
+    public function store (StoreAeronaveRequest $request){        
         $aeronave = new Aeronave();
         $aeronave->fill($request->all());
         $aeronave->save();

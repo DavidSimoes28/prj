@@ -9,7 +9,7 @@
                 <div class="card-header"><h3 class="text-center">{{ __('Adicionar Aeronave') }}<h3></div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{route('aeronaves.store',['maticula'=>$aeronave->marca])}}">
+                    <form method="POST" action="{{route('aeronaves.store')}}">
                         @csrf
 
                         <div class="form-group row">
