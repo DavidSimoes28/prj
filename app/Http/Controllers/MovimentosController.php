@@ -144,4 +144,10 @@ class MovimentosController extends Controller
 
     }
 
+    public function create(){
+        $this->authorize('create',Movimento::class);
+        $movimentos = new Movimento();
+        return view('movimentos.addMovimentos',compact('movimentos'));
+    }
+
 }
