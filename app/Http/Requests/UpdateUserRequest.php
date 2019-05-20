@@ -25,6 +25,8 @@ class UpdateUserRequest extends FormRequest
     public function rules()
     {
         $user = $this->route('user');
+        $tipos = array('ALUNO-PPL(A)','ALUNO-PU','ATPL','CPL(A)','NEWTYPE','PPL(A)','PU');
+        $classes  = array('Class 1','Class 2','LAPL','NEWCLS');
         return [
             'name' => ['max:255','regex:/^[a-zA-ZçÇáÁéÉíÍóÓúÚàÀèÈìÌòÒùÙãÃõÕâÂêÊîÎôÔûÛ ]+$/'],
             'email' => ['string', 'max:255', 'email', Rule::unique('users')->ignore($user->id)],
@@ -43,7 +45,14 @@ class UpdateUserRequest extends FormRequest
             'validade_licenca' => 'date|nullable',
             'ativo' => 'nullable|in:0,1',
             'quota_paga' => 'nullable|in:0,1',
-            'direcao' => 'nullable|in:0,1'
+            'direcao' => 'nullable|in:0,1',
+            'tipo_licenca' => 'nullable|in:' . implode(',', $tipos),
+            'classe_certificado' => 'nullable|in:'. implode(',', $classes)
         ];
     }
 }
+//'in:ALUNO-PPL(A),ALUNO-PU,ATPL,CPL(A),NEWTYPE,PPL(A),PU'
+//in:Class 1,Class 2,LAPL,NEWCLS
+
+//'tipo_licenca' => ['nullable',Rule::in($tipos)],
+//'classe_certificado' => ['nullable',Rule::in($tipos)]
