@@ -11,7 +11,7 @@ class AeronavePolicy
 
     public function before($user, $ability)
     {
-            return $user->isAdmin();
+        return $user->isAdmin();
     }
 
     public function view(User $user, user $model)
