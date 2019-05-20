@@ -61,14 +61,9 @@ class AeronavesController extends Controller
     public function destroy(Aeronave $aeronave){
         $this->authorize('delete',$aeronave);
 
-        dd ( Aeronave::where('matricula', $aeronave->matricula)->with('aeronave_movimentos')->first() );
 
-
-        if ( $aeronave->with('movimentos')->get()->count ) {
-            $aeronave->forceDelete();
-        }
-
-        $aeronave->delete();
+        if ( !$aeronave->aeronave_movimentos->count() ) $aeronave->forceDelete();
+        else $aeronave->delete();
 
        
         
