@@ -184,9 +184,9 @@
                                                     @method('patch')
 
                                                     @if($user->isAtivo())
-                                                        <input type="submit" class="btn btn-dark btn-block" name = "ativo" value="Desativar">
+                                                        <input type="submit" class="btn btn-dark btn-block" name="ativo" value="Desativar">
                                                     @else
-                                                        <input type="submit" class="btn btn-dark btn-block" name = "ativo" value="Ativar">
+                                                        <input type="submit" class="btn btn-dark btn-block" name="ativo" value="Ativar">
                                                     @endif
                                                 </form>
 
@@ -196,9 +196,9 @@
                                                     @method('patch')
                                                     
                                                     @if($user->isQuotaPaga())
-                                                        <input type="submit" class="btn btn-dark btn-block" name = "quota_paga" value="Sócio não pagou">
+                                                        <input type="submit" class="btn btn-dark btn-block" name="quota_paga" value="Sócio não pagou">
                                                     @else
-                                                        <input type="submit" class="btn btn-dark btn-block" name = "quota_paga" value="Sócio já pagou">
+                                                        <input type="submit" class="btn btn-dark btn-block" name="quota_paga" value="Sócio já pagou">
                                                     @endif
                                                 </form>
                                             </div>
