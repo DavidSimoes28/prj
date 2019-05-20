@@ -29,7 +29,9 @@ class AeronavesController extends Controller
         
     }
 
-    public function store (StoreAeronaveRequest $request){        
+    public function store (StoreAeronaveRequest $request){ 
+        $this->authorize('create',Aeronave::class);
+               
         $aeronave = new Aeronave();
         $aeronave->fill($request->all());
         $aeronave->save();
