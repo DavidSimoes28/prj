@@ -85,7 +85,19 @@
 <br>
 </div>
 </div>
+@if(Auth::user()->isAdmin())
+    <form method="post" action="{{route('socios.reset_quotas')}}">
+        @csrf
+        @method('patch')
+        <input type="submit" class="btn btn-dark btn-block" value="Reset nas Quotas">
+    </form>
 
+    <form method="post" action="{{route('socios.desativar_sem_quotas')}}">
+        @csrf
+        @method('patch')
+        <input type="submit" class="btn btn-dark btn-block" value="Desativar sem quotas pagas">
+    </form>
+@endif
 
 <div class="container">
     <div class="row justify-content-center">
@@ -172,9 +184,9 @@
                                                     @method('patch')
 
                                                     @if($user->isAtivo())
-                                                        <input type="submit" class="btn btn-dark btn-block" name = "ativo" value="Desativar">
+                                                        <input type="submit" class="btn btn-dark btn-block" name="ativo" value="Desativar">
                                                     @else
-                                                        <input type="submit" class="btn btn-dark btn-block" name = "ativo" value="Ativar">
+                                                        <input type="submit" class="btn btn-dark btn-block" name="ativo" value="Ativar">
                                                     @endif
                                                 </form>
 
@@ -184,9 +196,9 @@
                                                     @method('patch')
                                                     
                                                     @if($user->isQuotaPaga())
-                                                        <input type="submit" class="btn btn-dark btn-block" name = "quota_paga" value="Sócio não pagou">
+                                                        <input type="submit" class="btn btn-dark btn-block" name="quota_paga" value="Sócio não pagou">
                                                     @else
-                                                        <input type="submit" class="btn btn-dark btn-block" name = "quota_paga" value="Sócio já pagou">
+                                                        <input type="submit" class="btn btn-dark btn-block" name="quota_paga" value="Sócio já pagou">
                                                     @endif
                                                 </form>
                                             </div>

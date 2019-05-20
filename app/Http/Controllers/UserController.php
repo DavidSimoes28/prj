@@ -13,6 +13,7 @@ use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\PasswordUserRequest;
 use Illuminate\Support\Arr;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -178,11 +179,29 @@ class UserController extends Controller
     }
 
     public function definirQuotas(User $user){
+        $this->authorize('before',$user);
         $user->update(['quota_paga' => !$user->quota_paga]);
         return redirect()->route('socios');
     }
     public function definirAtivo(User $user){
+        $this->authorize('before',$user);
         $user->update(['ativo' => !$user->ativo]);
+        return redirect()->route('socios');
+    }
+
+    public function reset_quotas(){
+        if(Auth::user()->isAdmin()){
+            DB::table('users')->update(['quota_paga' => 0]);
+            //User::get()->update(['quota_paga' => 0]);
+            return redirect()->route('socios');
+        }
+        return redirect()->route('socios');
+    }
+    public function desativar_sem_quotas(){
+        if(Auth::user()->isAdmin()){
+            User::where('quota_paga',false)->update(['ativo' => 0]);
+            return redirect()->route('socios');
+        }
         return redirect()->route('socios');
     }
 }
