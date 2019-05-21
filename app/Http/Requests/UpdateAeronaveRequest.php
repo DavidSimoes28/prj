@@ -28,7 +28,7 @@ class UpdateAeronaveRequest extends FormRequest
         $aeronave = $this->route('aeronave');
 
         return [
-            'matricula' => ['required', 'string', 'min:1', 'max:8', 'unique:aeronaves'], //,matricula,'.$aeronave->matricula],     //Rule::unique('aeronaves')->ignore($aeronave->matricula)],           
+            //'matricula' => ['required', 'string', 'min:1', 'max:8', 'unique:aeronaves'], //,matricula,'.$aeronave->matricula],     //Rule::unique('aeronaves')->ignore($aeronave->matricula)],           
             'matricula' => 'required|string|min:1|max:8|unique:aeronaves,matricula,'.$aeronave->matricula.',' . $aeronave->getKeyName(),
             'marca' => 'required|string|min:1|max:40',
             'modelo' => 'required|min:1|max:40',

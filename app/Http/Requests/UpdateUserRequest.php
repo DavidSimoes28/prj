@@ -28,7 +28,7 @@ class UpdateUserRequest extends FormRequest
         $tipos = array('ALUNO-PPL(A)','ALUNO-PU','ATPL','CPL(A)','NEWTYPE','PPL(A)','PU');
         $classes  = array('Class 1','Class 2','LAPL','NEWCLS');
         return [
-            'num_socio' => 'required|integer|unique:users|min:1|max:99999999999',
+            'num_socio' => 'required|integer|min:1|max:99999999999|'. Rule::unique('users')->ignore($user->id),
             'name' => ['max:255','regex:/^[a-zA-ZçÇáÁéÉíÍóÓúÚàÀèÈìÌòÒùÙãÃõÕâÂêÊîÎôÔûÛ ]+$/'],
             'email' => ['string', 'max:255', 'email', Rule::unique('users')->ignore($user->id)],
             'nome_informal' => 'string|max:40',
