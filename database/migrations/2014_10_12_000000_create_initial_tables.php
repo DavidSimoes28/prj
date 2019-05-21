@@ -75,6 +75,7 @@ class CreateInitialTables extends Migration
 
         Schema::create('aeronaves', function (Blueprint $table) {
             $table->string('matricula', 8)->primary();
+            //$table->foreign('matricula')->references('aeronave')->on('movimentos')->onUpdate('cascade');
             $table->string('marca', 40);
             $table->string('modelo', 40);
             $table->integer('num_lugares');
@@ -112,6 +113,7 @@ class CreateInitialTables extends Migration
             $table->datetime('hora_descolagem');
             $table->datetime('hora_aterragem');
             $table->string('aeronave', 8);
+            //$table->foreign('aeronave')->references('matricula')->on('aeronaves')->onUpdate('cascade');
             $table->foreign('aeronave')->references('matricula')->on('aeronaves');
             $table->integer('num_diario');
             $table->integer('num_servico');
