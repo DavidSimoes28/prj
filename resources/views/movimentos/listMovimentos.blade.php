@@ -131,6 +131,7 @@
             <th>Instrutor</th>
             <th>Confirmado</th>
             <!--<th>Observações</th>-->
+            <th>Mais Informações</th>
         </tr>
     </thead>
     <tbody>
@@ -157,6 +158,128 @@
                 <td>{{ $movimento->instrutores->nome_informal ?? ""}}</td>
                 <td>{{ $movimento->instrucaoConfirmadaToStr() }}</td>
                 <!--<td>{{ $movimento->observacoes }}</td>-->
+                <td>
+                
+                <a href="#detalhes" class="dropdown-item" data-toggle="modal" data-target="#detalhes">
+                {{ __('Mais Informações') }}
+                </a>
+
+
+                <li>
+                </li>
+
+                <!--
+                -->
+                
+
+                <div class="modal" id="detalhes">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="list-group">
+                                    <div class="d-flex w-100 justify-content-between">
+
+                                        <div class="container">
+                                            <div class="row justify-content-center">
+                                                <table class="table table-striped">
+                                                    <thead>
+                                                    <tr><h4>Detalhes do Movimento - {{ $movimento->id }}</h4></tr>                                                                          
+                                                    </thead>
+                                                    <div class="card-body">
+                                                    
+                                                        <tr>
+                                                            <td><span class="input-group-text">Aeronave {{ $movimento->aeronave }}</span></td>
+                                                            <td><span class="input-group-text">Natureza {{ $movimento->naturezaToStr() }}</span></td>
+                                                            <td><span class="input-group-text">Duração {{ $movimento->tempo_voo }} h</span></td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td><span class="input-group-text">Data de voo: {{ $movimento->data }}</span></td>
+                                                            <td><span class="input-group-text">Hora de partida: {{ $movimento->hora_descolagem }}</span></td>
+                                                            <td><span class="input-group-text">Hora de aterragem: {{ $movimento->hora_aterragem }}</span></td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td><span class="input-group-text">Aeronave: {{ $movimento->pilotos->nome_informal }}</span></td>
+                                                            <td><span class="input-group-text">Data do voo: {{ $movimento->aerodromo_partida }}</span></td>
+                                                            <td><span class="input-group-text">Hora de partida: {{ $movimento->aerodromo_chegada }}</span></td>
+                                                        </tr>
+                                                    </div>
+
+                                                </table>
+                    
+                                            </div>
+                                
+                                        </div>
+                                    </div>
+                                </div>                            
+                            </div>
+                            <div class="modal-footer">
+                                <div class = "btn-group">
+                                    <a class="btn btn-xs btn-primary" href="{{ route('socios.edit', ['id'=> Auth::user()->id]) }}">{{ __('Alterar Perfil') }}</a>
+                                    <a class="btn btn-xs btn-dark" href="{{ route('password.showPass', ['id'=> Auth::user()->id]) }}">{{ __('Alterar Password') }}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!--
+                -->
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                </td>
             </tr>
         @endforeach
     </table>
