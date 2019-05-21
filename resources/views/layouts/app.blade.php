@@ -140,40 +140,53 @@
                                                                         @if(Auth::user()->isPiloto())
                                                                         <table class="table table-striped">
                                                                         <thead>
-                                                                            <tr><h4 class="d-inline">Licença -</h4><h5 class="d-inline">
-                                                                                @if(Storage::exists(storage_path('app/docs_piloto/' . 'licenca_' . Auth::user()->id . '.pdf')))
-                                                                                <a href="{{ route('pilotos.licenca',['id'=>Auth::user()->id]) }}" title="Licenca" target="_blank"> Cópia Digital</a>
-                                                                                @else
-                                                                                Não possui Cópia Digital
-                                                                                @endif</h5><h1 ></tr>                                                                          
+                                                                            <tr>                                                                                
+                                                                                <td style="width: 35%"><h4>Licença</h4></td>
+                                                                                <td style="width: 40%">
+                                                                                    <h5 class="d-inline">
+                                                                                    @if(Storage::exists(storage_path('app/docs_piloto/' . 'licenca_' . Auth::user()->id . '.pdf')))
+                                                                                    <a href="{{ route('pilotos.licenca',['id'=>Auth::user()->id]) }}" title="Licenca" target="_blank"> Cópia Digital</a>
+                                                                                    @else
+                                                                                    Não possui Cópia Digital
+                                                                                    @endif
+                                                                                    </h5>
+                                                                                </td>
+                                                                                <td>{{ Auth::user()->licencaConfirmardaToStr() }}</td>
+                                                                            </tr>                                                                       
                                                                         </thead>
                                                                         <tbody>
                                                                             <tr>
                                                                                 <td>Nº Licença: {{ Auth::user()->num_licenca }}</td>
                                                                                 <td>Tipo de Licença: {{ Auth::user()->tipo_licenca }}</td>
-                                                                                <td>Instrutor: {{ Auth::user()->instrutor }}</td>
                                                                                 <td>Válida até {{ Auth::user()->validade_licenca }}</td> 
                                                                             </tr>
                                                                             <tr>
-                                                                                <td colspan="2">Licença Confirmada: {{ Auth::user()->licenca_confirmada }}</td>
+                                                                            <td>Instrutor: {{ Auth::user()->instrutor }}</td>
                                                                             </tr>
                                                                         </table>
 
                                                                         <table class="table table-striped">
                                                                         <thead>
-                                                                            <tr><h4 class="d-inline">Certificado -</h4><h5 class="d-inline">
-                                                                                @if(Storage::exists(storage_path('app/docs_piloto/' . 'certificado_' . Auth::user()->id . '.pdf')))
-                                                                                <a href="{{ route('pilotos.certificado',['id'=>Auth::user()->id]) }}" title="Certificado" target="_blank"> Cópia Digital</a>
-                                                                                @else
-                                                                                Não possui Cópia Digital </td>
-                                                                                @endif</h5></tr>                                                                          
+                                                                            <tr>
+                                                                                <td style="width: 35%"><h4 class="d-inline">Certificado</h4></td>
+                                                                                <td style="width: 40%">
+                                                                                    <h5 class="d-inline">
+                                                                                    @if(Storage::exists(storage_path('app/docs_piloto/' . 'certificado_' . Auth::user()->id . '.pdf')))
+                                                                                    <a href="{{ route('pilotos.certificado',['id'=>Auth::user()->id]) }}" title="Certificado" target="_blank"> Cópia Digital</a>
+                                                                                    @else
+                                                                                    Não possui Cópia Digital
+                                                                                    @endif
+                                                                                    </h5>
+                                                                                </td>
+                                                                                <td>{{ Auth::user()->certificadoConfirmardoToStr() }}</td>
+                                                                            </tr>                                                                          
                                                                         </thead>
                                                                         <tbody>
                                                                             <tr>
                                                                                 <td>Nº Certificado: {{ Auth::user()->num_certificado }}</td>
                                                                                 <td>Classe: {{ Auth::user()->classe_certificado }}</td>
                                                                                 <td>Válido até {{ Auth::user()->validade_certificado }}</td>
-                                                                                <td>Confirmado: {{ Auth::user()->certificado_confirmado }}</td> 
+                                                                                
                                                                             </tr>
                                                                         </table>
                                                                         @endif

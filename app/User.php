@@ -124,6 +124,31 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->tipo_socio=="P";
     }
 
+    public function certificadoConfirmardoToStr()
+    {
+        switch ($this->certificado_confirmado) {
+            case "1":
+                return 'Confirmado';
+            case "0":
+                return 'Não confirmado';
+        }
+        return 'Unknown';
+    }
+
+    public function licencaConfirmardaToStr()
+    {
+        switch ($this->licenca_confirmada) {
+            case "1":
+                return 'Confirmada';
+            case "0":
+                return 'Não confirmada';
+        }
+        return 'Unknown';
+    }
+
+    
+
+
     public function isAtivo(){
         return $this->ativo==1;
     }
