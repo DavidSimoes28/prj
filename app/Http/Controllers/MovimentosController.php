@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Movimento;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\StoreMovimentoRequest;
 
 class MovimentosController extends Controller
 {
@@ -148,6 +149,68 @@ class MovimentosController extends Controller
         $this->authorize('create',Movimento::class);
         $movimentos = new Movimento();
         return view('movimentos.addMovimentos',compact('movimentos'));
+    }
+
+    public function store (StoreMovimentoRequest $request){ 
+        
+        $this->authorize('create', Movimento::class);
+
+        $movimento = new Movimento();
+        $movimento->fill($request->all());
+        dd($movimento);
+
+        //'aeronave', falta verificar que existe
+        
+        //'confirmado', meter a 0 
+        
+        //'piloto_id', falta converter o próprio para o seu piloto id
+        //'num_licenca_piloto',
+        //'validade_licenca_piloto',
+        //'tipo_licenca_piloto',
+        //'num_certificado_piloto',
+        //'validade_certificado_piloto',
+        //'classe_certificado_piloto',
+        
+        //'tempo_voo', calculado
+        //'preco_voo', calculado
+         
+        //'instrutor_id', falta converter o nome informal para id
+        //'num_licenca_instrutor',
+        //'validade_licenca_instrutor',
+        //'tipo_licenca_instrutor',	
+        //'num_certificado_instrutor'	,
+        //'validade_certificado_instrutor',
+        //'classe_certificado_instrutor'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        $movimento->save();
+        return redirect()->route('movimentos')->with("success","Movimento inserido com sucesso.");
     }
 
 }
