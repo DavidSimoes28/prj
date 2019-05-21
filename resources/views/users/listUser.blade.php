@@ -85,19 +85,6 @@
 <br>
 </div>
 </div>
-@if(Auth::user()->isAdmin())
-    <form method="post" action="{{route('socios.reset_quotas')}}">
-        @csrf
-        @method('patch')
-        <input type="submit" class="btn btn-dark btn-block" value="Reset nas Quotas">
-    </form>
-
-    <form method="post" action="{{route('socios.desativar_sem_quotas')}}">
-        @csrf
-        @method('patch')
-        <input type="submit" class="btn btn-dark btn-block" value="Desativar sem quotas pagas">
-    </form>
-@endif
 
 <div class="container">
     <div class="row justify-content-center">
@@ -105,9 +92,34 @@
             <div class="card">
                 <div class="card-header"><h4>Lista de Sócios&nbsp;&nbsp;&nbsp;&nbsp;
                     @if(Auth::user()->isAdmin())
-                    <a class="btn btn-success btn-lg" data-toggle="tooltip" title="Adicionar sócio" href="{{ route('socios.create') }}">{{ __(' + ') }}</a>
-                    @endif
+                    <div class="btn-group dropright">
+                    <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                    data-toggle="tooltip">
+                        {{ __('Opções direção') }}
+                    </button>
+                    
+                    <div class="dropdown-menu">
+                        <a class="btn btn-success btn-block" data-toggle="tooltip" title="Adicionar sócio" href="{{ route('socios.create') }}">{{ __('Adicionar sócio') }}</a>
+                        <div class="dropdown-divider"></div>
+                        
+                        <form method="post" action="{{route('socios.reset_quotas')}}">
+                        @csrf
+                        @method('patch')
+                        <input type="submit" class="btn btn-primary btn-block" value="Todas as Quotas por pagar">
+                        </form>
+
+                        <div class="dropdown-divider"></div>
+
+                        <form method="post" action="{{route('socios.desativar_sem_quotas')}}">
+                        @csrf
+                        @method('patch')
+                        <input type="submit" class="btn btn-secundary btn-block" value="Desativar sem quotas pagas">
+                        </form>
+                           
+                    </div>
                     </h4>
+                    @endif
+                    
                 </div>
                 
                 </h3><div class="card-body">
