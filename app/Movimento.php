@@ -67,6 +67,10 @@ class Movimento extends Authenticatable
         return $this->belongsTo('App\User','instrutor_id','id')->withTrashed();
     }
 
+    public function aeronave_movimentos(){
+        return $this->belongsTo('App\Models\Aeronave','aeronave','matricula');
+    }
+
     public function instrucaoConfirmadaToStr()
     {
         switch ($this->confirmado) {
@@ -105,8 +109,15 @@ class Movimento extends Authenticatable
         return 'Unknown';
     }
 
-    public function aeronave_movimentos(){
-        return $this->belongsTo('App\Aeronave','aeronave','matricula');
+    public function horaDePartida()
+    {
+        return date("H:i", strtotime($this->hora_aterragem));
     }
 
+    public function horaDeChegada()
+    {  
+        return date("H:i", strtotime($this->hora_aterragem));
+    }
+
+    
 }

@@ -160,19 +160,15 @@
                 <!--<td>{{ $movimento->observacoes }}</td>-->
                 <td>
                 
-                <a href="#detalhes" class="dropdown-item" data-toggle="modal" data-target="#detalhes">
+                <a href="#detalhes-{{ $movimento->id }}" class="dropdown-item" data-toggle="modal" data-target="#detalhes-{{ $movimento->id }}">
                 {{ __('Mais Informações') }}
                 </a>
-
-
-                <li>
-                </li>
 
                 <!--
                 -->
                 
 
-                <div class="modal" id="detalhes">
+                <div class="modal" id="detalhes-{{ $movimento->id }}">
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -191,21 +187,21 @@
                                                     <div class="card-body">
                                                     
                                                         <tr>
-                                                            <td><span class="input-group-text">Aeronave {{ $movimento->aeronave }}</span></td>
-                                                            <td><span class="input-group-text">Natureza {{ $movimento->naturezaToStr() }}</span></td>
-                                                            <td><span class="input-group-text">Duração {{ $movimento->tempo_voo }} h</span></td>
+                                                            <td><span class="input-group-text">Aeronave: {{ $movimento->aeronave }}</span></td>
+                                                            <td><span class="input-group-text">Natureza: {{ $movimento->naturezaToStr() }}</span></td>
+                                                            <td><span class="input-group-text">Duração de {{ $movimento->tempo_voo }} h</span></td>
                                                         </tr>
 
                                                         <tr>
-                                                            <td><span class="input-group-text">Data de voo: {{ $movimento->data }}</span></td>
-                                                            <td><span class="input-group-text">Hora de partida: {{ $movimento->hora_descolagem }}</span></td>
-                                                            <td><span class="input-group-text">Hora de aterragem: {{ $movimento->hora_aterragem }}</span></td>
+                                                            <td><span class="input-group-text">Data do voo: {{ $movimento->data }}</span></td>
+                                                            <td><span class="input-group-text">Hora de partida: {{ $movimento->horaDePartida() }}</span></td>
+                                                            <td><span class="input-group-text">Hora de aterragem: {{ $movimento->horaDeChegada() }}</span></td>
                                                         </tr>
 
                                                         <tr>
-                                                            <td><span class="input-group-text">Aeronave: {{ $movimento->pilotos->nome_informal }}</span></td>
-                                                            <td><span class="input-group-text">Data do voo: {{ $movimento->aerodromo_partida }}</span></td>
-                                                            <td><span class="input-group-text">Hora de partida: {{ $movimento->aerodromo_chegada }}</span></td>
+                                                            <td><span class="input-group-text">Piloto: {{ $movimento->pilotos->nome_informal }}</span></td>
+                                                            <td><span class="input-group-text">Partida: {{ $movimento->aerodromo_partida }}</span></td>
+                                                            <td><span class="input-group-text">Chegada: {{ $movimento->aerodromo_chegada }}</span></td>
                                                         </tr>
                                                     </div>
 
