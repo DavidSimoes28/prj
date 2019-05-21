@@ -133,18 +133,18 @@
                         <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>Foto</th>
-                                <th>Nº Sócio</th>
-                                <th>Nome Informal</th>
+                                <th style="width: 10%">Foto</th>
+                                <th style="width: 4%">Nº Sócio</th>
+                                <th style="width: 6%">Nome Informal</th>
                                 <th>Email</th>
-                                <th>Telefone</th>
-                                <th>Nº Licença</th>
-                                <th>Tipo de Sócio</th>
-                                <th>Direção</th>
+                                <th style="width: 7%">Telefone</th>
+                                <th style="width: 6%">Nº Licença</th>
+                                <th style="width: 6%">Tipo de Sócio</th>
+                                <th style="width: 6%">Direção</th>
                                 @if(Auth::user()->isAdmin())
-                                    <th>Ativo</th>
-                                    <th>Quota</th>
-                                    <th>Ações</th>
+                                    <th style="width: 6%">Ativo</th>
+                                    <th style="width: 6%">Quota</th>
+                                    <th style="width: 6%">Ações</th>
                                 @endif
                             </tr>
                         </thead>
