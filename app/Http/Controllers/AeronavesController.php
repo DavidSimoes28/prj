@@ -18,7 +18,6 @@ class AeronavesController extends Controller
     {   
         $aeronaves = Aeronave::whereNull('deleted_at')->get();//->paginate(14);
         return view('aeronaves.listAeronave', compact('aeronaves'));
-
     }
 
     public function create()
@@ -68,6 +67,4 @@ class AeronavesController extends Controller
         
         return redirect()->route('aeronaves')->with("success","Aeronave apagada com sucesso.");
     }
-
-
 }

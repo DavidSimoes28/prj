@@ -16,9 +16,48 @@ class Movimento extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'id','aeronave','data','hora_descolagem','hora_aterragem','natureza','piloto_id','aerodrome_partida','aerodromo_chegada','num_aterragens','num_descolagens',
-        'num_diario','num_servico','conta_horas_inicio','conta_horas_fim','num_pessoas','tipo_instrucao','instrutor_id','confirmado','observacoes'
-    ];
+        'id',
+        'aeronave',
+        'data',
+        'hora_descolagem',
+        'hora_aterragem',
+        'natureza',
+        'piloto_id',
+        'aerodromo_partida',
+        'aerodromo_chegada',
+        'num_aterragens',
+        'num_descolagens',
+        'num_diario',
+        'num_servico',
+        'conta_horas_inicio',
+        'conta_horas_fim',
+        'num_pessoas',
+        'tipo_instrucao',
+        'instrutor_id',
+        'confirmado',
+        'observacoes',
+        'num_licenca_piloto',
+        'validade_licenca_piloto',
+        'tipo_licenca_piloto',
+        'num_certificado_piloto',
+        'validade_certificado_piloto',
+        'classe_certificado_piloto',
+        'tempo_voo',
+        'preco_voo',
+        'modo_pagamento',
+        'num_recibo',		
+        'num_licenca_instrutor',
+        'validade_licenca_instrutor',
+        'tipo_licenca_instrutor',	
+        'num_certificado_instrutor'	,
+        'validade_certificado_instrutor',
+        'classe_certificado_instrutor'
+    ];		
+
+
+
+
+
     
     public function pilotos(){
         return $this->belongsTo('App\User','piloto_id','id')->withTrashed();
