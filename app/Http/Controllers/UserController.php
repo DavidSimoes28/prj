@@ -71,13 +71,13 @@ class UserController extends Controller
     }
 
     public function create(){
-        $this->authorize('create',User::class);
+        $this->authorize('create', User::class);
         $user = new User();
         return view('users.addUser',compact('user'));
     }
 
     public function store(StoreUserRequest $request){
-        $this->authorize('create',User::class);
+        $this->authorize('create', User::class);
         $user = new User();
         $user->fill($request->all());
         $user->password=Hash::make($user->data_nascimento);

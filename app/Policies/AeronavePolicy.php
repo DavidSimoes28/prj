@@ -3,6 +3,7 @@
 namespace App\Policies;
 
 use App\User;
+use App\Aeronave;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class AeronavePolicy
@@ -12,25 +13,29 @@ class AeronavePolicy
     public function before($user, $ability)
     {
         if ( $user->isAdmin() ) return true;
+
     }
 
-    public function view(User $user, user $model)
+    public function view(User $user, Aeronave $aeronave)
     {
         return true;
     }
 
+    
     public function create(User $user)
     {
         return false;
     }
 
-    public function update(User $user, user $model)
+   
+    public function update(User $user, Aeronave $aeronave)
     {
         return false;
     }
 
-    public function delete(User $user, user $model)
+    public function delete(User $user, Aeronave $aeronave)
     {
         return false;
     }
+    
 }

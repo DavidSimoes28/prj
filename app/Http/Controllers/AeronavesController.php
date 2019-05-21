@@ -15,14 +15,15 @@ class AeronavesController extends Controller
     }
     
     public function index()
-    {
+    {   
         $aeronaves = Aeronave::whereNull('deleted_at')->get();//->paginate(14);
         return view('aeronaves.listAeronave', compact('aeronaves'));
+
     }
 
     public function create()
     {
-        $this->authorize('create',Aeronave::class);
+        $this->authorize('create', Aeronave::class);
 
         $aeronave = new Aeronave();
         return view('aeronaves.addAeronave',compact('aeronave'));
@@ -30,7 +31,7 @@ class AeronavesController extends Controller
     }
 
     public function store (StoreAeronaveRequest $request){ 
-        $this->authorize('create',Aeronave::class);
+        $this->authorize('create', Aeronave::class);
 
         $aeronave = new Aeronave();
         $aeronave->fill($request->all());
@@ -40,14 +41,15 @@ class AeronavesController extends Controller
 
     public function edit(Aeronave $aeronave)
     {
-        $this->authorize('update',$aeronave);
+        $this->authorize('update', $aeronave);
+
         return view('aeronaves.editAeronave',compact('aeronave'));
                
     }    
 
     public function update(UpdateAeronaveRequest $request, Aeronave $aeronave){
         
-        $this->authorize('update',$aeronave);
+        $this->authorize('update', $aeronave);
 
         $validated = $request->all();
         unset($validated['matricula']);
@@ -59,7 +61,7 @@ class AeronavesController extends Controller
     }
 
     public function destroy(Aeronave $aeronave){
-        $this->authorize('delete',$aeronave);
+        $this->authorize('delete', $aeronave);
 
         if ( !$aeronave->aeronave_movimentos->count() ) $aeronave->forceDelete();
         else $aeronave->delete();     
