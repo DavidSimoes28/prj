@@ -96,12 +96,14 @@
                             </div>
                         </div>
 
+
+
                         <div class="form-group row">
                                 <label for ="piloto_id" class="col-md-4 col-form-label text-md-right">{{ __('ID Piloto') }}</label>
                                 <div class="col-sm-6">
                                     <select class="btn btn-xs btn-primary dropdown-toggle btn-block {{ $errors->has('piloto_id') ? ' is-invalid' : '' }}"  name="piloto_id" value="{{ strval(old('piloto_id',request()->piloto_id )) }}" >
-                                    <option value="P"   {{ strval(old('piloto_id' ,request()->piloto_id)) == "P"  ? "selected":"" }} >Participei</option>
-                                    <option value="N"   {{ strval(old('piloto_id' ,request()->piloto_id)) == "N"      ? "selected":"" }} >Não Participei</option>
+                                    <option value="P"   {{ strval(old('piloto_id' ,request()->piloto_id)) == "P"  ? "selected":"" }} >Piloto</option>
+                                    <option value="I"   {{ strval(old('piloto_id' ,request()->piloto_id)) == "I"      ? "selected":"" }} >Instrutor</option>
                                     </select> 
                                        
                                     @if ($errors->has('piloto_id'))
@@ -115,20 +117,50 @@
                         <div class="form-group row">
                             <label for ="natureza" class="col-md-4 col-form-label text-md-right">{{ __('Natureza do Voo') }}</label>
                             <div class="col-sm-6">
-                                <select class="btn btn-xs btn-primary dropdown-toggle btn-block {{ $errors->has('natureza') ? ' is-invalid' : '' }}"  name="natureza" value="{{ strval(old('natureza',request()->natureza )) }}" >
-                                <option value="T"   {{ strval(old('natureza' ,request()->natureza)) == "T"  ? "selected":"" }} >Treino</option>
-                                <option value="I"   {{ strval(old('natureza' ,request()->natureza)) == "I"      ? "selected":"" }} >Instrução</option>
-                                <option value="E"   {{ strval(old('natureza' ,request()->natureza)) == "E"      ? "selected":"" }} >Especial</option>
-                                </select> 
-                                   
-                                @if ($errors->has('natureza'))
-                                    <span class="invalid-feedback" role="alert">
-                                        {{ $errors->first('natureza') }}
-                                    </span>
-                                @endif   
-                                </div>                     
+                                
+                                <div class="btn-group dropdown btn-block">
+                                    <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split btn-block" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                    data-toggle="tooltip" title="Ações">
+                                        {{ __('Selecione a Natureza do Voo') }}
+                                    </button>
+                                    <div class="dropdown-menu btn-block">
+                                        <a class="btn btn-primary btn-block" data-toggle="collapse" href="#collapseExample1" role="button" aria-expanded="false" aria-controls="collapseExample">Treino</a>
+                                        <a class="btn btn-primary btn-block" data-toggle="collapse" href="#collapseExample2" role="button" aria-expanded="false" aria-controls="collapseExample">Instrução</a>
+                                        <a class="btn btn-primary btn-block" data-toggle="collapse" href="#collapseExample3" role="button" aria-expanded="false" aria-controls="collapseExample">Especial</a>   
+                                    </div>        
+                                </div>                                 
+                            </div>                     
                         </div>
-                       
+                      
+                        <div class="collapse" id="collapseExample1">
+                            <input type="text" value="T" hidden>
+                        </div>   
+
+                        <div class="collapse" id="collapseExample2">
+                            <div class="card card-body">                              
+                              <div class="form-group row">
+                                <label for ="tipo_instrucao" class="col-md-4 col-form-label text-md-right">{{ __('Tipo de Instrução') }}</label>
+                                <div class="col-sm-6">
+                                    <select class="btn btn-xs btn-primary dropdown-toggle btn-block {{ $errors->has('tipo_instrucao') ? ' is-invalid' : '' }}"  name="tipo_instrucao" value="{{ strval(old('tipo_instrucao',request()->tipo_instrucao )) }}" >
+                                    <option value="D"  {{ strval(old('tipo_instrucao' ,request()->tipo_instrucao)) == "D"  ? "selected":"" }} >Duplo Comando</option>
+                                    <option value="S"  {{ strval(old('tipo_instrucao' ,request()->tipo_instrucao)) == "S"      ? "selected":"" }} >Solo</option>
+                                    
+                                    </select> 
+                                        
+                                    @if ($errors->has('tipo_instrucao'))
+                                        <span class="invalid-feedback" role="alert">
+                                            {{ $errors->first('tipo_instrucao') }}
+                                        </span>
+                                    @endif   
+                                </div>                     
+                            </div>
+                            </div>
+                        </div>
+
+                        <div class="collapse" id="collapseExample3">
+                            
+                        </div>
+                        
 
                         <div class="form-group row">
                             <label for="aerodromo_partida" class="col-md-4 col-form-label text-md-right">{{ __('Aerodromo de Partida') }}</label>
@@ -259,7 +291,7 @@
                         <div class="form-group row">
                             <label for ="modo_pagamento" class="col-md-4 col-form-label text-md-right">{{ __('Modo Pagamento') }}</label>
                             <div class="col-sm-6">
-                                <select class="btn btn-xs btn-primary dropdown-toggle btn-block {{ $errors->has('modo_pagamento') ? ' is-invalid' : '' }}"  name="modo_pagamento" value="{{ strval(old('natureza',request()->natureza )) }}" >
+                                <select class="btn btn-xs btn-primary dropdown-toggle btn-block {{ $errors->has('modo_pagamento') ? ' is-invalid' : '' }}"  name="modo_pagamento" value="{{ strval(old('modo_pagamento',request()->modo_pagamento )) }}" >
                                 <option value="N"  {{ strval(old('modo_pagamento' ,request()->modo_pagamento)) == "N"  ? "selected":"" }} >Numerário</option>
                                 <option value="M"  {{ strval(old('modo_pagamento' ,request()->modo_pagamento)) == "M"      ? "selected":"" }} >Multibanco</option>
                                 <option value="T"  {{ strval(old('modo_pagamento' ,request()->modo_pagamento)) == "T"      ? "selected":"" }} >Tranferência</option>
