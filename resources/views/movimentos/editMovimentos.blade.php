@@ -166,7 +166,7 @@
                                     <label for="nome_informal" class="col-md-4 col-form-label text-md-right">{{ __('Nome do outro Piloto') }}</label>
             
                                     <div class="col-md-6">
-                                        <input id="nome_informal" type="text" class="form-control{{ $errors->has('nome_informal') ? ' is-invalid' : '' }}" name="nome_informal" value="{{ $movimento->nome_informal }}" >
+                                        <input id="nome_informal" type="text" class="form-control{{ $errors->has('nome_informal') ? ' is-invalid' : '' }}" name="nome_informal" value="{{ $->nome_informal }}" >
         
                                         @if ($errors->has('nome_informal'))
                                             <span class="invalid-feedback" role="alert">

@@ -31,7 +31,7 @@ class MovimentoPolicy
     {
 
         if ($movimento->pilotos->id==$user->id) return true;
-        if ($movimento->intrutores!=null && $movimento->instrutores->id==$user->id) return true;
+        if ($movimento->instrutores()->exists() && $movimento->instrutores->id==$user->id) return true;
         return false;
     }
 
