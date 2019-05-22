@@ -33,6 +33,50 @@ class MovimentosController extends Controller
         $movimentos = Movimento::with("pilotos","instrutores");
         $isPiloto = Auth::user()->tipo_socio == 'P';
 
+                //SE O UTILIZADOR LOGADO FOR UM PILOTO TEM O FILTROS EXTRAS
+        //VERIFICAR SE FOI INSERIDO ALGUM VALOR VALIDO
+
+        if ( $isPiloto ){
+
+            $voos_pessoais =  request()->voos_pessoais;
+
+            if (  $voos_pessoais != null && (  $voos_pessoais=="I" ||  $voos_pessoais=="P" || $voos_pessoais=="TODOS" ) ){
+
+                if ($voos_pessoais=="I"){
+                    $movimentos =  $movimentos->whereHas( 'instrutores',function ( $query ){
+
+                        $nome =  Auth::user()->nome_informal;
+                        $query->where( 'nome_informal', $nome );
+
+                    });
+                }
+                elseif ($voos_pessoais=="P"){
+                    $movimentos =  $movimentos->whereHas( 'pilotos', function ( $query ){
+
+                        $nome =  Auth::user()->nome_informal;
+                        $query->where( 'nome_informal', $nome );
+
+                    });
+                }
+                else{
+
+                    $movimentos_intrutor = $movimentos
+                    ->WhereHas( 'instrutores',function ( $query ){
+
+                        $nome =  Auth::user()->nome_informal;
+                        $query->where( 'nome_informal', $nome );
+
+                    })
+                    ->orWhereHas( 'pilotos', function ( $query ){
+
+                        $nome =  Auth::user()->nome_informal;
+                        $query->where( 'nome_informal', $nome );
+
+                    });                   
+                }
+            }
+        }
+
 
         // PROCURA NA DB OS PILOTOS QUE TÊM O NOME INFORMAL IGUAL AO INSERIDO NO FILTRO E QUE PARTICIPARAM EM MOVIMENTOS
         $piloto_filtro = request()->nome_informal_piloto;
@@ -89,49 +133,7 @@ class MovimentosController extends Controller
             
         });
     
-        //SE O UTILIZADOR LOGADO FOR UM PILOTO TEM O FILTROS EXTRAS
-        //VERIFICAR SE FOI INSERIDO ALGUM VALOR VALIDO
 
-        if ( $isPiloto ){
-
-            $voos_pessoais =  request()->voos_pessoais;
-
-            if (  $voos_pessoais != null && (  $voos_pessoais=="I" ||  $voos_pessoais=="P" || $voos_pessoais=="TODOS" ) ){
-
-                if ($voos_pessoais=="I"){
-                    $movimentos =  $movimentos->whereHas( 'instrutores',function ( $query ){
-
-                        $nome =  Auth::user()->nome_informal;
-                        $query->where( 'nome_informal', $nome );
-
-                    });
-                }
-                elseif ($voos_pessoais=="P"){
-                    $movimentos =  $movimentos->whereHas( 'pilotos', function ( $query ){
-
-                        $nome =  Auth::user()->nome_informal;
-                        $query->where( 'nome_informal', $nome );
-
-                    });
-                }
-                else{
-
-                    $movimentos_intrutor = $movimentos
-                    ->WhereHas( 'instrutores',function ( $query ){
-
-                        $nome =  Auth::user()->nome_informal;
-                        $query->where( 'nome_informal', $nome );
-
-                    })
-                    ->orWhereHas( 'pilotos', function ( $query ){
-
-                        $nome =  Auth::user()->nome_informal;
-                        $query->where( 'nome_informal', $nome );
-
-                    });                   
-                }
-            }
-        }
 
         $movimentos = $movimentos->orderBy('data','desc')->paginate(14)->appends(request()->query());
 
