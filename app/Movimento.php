@@ -111,12 +111,12 @@ class Movimento extends Authenticatable
 
     public function horaDePartida()
     {
-        return date("Y-m-d H:i", strtotime($this->hora_descolagem));
+        return date("H:i", strtotime($this->hora_descolagem));
     }
 
     public function horaDeChegada()
     {  
-        return date("Y-m-d H:i", strtotime($this->hora_aterragem));
+        return date("H:i", strtotime($this->hora_aterragem));
     }
 
     public function horasDeVoo()
