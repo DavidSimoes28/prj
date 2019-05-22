@@ -7,8 +7,8 @@
 @include("partials.errors")
 
 
-<form method="GET" action="{{ route('movimentos') }}" class="form-inline">
-
+<form method="GET" action="{{ route('movimentos') }}" >
+    <div class="form-inline">
     <div class="col-xs-2">
         <label for ="id"><strong>{{ __('ID do movimento') }}</strong></label>
         <input type="number" class="form-control" name="id" autofocus min="0" value="{{ strval(old('id',request()->id )) }}" autofocus>
@@ -29,6 +29,9 @@
         <input type="text" class="form-control" name="aeronave" value="{{ strval(old('aeronave',request()->aeronave )) }}">
     </div>
     &nbsp;&nbsp;&nbsp;
+    </div>
+    <br>
+    <div class="form-inline">
 
     <div class="col-xs-2">
         <label for ="data_inicio"><strong>{{ __('Data Inicial') }}</strong></label>
@@ -88,7 +91,7 @@
    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     
-  
+  </div>
 </form>
 
 <br>
