@@ -102,7 +102,7 @@
                     <div class="btn-group dropright">
                     <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                     data-toggle="tooltip">
-                        {{ __('Opções direção') }}
+                        {{ __('Opções de piloto') }}
                     </button>
                     
                     <div class="dropdown-menu">
