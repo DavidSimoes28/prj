@@ -125,16 +125,16 @@
                         <table class="table table-striped">
                         <thead>
                             <tr>
-                            <th style="width: 10%">ID</th>
-                            <th style="width: 10%">Aeronave</th>
-                            <th style="width: 15%">Data de voo</th>
-                            <th style="width: 10%">Natureza</th>
-                            <th style="width: 20%">Piloto</th>
-                            <th style="width: 15%">Aerodromo Partida</th>
-                            <th style="width: 15%">Aerodromo Chegada</th>
-                            <th style="width: 5%">Nº Serviço</th>
-                            <th style="width: 15%">Confirmação</th>
-                            <th style="width: 10%">Ações</th>
+                            <th style="width: 7%">ID</th>
+                            <th style="width: 7%">Aeronave</th>
+                            <th style="width: 11%">Data de voo</th>
+                            <th style="width: 8%">Natureza</th>
+                            <th>Piloto</th>
+                            <th style="width: 10%">Partida</th>
+                            <th style="width: 10%">Chegada</th>
+                            <th style="width: 9%">Nº Serviço</th>
+                            <th style="width: 12%">Confirmação</th>
+                            <th style="width: 8%">Ações</th>
                             </tr>
                         </thead>
                         
