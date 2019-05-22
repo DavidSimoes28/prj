@@ -113,7 +113,7 @@
             <th>ID</th>
             <th>Matrícula</th>
             <th>Data</th>
-            <th>Hora Deslocamento</th>
+            <th>Hora Descolagem</th>
             <th>Hora Aterragem</th>
             <th>Tempo Voo</th>
             <th>Natureza</th>
@@ -189,7 +189,7 @@
                                                         <tr>
                                                             <td><span class="input-group-text">Aeronave: {{ $movimento->aeronave }}</span></td>
                                                             <td><span class="input-group-text">Natureza: {{ $movimento->naturezaToStr() }}</span></td>
-                                                            <td><span class="input-group-text">Duração de {{ $movimento->tempo_voo }} h</span></td>
+                                                            <td><span class="input-group-text">Duração de {{ $movimento->horasDeVoo() }}</span></td>
                                                         </tr>
 
                                                         <tr>
@@ -203,6 +203,19 @@
                                                             <td><span class="input-group-text">Partida: {{ $movimento->aerodromo_partida }}</span></td>
                                                             <td><span class="input-group-text">Chegada: {{ $movimento->aerodromo_chegada }}</span></td>
                                                         </tr>
+
+                                                        <tr>
+                                                            <td><span class="input-group-text">Nº Aterragens: {{ $movimento->pilotos->nome_informal }}</span></td>
+                                                            <td><span class="input-group-text">Nº Descolagens: {{ $movimento->aerodromo_partida }}</span></td>
+                                                            <td><span class="input-group-text">Nº Diário: {{ $movimento->aerodromo_chegada }}</span></td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td><span class="input-group-text">Nº Aterragens: {{ $movimento->pilotos->nome_informal }}</span></td>
+                                                            <td><span class="input-group-text">Nº Descolagens: {{ $movimento->aerodromo_partida }}</span></td>
+                                                            <td><span class="input-group-text">Nº Diário: {{ $movimento->aerodromo_chegada }}</span></td>
+                                                        </tr>
+
                                                     </div>
 
                                                 </table>
@@ -215,8 +228,7 @@
                             </div>
                             <div class="modal-footer">
                                 <div class = "btn-group">
-                                    <a class="btn btn-xs btn-primary" href="{{ route('socios.edit', ['id'=> Auth::user()->id]) }}">{{ __('Alterar Perfil') }}</a>
-                                    <a class="btn btn-xs btn-dark" href="{{ route('password.showPass', ['id'=> Auth::user()->id]) }}">{{ __('Alterar Password') }}</a>
+                                    <a class="btn btn-xs btn-primary" href="{{ route('movimentos.edit', ['id'=> $movimento->id] ) }}">{{ __('Editar movimento') }}</a>
                                 </div>
                             </div>
                         </div>
