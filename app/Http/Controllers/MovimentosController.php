@@ -171,7 +171,7 @@ class MovimentosController extends Controller
         $aeronave = Aeronave::where('matricula',$request->aeronave)->first();
         $movimento->aeronave_movimentos()->associate($aeronave);
 
-        $movimento->tempo_voo=$this->calculaTempoViagem($request->conta_horas_inicio,$request->conta_horas_fim);
+        $movimento->tempo_voo=$this->calculaTempoViagem($request->hora_descolagem,$request->hora_aterragem);
         $movimento->preco_voo=$this->calculaPrecoViagem();
 
         $parceiro=Auth::user();
@@ -235,8 +235,9 @@ class MovimentosController extends Controller
     }
 
     ////FALTA IMPLEMENTAR//////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    private function calculaTempoViagem($conta_horas_inicio, $conta_horas_fim){ 
-        return 90;
+    private function calculaTempoViagem($hora_descolagem, $hora_aterragem){ 
+        
+        return (strtotime($hora_aterragem)-strtotime($hora_descolagem))/60;
     }
 
     ////FALTA IMPLEMENTAR//////////////////////////////////////////////////////////////////////////////////////////////////////////////
