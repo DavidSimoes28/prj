@@ -33,7 +33,7 @@ class MovimentosController extends Controller
         $movimentos = Movimento::with("pilotos","instrutores");
         $isPiloto = Auth::user()->tipo_socio == 'P';
 
-                //SE O UTILIZADOR LOGADO FOR UM PILOTO TEM O FILTROS EXTRAS
+        //SE O UTILIZADOR LOGADO FOR UM PILOTO TEM O FILTROS EXTRAS
         //VERIFICAR SE FOI INSERIDO ALGUM VALOR VALIDO
 
         if ( $isPiloto ){
@@ -86,7 +86,8 @@ class MovimentosController extends Controller
             $movimentos =  $movimentos->whereHas( 'pilotos', function ( $query ){
 
                 $nome =  request()->nome_informal_piloto;
-                if ( $nome != null ) $query->where( 'nome_informal', $nome );
+                if ( $nome != null ) $query->where( 'nome_informal', 'like' , '%' .$nome. '%');
+                
 
         } );
         }
@@ -100,7 +101,7 @@ class MovimentosController extends Controller
             $movimentos =  $movimentos->whereHas( 'instrutores',function ( $query ){
 
                 $nome =  request()->nome_informal_instrutor;
-                if ( $nome != null ) $query->where( 'nome_informal', $nome );
+                if ( $nome != null ) $query->where( 'nome_informal', 'like' , '%' .$nome. '%' );
 
         } );
         }
@@ -117,9 +118,9 @@ class MovimentosController extends Controller
             $natureza = request()->natureza;
             $confirmado =  request()->confirmado;
 
-            if ( $id != null ) $query->where('id', $id );
+            if ( $id != null ) $query->where(  'id', 'like' , '%' .$id. '%'  );
 
-            if ( $aeronave != null ) $query->where('aeronave', $aeronave );
+            if ( $aeronave != null ) $query->where('aeronave', 'like' , '%' .$aeronave. '%' );
 
             if ( $data_inicio != null) $query->where('data', ">=" , $data_inicio);
             
