@@ -26,9 +26,13 @@
 </div>
 
 <div class="form-group row">
-    <label for="tipo_licenca" class="col-md-4 col-form-label text-md-right">{{ __('Tipo de Licença') }}</label>
+    <label for="tipo_licenca" class="col-md-4 col-form-label text-md-right">{{ __('Tipo Licença') }}</label>
     <div class="col-md-6">
-        <input id="tipo_licenca" type="text" class="form-control{{ $errors->has('tipo_licenca') ? ' is-invalid' : '' }}" name="tipo_licenca" value="{{ $user->tipo_licenca }}" autofocus>
+        <select class="btn btn-xs btn-primary dropdown-toggle btn-block {{ $errors->has('tipo_licenca') ? ' is-invalid' : '' }}"  name="tipo_licenca" >                     
+            @foreach ($tipos_licencas as $tipo)
+                <option value ="{{$tipo->code}}">{{ $tipo->code }} </option>
+            @endforeach
+        </select>
         @if ($errors->has('tipo_licenca'))
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $errors->first('tipo_licenca') }}</strong>
@@ -81,8 +85,12 @@
 <div class="form-group row">
     <label for="classe_certificado" class="col-md-4 col-form-label text-md-right">{{ __('Classe de Certificado') }}</label>
     <div class="col-md-6">
-    <input id="classe_certificado" type="text" class="form-control{{ $errors->has('classe_certificado') ? ' is-invalid' : '' }}" name="classe_certificado" value="{{ $user->classe_certificado }}" autofocus>
- @if ($errors->has('classe_certificado'))
+        <select class="btn btn-xs btn-primary dropdown-toggle btn-block {{ $errors->has('classe_certificado') ? ' is-invalid' : '' }}"  name="classe_certificado" >                     
+            @foreach ($classes_certificados as $classe)
+                <option value ="{{$classe->code}}">{{ $classe->code }} </option>
+            @endforeach
+        </select>
+        @if ($errors->has('classe_certificado'))
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $errors->first('classe_certificado') }}</strong>
             </span>
@@ -92,10 +100,8 @@
 
 <div class="form-group row">
     <label for="validade_certificado" class="col-md-4 col-form-label text-md-right">{{ __('Validade') }}</label>
-
     <div class="col-md-6">
         <input id="validade_certificado" type="date" class="form-control{{ $errors->has('validade_certificado') ? ' is-invalid' : '' }}" name="validade_certificado" value="{{ $user->validade_certificado }}" autofocus>
-
         @if ($errors->has('validade_certificado'))
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $errors->first('validade_certificado') }}</strong>
