@@ -37,7 +37,7 @@ class StoreUserRequest extends FormRequest
             'telefone'=>['max:20','regex:/^([\+][\d]{3}[ ])?[\d]+$/'],
             'quota_paga'=>'required|in:0,1',
             'direcao'=>'required|in:0,1',
-            'endereco'=>'required|min:1'
+            'endereco'=>'required|min:1|max:250|nullable'
         ];
     }
 }
