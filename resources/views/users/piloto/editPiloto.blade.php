@@ -38,19 +38,6 @@
 </div>
 
 <div class="form-group row">
-    <label for="instrutor" class="col-md-4 col-form-label text-md-right">{{ __('Instrutor') }}</label>
-    <div class="col-md-6">
-        <input type="radio" class="form{{ $errors->has('instrutor') ? ' is-invalid' : '' }}" name="instrutor" value="0" {{ strval(old('instrutor',$user->instrutor)) == "0"?"checked":"" }} disabled> Não <br>
-        <input type="radio" class="form{{ $errors->has('instrutor') ? ' is-invalid' : '' }}" name="instrutor" value="1" {{ strval(old('instrutor',$user->instrutor)) == "1"?"checked":"" }} disabled> Sim <br>
-        @if ($errors->has('instrutor'))
-            <span class="invalid-feedback" role="alert">
-                <strong>{{ $errors->first('instrutor') }}</strong>
-            </span>
-        @endif
-    </div>
-</div>
-
-<div class="form-group row">
     <label for="validade_licenca" class="col-md-4 col-form-label text-md-right">{{ __('Validade') }}</label>
 
     <div class="col-md-6">
@@ -63,20 +50,6 @@
         @endif
     </div>
 </div>
-
-<div class="form-group row">
-    <label for="licenca_confirmada" class="col-md-4 col-form-label text-md-right">{{ __('Confirmado') }}</label>
-    <div class="col-md-6">
-        <input type="radio" class="form{{ $errors->has('licenca_confirmada') ? ' is-invalid' : '' }}" name="licenca_confirmada" value="0" {{ strval(old('licenca_confirmada',$user->licenca_confirmada)) == "0"?"checked":"" }} disabled> Não <br>
-        <input type="radio" class="form{{ $errors->has('licenca_confirmada') ? ' is-invalid' : '' }}" name="licenca_confirmada" value="1" {{ strval(old('licenca_confirmada',$user->licenca_confirmada)) == "1"?"checked":"" }} disabled> Sim <br>
-        @if ($errors->has('licenca_confirmada'))
-            <span class="invalid-feedback" role="alert">
-                <strong>{{ $errors->first('licenca_confirmada') }}</strong>
-            </span>
-        @endif
-    </div>
-</div>
-
 
 <div class="form-group row">
     <label for="num_certificado" class="col-md-4 col-form-label text-md-right">{{ __('Nº Certificado') }}</label>
@@ -132,13 +105,13 @@
 </div>
 
 <div class="form-group row">
-    <label for="certificado_confirmado" class="col-md-4 col-form-label text-md-right">{{ __('Confirmado') }}</label>
+    <label for="instrutor" class="col-md-4 col-form-label text-md-right">{{ __('Instrutor') }}</label>
     <div class="col-md-6">
-        <input type="radio" class="form{{ $errors->has('certificado_confirmado') ? ' is-invalid' : '' }}" name="certificado_confirmado" value="0" {{ strval(old('certificado_confirmado',$user->certificado_confirmado)) == "0"?"checked":"" }} disabled> Não <br>
-        <input type="radio" class="form{{ $errors->has('certificado_confirmado') ? ' is-invalid' : '' }}" name="certificado_confirmado" value="1" {{ strval(old('certificado_confirmado',$user->certificado_confirmado)) == "1"?"checked":"" }} disabled> Sim <br>
-        @if ($errors->has('certificado_confirmado'))
+        <input type="radio" class="form{{ $errors->has('instrutor') ? ' is-invalid' : '' }}" name="instrutor" value="0" {{ strval(old('instrutor',$user->instrutor)) == "0"?"checked":"" }} disabled> Não <br>
+        <input type="radio" class="form{{ $errors->has('instrutor') ? ' is-invalid' : '' }}" name="instrutor" value="1" {{ strval(old('instrutor',$user->instrutor)) == "1"?"checked":"" }} disabled> Sim <br>
+        @if ($errors->has('instrutor'))
             <span class="invalid-feedback" role="alert">
-                <strong>{{ $errors->first('certificado_confirmado') }}</strong>
+                <strong>{{ $errors->first('instrutor') }}</strong>
             </span>
         @endif
     </div>
