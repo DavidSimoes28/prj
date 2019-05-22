@@ -182,57 +182,60 @@
                                                                                     <div class="card-body">
                                                                                     
                                                                                         <tr>
-                                                                                            <td><span class="input-group-text">Aeronave: {{ $movimento->aeronave }}</span></td>
-                                                                                            <td><span class="input-group-text">Natureza: {{ $movimento->naturezaToStr() }}</span></td>
-                                                                                            <td><span class="input-group-text">Duração de {{ $movimento->horasDeVoo() }}</span></td>
+                                                                                            <td><span class="input-group-text"><strong>Aeronave:&nbsp;</strong> {{ $movimento->aeronave }}</span></td>
+                                                                                            <td><span class="input-group-text"><strong>Natureza:&nbsp;</strong> {{ $movimento->naturezaToStr() }}</span></td>
+                                                                                            <td><span class="input-group-text"><strong>Duração de {{ $movimento->horasDeVoo() }}</strong></span></td>
                                                                                         </tr>
 
                                                                                         <tr>
-                                                                                            <td><span class="input-group-text">Data do voo: {{ $movimento->data }}</span></td>
-                                                                                            <td><span class="input-group-text">Hora de partida: {{ $movimento->horaDePartida() }}</span></td>
-                                                                                            <td><span class="input-group-text">Hora de aterragem: {{ $movimento->horaDeChegada() }}</span></td>
+                                                                                            <td><span class="input-group-text"><strong>Data do voo:&nbsp;</strong> {{ $movimento->data }}</span></td>
+                                                                                            <td><span class="input-group-text"><strong>Hora de partida:&nbsp;</strong> {{ $movimento->horaDePartida() }}</span></td>
+                                                                                            <td><span class="input-group-text"><strong>Hora de aterragem:&nbsp;</strong> {{ $movimento->horaDeChegada() }}</span></td>
                                                                                         </tr>
 
                                                                                         <tr>
-                                                                                            <td><span class="input-group-text">Piloto: {{ $movimento->pilotos->nome_informal }}</span></td>
-                                                                                            <td><span class="input-group-text">Partida: {{ $movimento->aerodromo_partida }}</span></td>
-                                                                                            <td><span class="input-group-text">Chegada: {{ $movimento->aerodromo_chegada }}</span></td>
+                                                                                            <td  colspan="2"><span class="input-group-text"><strong>Piloto:&nbsp;</strong> {{ $movimento->pilotos->nome_informal }}</span></td>
+                                                                                            <td><span class="input-group-text"><strong>Nº Pessoas:&nbsp;</strong> {{ $movimento->num_pessoas }}</span></td>
+                                                                                            
                                                                                         </tr>
 
                                                                                         <tr>
-                                                                                            <td><span class="input-group-text">Nº Aterragens: {{ $movimento->num_aterragens }}</span></td>
-                                                                                            <td><span class="input-group-text">Nº Descolagens: {{ $movimento->num_descolagens }}</span></td>
-                                                                                            <td><span class="input-group-text">Nº Diário: {{ $movimento->num_diario }}</span></td>
+                                                                                            <td><span class="input-group-text"><strong>Nº Aterragens:&nbsp;</strong> {{ $movimento->num_aterragens }}</span></td>
+                                                                                            <td><span class="input-group-text"><strong>Nº Descolagens:&nbsp;</strong> {{ $movimento->num_descolagens }}</span></td>
+                                                                                            <td><span class="input-group-text"><strong>Nº Diário:&nbsp;</strong> {{ $movimento->num_diario }}</span></td>
+                                                                                            
                                                                                         </tr>
 
                                                                                         <tr>
-                                                                                            <td><span class="input-group-text">Nº Serviço: {{ $movimento->num_servico }}</span></td>
-                                                                                            <td><span class="input-group-text">Conta Horas-inicial: {{ $movimento->conta_horas_inicio }}</span></td>
-                                                                                            <td><span class="input-group-text">Conta Horas-final: {{ $movimento->conta_horas_fim }}</span></td>
+                                                                                            <td><span class="input-group-text"><strong>Nº Serviço:&nbsp;</strong> {{ $movimento->num_servico }}</span></td>
+                                                                                            <td><span class="input-group-text"><strong>Conta Horas-inicial:&nbsp;</strong> {{ $movimento->conta_horas_inicio }}</span></td>
+                                                                                            <td><span class="input-group-text"><strong>Conta Horas-final:&nbsp;</strong> {{ $movimento->conta_horas_fim }}</span></td>
+                                                                                        </tr>
+
+                                                                                        <tr>
+                                                                                            <td><span class="input-group-text"><strong>Partida:&nbsp;</strong> {{ $movimento->aerodromo_partida }}</span></td>
+                                                                                            <td><span class="input-group-text"><strong>Chegada:&nbsp;</strong> {{ $movimento->aerodromo_chegada }}</span></td>
+                                                                                            <td><span class="input-group-text"><strong>Movimento {{ $movimento->instrucaoConfirmadaToStr() }}</strong></span></td> 
                                                                                         </tr>
 
                                                                                         @if ( $movimento->natureza == 'I' )
                                                                                         <tr>
-                                                                                            <td><span class="input-group-text">Tipo Instrução: {{ $movimento->tipoInstrucaoToStr() }}</span></td>
-                                                                                            <td><span class="input-group-text">Instrutor: {{ $movimento->instrutores->nome_informal ?? ""}}</span></td>
-                                                                                            <td><span class="input-group-text">Instrução {{ $movimento->instrucaoConfirmadaToStr() }}</span></td> 
+                                                                                            <td colspan="2"><span class="input-group-text"><strong>Instrutor:&nbsp;</strong>{{ $movimento->instrutores->nome_informal ?? ""}}</span></td>
+                                                                                            <td><span class="input-group-text"><strong>Tipo Instrução:&nbsp;</strong>{{ $movimento->tipoInstrucaoToStr() }}</span></td>
+                                                                                            
                                                                                         </tr>
                                                                                         @endif
-
-                                                                                        <tr>
-                                                                                            <td><span class="input-group-text">Nº Pessoas: {{ $movimento->num_pessoas }}</span></td>
-                                                                                        </tr>
-
                                                                                     </div>
 
                                                                                 </table>
 
                                                                             </div>
-                                                                            
-                                                                            <div><h5><label for ="observacoes">{{ __('Observações') }}</label></h5></div>
+                                                                            @if ( isset($movimento->observacoes) )
+                                                                            <div><h5><label for ="observacoes"><strong>{{ __('Observações') }}</strong></label></h5></div>
                                                                             <h6>
                                                                             <textarea style="width: 100%; resize: none" class="md-textarea form-control" readonly>{{ $movimento->observacoes }}</textarea>
-                                                                            </h6>                                
+                                                                            </h6>                               
+                                                                            @endif 
                                                                         </div>
                                                                     </div>
                                                                 </div>                            
