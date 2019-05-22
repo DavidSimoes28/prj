@@ -179,11 +179,9 @@
                                     <div class="d-flex w-100 justify-content-between">
 
                                         <div class="container">
+                                            <h4>Detalhes do Movimento - {{ $movimento->id }}</h4>
                                             <div class="row justify-content-center">
                                                 <table class="table table-striped">
-                                                    <thead>
-                                                    <tr><h4>Detalhes do Movimento - {{ $movimento->id }}</h4></tr>                                                                          
-                                                    </thead>
                                                     <div class="card-body">
                                                     
                                                         <tr>
@@ -205,23 +203,39 @@
                                                         </tr>
 
                                                         <tr>
-                                                            <td><span class="input-group-text">Nº Aterragens: {{ $movimento->pilotos->nome_informal }}</span></td>
-                                                            <td><span class="input-group-text">Nº Descolagens: {{ $movimento->aerodromo_partida }}</span></td>
-                                                            <td><span class="input-group-text">Nº Diário: {{ $movimento->aerodromo_chegada }}</span></td>
+                                                            <td><span class="input-group-text">Nº Aterragens: {{ $movimento->num_aterragens }}</span></td>
+                                                            <td><span class="input-group-text">Nº Descolagens: {{ $movimento->num_descolagens }}</span></td>
+                                                            <td><span class="input-group-text">Nº Diário: {{ $movimento->num_diario }}</span></td>
                                                         </tr>
 
                                                         <tr>
-                                                            <td><span class="input-group-text">Nº Aterragens: {{ $movimento->pilotos->nome_informal }}</span></td>
-                                                            <td><span class="input-group-text">Nº Descolagens: {{ $movimento->aerodromo_partida }}</span></td>
-                                                            <td><span class="input-group-text">Nº Diário: {{ $movimento->aerodromo_chegada }}</span></td>
+                                                            <td><span class="input-group-text">Nº Serviço: {{ $movimento->num_servico }}</span></td>
+                                                            <td><span class="input-group-text">Conta Horas-inicial: {{ $movimento->conta_horas_inicio }}</span></td>
+                                                            <td><span class="input-group-text">Conta Horas-final: {{ $movimento->conta_horas_fim }}</span></td>
+                                                        </tr>
+
+                                                        @if ( $movimento->natureza == 'I' )
+                                                        <tr>
+                                                            <td><span class="input-group-text">Tipo Instrução: {{ $movimento->tipoInstrucaoToStr() }}</span></td>
+                                                            <td><span class="input-group-text">Instrutor: {{ $movimento->instrutores->nome_informal ?? ""}}</span></td>
+                                                            <td><span class="input-group-text">Instrução {{ $movimento->instrucaoConfirmadaToStr() }}</span></td> 
+                                                        </tr>
+                                                        @endif
+
+                                                        <tr>
+                                                            <td><span class="input-group-text">Nº Pessoas: {{ $movimento->num_pessoas }}</span></td>
                                                         </tr>
 
                                                     </div>
 
                                                 </table>
-                    
+
                                             </div>
-                                
+                                            
+                                            <div><h5><label for ="observacoes">{{ __('Observações') }}</label></h5></div>
+                                            <h6>
+                                            <textarea style="width: 100%; resize: none" class="md-textarea form-control" readonly>{{ $movimento->observacoes }}</textarea>
+                                            </h6>                                
                                         </div>
                                     </div>
                                 </div>                            

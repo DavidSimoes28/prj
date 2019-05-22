@@ -75,9 +75,9 @@ class Movimento extends Authenticatable
     {
         switch ($this->confirmado) {
             case 0:
-                return 'Não';
+                return 'não confirmada';
             case 1:
-                return 'Sim';
+                return 'confirmada';
  
         }
         return 'Unknown';
