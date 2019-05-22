@@ -15,7 +15,7 @@ class MovimentoPolicy
         
     }
 
-    public function view(User $user, Movimento $model)
+    public function view(User $user, Movimento $movimento)
     {
         return true;
     }
@@ -27,12 +27,15 @@ class MovimentoPolicy
         return false;
     }
 
-    public function update(User $user, Movimento $model)
+    public function update(User $user, Movimento $movimento)
     {
+
+        if ($movimento->pilotos->id==$user->id) return true;
+        if ($movimento->intrutores!=null && $movimento->instrutores->id==$user->id) return true;
         return false;
     }
 
-    public function delete(User $user, Movimento $model)
+    public function delete(User $user, Movimento $movimento)
     {
         return false;
     }

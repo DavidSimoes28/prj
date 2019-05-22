@@ -5,19 +5,22 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
+        @if($errors)
             @include("partials.errors")
+        @endif
             <div class="card">
-                <div class="card-header">{{ __('Adicionar Movimentos de Voos') }}</div>
+                <div class="card-header">{{ __('Editar Movimentos de Voos') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{route('movimentos.store')}}">
+                    <form method="POST" action="{{ route('movimentos.update',['id'=>$movimento->id]) }}">
                         @csrf
+                        @method("PUT")
                         
                         <div class="form-group row">
                             <label for="data" class="col-md-4 col-form-label text-md-right">{{ __('Data do Voo') }}</label>
 
                             <div class="col-md-6">
-                                <input id="data" type="date" class="form-control{{ $errors->has('data') ? ' is-invalid' : '' }}" name="data" required autofocus>
+                                <input id="data" type="date" class="form-control{{ $errors->has('data') ? ' is-invalid' : '' }}" name="data"  value="{{ $movimento->data }}" required autofocus>
 
                                 @if ($errors->has('data'))
                                     <span class="invalid-feedback" role="alert">
@@ -31,7 +34,7 @@
                             <label for="hora_descolagem" class="col-md-4 col-form-label text-md-right">{{ __('Hora Descolagem') }}</label>
 
                             <div class="col-md-6">
-                                <input id="hora_descolagem" type="time" class="form-control{{ $errors->has('hora_descolagem') ? ' is-invalid' : '' }}" name="hora_descolagem" required autofocus>
+                                <input id="hora_descolagem" type="time" class="form-control{{ $errors->has('hora_descolagem') ? ' is-invalid' : '' }}" name="hora_descolagem" autofocus value="{{ date('H:m',strtotime($movimento->hora_descolagem)) }}"  required autofocus >
 
                                 @if ($errors->has('hora_descolagem'))
                                     <span class="invalid-feedback" role="alert">
@@ -45,7 +48,7 @@
                             <label for="hora_aterragem" class="col-md-4 col-form-label text-md-right">{{ __('Hora Aterragem') }}</label>
 
                             <div class="col-md-6">
-                                <input id="hora_aterragem" type="time" class="form-control{{ $errors->has('hora_aterragem') ? ' is-invalid' : '' }}" name="hora_aterragem" required autofocus>
+                                <input id="hora_aterragem" type="time" class="form-control{{ $errors->has('hora_aterragem') ? ' is-invalid' : '' }}" name="hora_aterragem"  value="{{ date('H:m',strtotime($movimento->hora_aterragem)) }}" required autofocus>
 
                                 @if ($errors->has('hora_aterragem'))
                                     <span class="invalid-feedback" role="alert">
@@ -59,7 +62,7 @@
                             <label for="aeronave" class="col-md-4 col-form-label text-md-right">{{ __('Matrícula Aeronave') }}</label>
 
                             <div class="col-md-6">
-                                <input id="aeronave" type="text" class="form-control{{ $errors->has('aeronave') ? ' is-invalid' : '' }}" name="aeronave" required autofocus>
+                                <input id="aeronave" type="text" class="form-control{{ $errors->has('aeronave') ? ' is-invalid' : '' }}" name="aeronave" value="{{ $movimento->aeronave }}" required autofocus>
 
                                 @if ($errors->has('aeronave'))
                                     <span class="invalid-feedback" role="alert">
@@ -73,7 +76,7 @@
                             <label for="num_diario" class="col-md-4 col-form-label text-md-right">{{ __('Nº Diário') }}</label>
 
                             <div class="col-md-6">
-                                <input id="num_diario" type="number" class="form-control{{ $errors->has('num_diario') ? ' is-invalid' : '' }}" name="num_diario" required autofocus>
+                                <input id="num_diario" type="number" class="form-control{{ $errors->has('num_diario') ? ' is-invalid' : '' }}" name="num_diario" value="{{ $movimento->num_diario }}" required autofocus>
 
                                 @if ($errors->has('num_diario'))
                                     <span class="invalid-feedback" role="alert">
@@ -87,7 +90,7 @@
                             <label for="num_servico" class="col-md-4 col-form-label text-md-right">{{ __('Nº Serviço') }}</label>
 
                             <div class="col-md-6">
-                                <input id="num_servico" type="number" class="form-control{{ $errors->has('num_servico') ? ' is-invalid' : '' }}" name="num_servico" required autofocus>
+                                <input id="num_servico" type="number" class="form-control{{ $errors->has('num_servico') ? ' is-invalid' : '' }}" name="num_servico" value="{{ $movimento->num_servico }}" required autofocus>
 
                                 @if ($errors->has('num_servico'))
                                     <span class="invalid-feedback" role="alert">
@@ -163,7 +166,7 @@
                                     <label for="nome_informal" class="col-md-4 col-form-label text-md-right">{{ __('Nome do outro Piloto') }}</label>
             
                                     <div class="col-md-6">
-                                        <input id="nome_informal" type="text" class="form-control{{ $errors->has('nome_informal') ? ' is-invalid' : '' }}" name="nome_informal" >
+                                        <input id="nome_informal" type="text" class="form-control{{ $errors->has('nome_informal') ? ' is-invalid' : '' }}" name="nome_informal" value="{{ $movimento->nome_informal }}" >
         
                                         @if ($errors->has('nome_informal'))
                                             <span class="invalid-feedback" role="alert">
@@ -180,7 +183,7 @@
                                 <label for="aerodromo_partida" class="col-md-4 col-form-label text-md-right">{{ __('Aerodromo de Partida') }}</label>
     
                                 <div class="col-md-6">
-                                    <input id="aerodromo_partida" type="text" class="form-control{{ $errors->has('aerodromo_partida') ? ' is-invalid' : '' }}" name="aerodromo_partida" required autofocus>
+                                    <input id="aerodromo_partida" type="text" class="form-control{{ $errors->has('aerodromo_partida') ? ' is-invalid' : '' }}" name="aerodromo_partida" value="{{ $movimento->aerodromo_partida }}" required autofocus>
     
                                     @if ($errors->has('aerodromo_partida'))
                                         <span class="invalid-feedback" role="alert">
@@ -194,7 +197,7 @@
                                 <label for="aerodromo_chegada" class="col-md-4 col-form-label text-md-right">{{ __('Aerodromo de Chegada') }}</label>
     
                                 <div class="col-md-6">
-                                    <input id="aerodromo_chegada" type="text" class="form-control{{ $errors->has('aerodromo_chegada') ? ' is-invalid' : '' }}" name="aerodromo_chegada" required autofocus>
+                                    <input id="aerodromo_chegada" type="text" class="form-control{{ $errors->has('aerodromo_chegada') ? ' is-invalid' : '' }}" name="aerodromo_chegada" value="{{ $movimento->aerodromo_chegada }}" required autofocus>
     
                                     @if ($errors->has('aerodromo_chegada'))
                                         <span class="invalid-feedback" role="alert">
@@ -208,7 +211,7 @@
                                 <label for="num_aterragens" class="col-md-4 col-form-label text-md-right">{{ __('Nº Aterragens') }}</label>
     
                                 <div class="col-md-6">
-                                    <input id="num_aterragens" type="number" class="form-control{{ $errors->has('num_aterragens') ? ' is-invalid' : '' }}" name="num_aterragens" required autofocus>
+                                    <input id="num_aterragens" type="number" class="form-control{{ $errors->has('num_aterragens') ? ' is-invalid' : '' }}" name="num_aterragens"  value="{{ $movimento->num_aterragens }}" required autofocus>
     
                                     @if ($errors->has('num_aterragens'))
                                         <span class="invalid-feedback" role="alert">
@@ -222,7 +225,7 @@
                                 <label for="num_descolagens" class="col-md-4 col-form-label text-md-right">{{ __('Nº Descolagens') }}</label>
     
                                 <div class="col-md-6">
-                                    <input id="num_descolagens" type="number" class="form-control{{ $errors->has('num_descolagens') ? ' is-invalid' : '' }}" name="num_descolagens" required autofocus>
+                                    <input id="num_descolagens" type="number" class="form-control{{ $errors->has('num_descolagens') ? ' is-invalid' : '' }}" name="num_descolagens" value="{{ $movimento->num_descolagens }}" required autofocus>
     
                                     @if ($errors->has('num_descolagens'))
                                         <span class="invalid-feedback" role="alert">
@@ -236,7 +239,7 @@
                                 <label for="num_pessoas" class="col-md-4 col-form-label text-md-right">{{ __('Nº Pessoas a Bordo') }}</label>
     
                                 <div class="col-md-6">
-                                    <input id="num_pessoas" type="number" class="form-control{{ $errors->has('num_pessoas') ? ' is-invalid' : '' }}" name="num_pessoas" required autofocus>
+                                    <input id="num_pessoas" type="number" class="form-control{{ $errors->has('num_pessoas') ? ' is-invalid' : '' }}" name="num_pessoas" value="{{ $movimento->num_pessoas }}" required autofocus>
     
                                     @if ($errors->has('num_pessoas'))
                                         <span class="invalid-feedback" role="alert">
@@ -250,7 +253,7 @@
                                 <label for="conta_horas_inicio" class="col-md-4 col-form-label text-md-right">{{ __('Conta Horas Inicial') }}</label>
     
                                 <div class="col-md-6">
-                                    <input id="conta_horas_inicio" type="number" class="form-control{{ $errors->has('conta_horas_inicio') ? ' is-invalid' : '' }}" name="conta_horas_inicio" required autofocus>
+                                    <input id="conta_horas_inicio" type="number" class="form-control{{ $errors->has('conta_horas_inicio') ? ' is-invalid' : '' }}" name="conta_horas_inicio" value="{{ $movimento->conta_horas_inicio }}" required autofocus>
     
                                     @if ($errors->has('conta_horas_inicio'))
                                         <span class="invalid-feedback" role="alert">
@@ -264,7 +267,7 @@
                                 <label for="conta_horas_fim" class="col-md-4 col-form-label text-md-right">{{ __('Conta Horas Final') }}</label>
     
                                 <div class="col-md-6">
-                                    <input id="conta_horas_fim" type="number" class="form-control{{ $errors->has('conta_horas_fim') ? ' is-invalid' : '' }}" name="conta_horas_fim" required autofocus>
+                                    <input id="conta_horas_fim" type="number" class="form-control{{ $errors->has('conta_horas_fim') ? ' is-invalid' : '' }}" name="conta_horas_fim" value="{{ $movimento->conta_horas_fim }}" required autofocus>
     
                                     @if ($errors->has('conta_horas_fim'))
                                         <span class="invalid-feedback" role="alert">
@@ -297,7 +300,7 @@
                                 <label for="num_recibo" class="col-md-4 col-form-label text-md-right">{{ __('Nº Recibo') }}</label>
     
                                 <div class="col-md-6">
-                                    <input id="num_recibo" type="text" class="form-control{{ $errors->has('num_recibo') ? ' is-invalid' : '' }}" name="num_recibo" required autofocus>
+                                    <input id="num_recibo" type="text" class="form-control{{ $errors->has('num_recibo') ? ' is-invalid' : '' }}" name="num_recibo" value="{{ $movimento->num_recibo }}" required autofocus>
     
                                     @if ($errors->has('num_recibo'))
                                         <span class="invalid-feedback" role="alert">
@@ -311,7 +314,7 @@
                             <label for="observacoes" class="col-md-4 col-form-label text-md-right">{{ __('Observações') }}</label>
 
                             <div class="col-md-6">
-                                <textarea id="observacoes" type="text" class="form-control{{ $errors->has('observacoes') ? ' is-invalid' : '' }}" name="observacoes"> </textarea>
+                                <input id="observacoes" type="text" class="form-control{{ $errors->has('observacoes') ? ' is-invalid' : '' }}" name="observacoes" value="{{ $movimento->observacoes }}" >
 
                                 @if ($errors->has('observacoes'))
                                     <span class="invalid-feedback" role="alert">
@@ -330,8 +333,9 @@
                                 <a class="btn btn-xs btn-danger" href="{{ route('movimentos') }}">{{ __('Cancelar') }}</a>
                             </div>
                         </div>
-
+                        
                     </form>
+
                 </div>
             </div>
         </div>

@@ -45,7 +45,7 @@ Route::middleware(['auth', 'verified', 'ativo'])->group(function () {
     Route::GET('/movimentos', 'MovimentosController@index')->name('movimentos');
     Route::GET('/movimentos/create', 'MovimentosController@create')->name('movimentos.create');
     Route::POST('/movimentos', 'MovimentosController@store')->name('movimentos.store');
-    Route::GET('/movimentos/{movimentos}/edit', 'MovimentosController@edit')->name('movimentos.edit');
-    Route::PUT('/movimentos/{movimentos}', 'MovimentosController@update')->name('movimentos.update');
-    Route::DELETE('/movimentos/{movimentos}', 'MovimentosController@destroy')->name('movimentos.destroy');
+    Route::GET('/movimentos/{movimento}/edit', 'MovimentosController@edit')->name('movimentos.edit');
+    Route::PUT('/movimentos/{movimento}', 'MovimentosController@update')->name('movimentos.update');
+    Route::DELETE('/movimentos/{movimento}', 'MovimentosController@destroy')->name('movimentos.destroy');
 });
