@@ -9,7 +9,7 @@
             @include("partials.errors")
         @endif
             <div class="card">
-                <div class="card-header">{{ __('Editar Movimentos de Voos') }}</div>
+                <div class="card-header"><h3 class="text-center">{{ __('Editar Movimento') }}<h3></div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('movimentos.update',['id'=>$movimento->id]) }}">
@@ -103,11 +103,17 @@
                         <div class="form-group row">
                             <label for ="is_piloto" class="col-md-4 col-form-label text-md-right">{{ __('Participou como') }}</label>
                             <div class="col-sm-6">
-                                <select class="btn btn-xs btn-primary dropdown-toggle btn-block {{ $errors->has('is_piloto') ? ' is-invalid' : '' }}"  name="is_piloto" value="{{ strval(old('is_piloto',request()->is_piloto )) }}" >
-                                <option value="1"  {{ strval(old('is_piloto' ,request()->is_piloto)) == "1"  ? "selected":"" }} >Piloto</option>
-                                @if (Auth::user()->isInstrutor())
-                                <option value="0"  {{ strval(old('is_piloto' ,request()->is_piloto)) == "0"      ? "selected":"" }} >Instrutor</option>
-                                @endif
+                                <select class="btn btn-xs btn-primary dropdown-toggle btn-block {{ $errors->has('is_piloto') ? ' is-invalid' : '' }}"  name="is_piloto" >
+                                
+                                        @if($movimento->natureza=='I')
+                                        @if($movimento->piloto_id==Auth::user()->id)
+                                            <option value="1"  selected >Piloto</option>
+                                            <option value="0"  >Instrutor</option>   
+                                        @elseif ($movimento->instrutor_id==Auth::user()->id)
+                                            <option value="1"   >Piloto</option>
+                                            <option value="0" selected >Instrutor</option>  
+                                        @endif              
+                                    @endif
                                 </select> 
                                 
                                 @if ($errors->has('is_piloto'))
@@ -121,10 +127,11 @@
                         <div class="form-group row">
                             <label for ="natureza" class="col-md-4 col-form-label text-md-right">{{ __('Natureza do Voo') }}</label>
                             <div class="col-sm-6">
-                                <select class="btn btn-xs btn-primary dropdown-toggle btn-block {{ $errors->has('natureza') ? ' is-invalid' : '' }}"  name="natureza" value="{{ strval(old('natureza',request()->natureza )) }}" >
-                                <option value="T"  {{ strval(old('natureza' ,request()->natureza)) == "T"  ? "selected":"" }} >Treino</option>
-                                <option value="I"  {{ strval(old('natureza' ,request()->natureza)) == "I"      ? "selected":"" }} >Instrução</option>
-                                <option value="E"  {{ strval(old('natureza' ,request()->natureza)) == "E"      ? "selected":"" }} >Especial</option>
+                                <select class="btn btn-xs btn-primary dropdown-toggle btn-block {{ $errors->has('natureza') ? ' is-invalid' : '' }}"  name="natureza" >
+
+                                <option value="T"  {{ strval(old('natureza' ,$movimento->natureza)) == "T"  ? "selected":"" }} >Treino</option>
+                                <option value="I"  {{ strval(old('natureza' ,$movimento->natureza)) == "I"  ? "selected":"" }} >Instrução</option>
+                                <option value="E"  {{ strval(old('natureza' ,$movimento->natureza)) == "E"  ? "selected":"" }} >Especial</option>
                                 </select> 
                                     
                                 @if ($errors->has('natureza'))
@@ -175,7 +182,6 @@
                                             @endif              
                                         @endif
                                           >
-        
                                         @if ($errors->has('nome_informal'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('nome_informal') }}</strong>
@@ -289,11 +295,11 @@
                             <div class="form-group row">
                                 <label for ="modo_pagamento" class="col-md-4 col-form-label text-md-right">{{ __('Modo Pagamento') }}</label>
                                 <div class="col-sm-6">
-                                    <select class="btn btn-xs btn-primary dropdown-toggle btn-block {{ $errors->has('modo_pagamento') ? ' is-invalid' : '' }}"  name="modo_pagamento" value="{{ strval(old('modo_pagamento',request()->modo_pagamento )) }}" >
-                                    <option value="N"  {{ strval(old('modo_pagamento' ,request()->modo_pagamento)) == "N"  ? "selected":"" }} >Numerário</option>
-                                    <option value="M"  {{ strval(old('modo_pagamento' ,request()->modo_pagamento)) == "M"      ? "selected":"" }} >Multibanco</option>
-                                    <option value="T"  {{ strval(old('modo_pagamento' ,request()->modo_pagamento)) == "T"      ? "selected":"" }} >Tranferência</option>
-                                    <option value="P"  {{ strval(old('modo_pagamento' ,request()->modo_pagamento)) == "P"      ? "selected":"" }} >Pacote de Horas</option>
+                                    <select class="btn btn-xs btn-primary dropdown-toggle btn-block {{ $errors->has('modo_pagamento') ? ' is-invalid' : '' }}"  name="modo_pagamento" >
+                                    <option value="N"  {{ strval(old('modo_pagamento' ,$movimento->modo_pagamento)) == "N"  ? "selected":"" }} >Numerário</option>
+                                    <option value="M"  {{ strval(old('modo_pagamento' ,$movimento->modo_pagamento)) == "M"      ? "selected":"" }} >Multibanco</option>
+                                    <option value="T"  {{ strval(old('modo_pagamento' ,$movimento->modo_pagamento)) == "T"      ? "selected":"" }} >Tranferência</option>
+                                    <option value="P"  {{ strval(old('modo_pagamento' ,$movimento->modo_pagamento)) == "P"      ? "selected":"" }} >Pacote de Horas</option>
                                     </select> 
                                         
                                     @if ($errors->has('modo_pagamento'))
