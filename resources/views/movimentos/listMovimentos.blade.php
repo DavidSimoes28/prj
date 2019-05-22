@@ -93,12 +93,17 @@
 
 <br>
 <br>
+<br>
 </div>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
+            <br>
+            <br>
+            <br>
             <div class="card">
                 <div class="card-header"><h4>Lista de Movimentos&nbsp;&nbsp;&nbsp;&nbsp;
+                    @if ( Auth::user()->isPiloto() )
                     <div class="btn-group dropright">
                     <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                     data-toggle="tooltip">
@@ -110,6 +115,7 @@
                         <div class="dropdown-divider"></div>
                            
                     </div>
+                    @endif
                     </h4>
                     
                 </div>

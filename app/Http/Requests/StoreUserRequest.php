@@ -31,7 +31,7 @@ class StoreUserRequest extends FormRequest
             'tipo_socio' => 'required|in:P,NP,A',
             'sexo' => 'required|in:M,F',
             'data_nascimento' =>'required|date',
-            'file_foto' => 'mimes:jpeg,bmp,png,gif',
+            'file_foto' => 'nullable|mimes:jpeg,bmp,png,gif',
             'ativo' => 'required|in:0,1'
         ];
     }
