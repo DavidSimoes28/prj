@@ -2,8 +2,9 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateUserRequest extends FormRequest
 {
@@ -27,6 +28,21 @@ class UpdateUserRequest extends FormRequest
         $user = $this->route('user');
         $tipos = array('ALUNO-PPL(A)','ALUNO-PU','ATPL','CPL(A)','NEWTYPE','PPL(A)','PU');
         $classes  = array('Class 1','Class 2','LAPL','NEWCLS');
+
+        if ( Auth::user()->id == $user->id && !Auth::user()->isAdmin() ){
+
+            return [
+                'name' => ['required','max:255','regex:/^[a-zA-ZçÇáÁéÉíÍóÓúÚàÀèÈìÌòÒùÙãÃõÕâÂêÊîÎôÔûÛ ]+$/'],
+                'email' => ['required','string', 'max:255', 'email', Rule::unique('users')->ignore($user->id)],
+                'nome_informal' => 'required|string|max:40',
+                'nif' => 'required|string|size:9|regex:/^[0-9]+$/',
+                'telefone'=> ['max:20','regex:/^([\+][\d]{3}[ ])?[\d]+$/'],
+                'file_foto' => 'nullable|mimes:jpeg,bmp,png,gif',
+                'endereco' => 'required|string|min:1'
+            ];
+
+        }
+
         return [
             'num_socio' => 'required|integer|min:1|max:99999999999|'. Rule::unique('users')->ignore($user->id),
             'name' => ['required','max:255','regex:/^[a-zA-ZçÇáÁéÉíÍóÓúÚàÀèÈìÌòÒùÙãÃõÕâÂêÊîÎôÔûÛ ]+$/'],
