@@ -113,8 +113,8 @@
 <div class="form-group row">
     <label for="instrutor" class="col-md-4 col-form-label text-md-right">{{ __('Instrutor') }}</label>
     <div class="col-md-6">
-        <input type="radio" class="form{{ $errors->has('instrutor') ? ' is-invalid' : '' }}" name="instrutor" value="0" {{ strval(old('instrutor',$user->instrutor)) == "0"?"checked":"" }} disabled> Não <br>
-        <input type="radio" class="form{{ $errors->has('instrutor') ? ' is-invalid' : '' }}" name="instrutor" value="1" {{ strval(old('instrutor',$user->instrutor)) == "1"?"checked":"" }} disabled> Sim <br>
+        <input type="radio" class="form{{ $errors->has('instrutor') ? ' is-invalid' : '' }}" name="instrutor" value="0" {{ strval(old('instrutor',$user->instrutor)) == "0"?"checked":"" }}> Não <br>
+        <input type="radio" class="form{{ $errors->has('instrutor') ? ' is-invalid' : '' }}" name="instrutor" value="1" {{ strval(old('instrutor',$user->instrutor)) == "1"?"checked":"" }}> Sim <br>
         @if ($errors->has('instrutor'))
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $errors->first('instrutor') }}</strong>

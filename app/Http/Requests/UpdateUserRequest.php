@@ -50,7 +50,7 @@ class UpdateUserRequest extends FormRequest
         if ( $user->isPiloto() ){
             $aux = [
                 'file_certificado' => 'mimes:pdf',
-                'num_certificado' => 'required|string|max:30|regex:/^[1-9][0-9]+$/',
+                'num_certificado' => 'required|string|max:30',
                 'validade_certificado' => 'date|nullable',
                 'classe_certificado' => 'nullable|in:'. implode(',', $classes),
                 'file_licenca' => 'mimes:pdf',
@@ -87,7 +87,7 @@ class UpdateUserRequest extends FormRequest
         //$teste = User::all();
         //$teste = Classes_certificado::all();
         //$teste = Tipos_licenca::all();
-        dd($resultado);
+        //dd($resultado);
 
 
         return $resultado;
