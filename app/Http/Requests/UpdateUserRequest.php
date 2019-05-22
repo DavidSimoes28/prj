@@ -29,26 +29,17 @@ class UpdateUserRequest extends FormRequest
         $classes  = array('Class 1','Class 2','LAPL','NEWCLS');
         return [
             'num_socio' => 'required|integer|min:1|max:99999999999|'. Rule::unique('users')->ignore($user->id),
-            'name' => ['max:255','regex:/^[a-zA-ZçÇáÁéÉíÍóÓúÚàÀèÈìÌòÒùÙãÃõÕâÂêÊîÎôÔûÛ ]+$/'],
-            'email' => ['string', 'max:255', 'email', Rule::unique('users')->ignore($user->id)],
-            'nome_informal' => 'string|max:40',
-            'nif' => 'max:9',
+            'name' => ['required','max:255','regex:/^[a-zA-ZçÇáÁéÉíÍóÓúÚàÀèÈìÌòÒùÙãÃõÕâÂêÊîÎôÔûÛ ]+$/'],
+            'email' => ['required','string', 'max:255', 'email', Rule::unique('users')->ignore($user->id)],
+            'nome_informal' => 'required|string|max:40',
+            'nif' => 'required|integer|max:999999999|size:9',
             'telefone'=> ['max:20','regex:/^([\+][\d]{3}[ ])?[\d]+$/'],
-            'endereco'=> 'string|max:255|nullable',
-            'data_nascimento' => 'date',
-            'file_foto' => 'mimes:jpeg,bmp,png,gif',
-            'file_certificado' => 'mimes:pdf',
-            'num_certificado' => 'max:30',
-            'validade_certificado' => 'date|nullable',
-            'file_licenca' => 'mimes:pdf',
-            'instrutor' => 'max:1',
-            'num_licenca' => 'max:30',
-            'validade_licenca' => 'date|nullable',
-            'ativo' => 'nullable|in:0,1',
-            'quota_paga' => 'nullable|in:0,1',
-            'direcao' => 'nullable|in:0,1',
-            'tipo_licenca' => 'nullable|in:' . implode(',', $tipos),
-            'classe_certificado' => 'nullable|in:'. implode(',', $classes)
+            'sexo' => 'required|in:M,F',
+            'data_nascimento' => 'required|date',
+            'file_foto' => 'nullable|mimes:jpeg,bmp,png,gif',    
+            'ativo' => 'required|in:0,1',
+            'quota_paga' => 'required|in:0,1',
+            'direcao' => 'required|in:0,1'
         ];
     }
 }
