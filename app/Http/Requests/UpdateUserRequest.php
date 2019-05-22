@@ -41,34 +41,44 @@ class UpdateUserRequest extends FormRequest
                     'nif' => 'required|string|size:9|regex:/^[1-9][0-9]+$/',
                     'telefone'=> ['max:20','regex:/^([\+][\d]{3}[ ])?[\d]+$/'],
                     'file_foto' => 'nullable|mimes:jpeg,bmp,png,gif',
-                    'endereco'=> 'string|max:255|nullable',
+                    'endereco'=> 'string|max:255|nullable'
         ];
 
         if ( $user->isPiloto() ){
             $aux = [
                 'file_certificado' => 'mimes:pdf',
-                'num_certificado' => 'max:30',
+                'num_certificado' => 'required|integer|max:30',
                 'validade_certificado' => 'date|nullable',
                 'classe_certificado' => 'nullable|in:'. implode(',', $classes),
                 'file_licenca' => 'mimes:pdf',
-                'num_licenca' => 'max:30',
+                'num_licenca' => 'required|integer|max:30',
                 'validade_licenca' => 'date|nullable',
                 'tipo_licenca' => 'nullable|in:' . implode(',', $tipos),
-                'instrutor' => 'required|max:1'
+                'instrutor' => 'required|in:0,1'
             ];
 
             $resultado = array_merge($resultado, $aux);
         }
 
-        if ( $user->isAdmin() ){
+        if ( $logado->isAdmin() ){
             $aux = [
-                'ativo' => 'nullable|in:0,1',
-                'quota_paga' => 'nullable|in:0,1',
-                'direcao' => 'nullable|in:0,1',
-                'confirmado' => 'required|in:0,1'
+                'ativo' => 'required|in:0,1',
+                'quota_paga' => 'required|in:0,1',
+                'direcao' => 'required|in:0,1'
             ];
 
             $resultado = array_merge($resultado, $aux);
+
+            if ( $user->isPiloto() ){
+                $aux = [
+                    'certificado_confirmado' => 'required|in:0,1',
+                    'licenca_confirmada' => 'required|in:0,1'
+                ];
+    
+                $resultado = array_merge($resultado, $aux);
+            }
+
+
         }
 
         //fica a faltar a alterar o campo instrutor
