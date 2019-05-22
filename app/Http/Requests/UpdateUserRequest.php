@@ -2,6 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\User;
+use App\Tipos_licenca;
+use App\Classes_certificado;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
@@ -47,11 +50,11 @@ class UpdateUserRequest extends FormRequest
         if ( $user->isPiloto() ){
             $aux = [
                 'file_certificado' => 'mimes:pdf',
-                'num_certificado' => 'required|integer|max:30',
+                'num_certificado' => 'required|string|max:30|regex:/^[1-9][0-9]+$/',
                 'validade_certificado' => 'date|nullable',
                 'classe_certificado' => 'nullable|in:'. implode(',', $classes),
                 'file_licenca' => 'mimes:pdf',
-                'num_licenca' => 'required|integer|max:30',
+                'num_licenca' => 'required|string|max:30|regex:/^[1-9][0-9]+$/',
                 'validade_licenca' => 'date|nullable',
                 'tipo_licenca' => 'nullable|in:' . implode(',', $tipos),
                 'instrutor' => 'required|in:0,1'
@@ -71,8 +74,8 @@ class UpdateUserRequest extends FormRequest
 
             if ( $user->isPiloto() ){
                 $aux = [
-                    'certificado_confirmado' => 'required|in:0,1',
-                    'licenca_confirmada' => 'required|in:0,1'
+                    'certificado_confirmado' => 'required|integer|in:0,1',
+                    'licenca_confirmada' => 'required|integer|in:0,1'
                 ];
     
                 $resultado = array_merge($resultado, $aux);
@@ -81,9 +84,11 @@ class UpdateUserRequest extends FormRequest
 
         }
 
-        //fica a faltar a alterar o campo instrutor
+        //$teste = User::all();
+        //$teste = Classes_certificado::all();
+        //$teste = Tipos_licenca::all();
+        dd($resultado);
 
-        dd ($resultado);
 
         return $resultado;
     }

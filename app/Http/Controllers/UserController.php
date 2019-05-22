@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Tipos_licenca;
+use Illuminate\Support\Arr;
+use App\Classes_certificado;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\StoreUserRequest;
@@ -11,15 +15,19 @@ use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\SearchUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\PasswordUserRequest;
-use Illuminate\Support\Arr;
 use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
-{
+{   
+    private $certificados = array();
+    private $licencas = array();
+
     public function __construct()
     {
         $this->middleware('auth');
+        $this->certificados = Classes_certificado::all();
+        $this->licencas = Tipos_licenca::all();
+
     }
     
     public function index()
@@ -100,8 +108,11 @@ class UserController extends Controller
 
     public function edit(User $user){
         $this->authorize('update',$user);
-        
-        return view('users.editUser',compact('user'));
+        $certificados = $this->certificados;
+        $licencas = $this->licencas;
+
+
+        return view('users.editUser',compact('user','certificados','licencas'));
     }
 
     public function update(UpdateUserRequest $request, User $user){
