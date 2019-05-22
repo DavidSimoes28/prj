@@ -94,220 +94,175 @@
 <br>
 <br>
 </div>
-<a class="btn btn-xs btn-primary" href="{{ route('movimentos.create') }}" data-toggle="tooltip" title="Adicionar Movimento">{{ __('Adicionar Movimento') }}</a>
-
-
-
-
-@if (session('status'))
-    <div class="alert alert-success" role="alert">
-        {{ session('status') }}
-    </div>
-@endif
-
-@if(count($movimentos))
-    <table class="table table-striped">
-    <thead>
-        <tr>
-            
-            <th>ID</th>
-            <th>Matrícula</th>
-            <th>Data</th>
-            <th>Hora Descolagem</th>
-            <th>Hora Aterragem</th>
-            <th>Tempo Voo</th>
-            <th>Natureza</th>
-            <th>Piloto</th>
-            <th>Aerodromo Partida</th>
-            <th>Aerodromo Chegada</th>
-            <th>Aterragens</th>
-            <th>Deslocamentos</th>
-            <th>Nº Diário</th>
-            <th>Nº Serviço</th>
-            <th>Conta-horas Inicial</th>
-            <th>Conta-horas Final</th>
-            <th>Nº Pessoas</th>
-            <th>Tipo Instrução</th>
-            <th>Instrutor</th>
-            <th>Confirmado</th>
-            <!--<th>Observações</th>-->
-            <th>Mais Informações</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach ($movimentos as $movimento)
-            <tr>
-                <td>{{ $movimento->id }}</td>
-                <td>{{ $movimento->aeronave }}</td>
-                <td>{{ $movimento->data }}</td>
-                <td>{{ $movimento->hora_descolagem }}</td>
-                <td>{{ $movimento->hora_aterragem }}</td>
-                <td>{{ $movimento->tempo_voo }}</td>
-                <td>{{ $movimento->naturezaToStr() }}</td>
-                <td>{{ $movimento->pilotos->nome_informal }}</td>
-                <td>{{ $movimento->aerodromo_partida }}</td>
-                <td>{{ $movimento->aerodromo_chegada }}</td>
-                <td>{{ $movimento->num_aterragens }}</td>
-                <td>{{ $movimento->num_descolagens }}</td>
-                <td>{{ $movimento->num_diario }}</td>
-                <td>{{ $movimento->num_servico }}</td>
-                <td>{{ $movimento->conta_horas_inicio }}</td>
-                <td>{{ $movimento->conta_horas_fim }}</td>
-                <td>{{ $movimento->num_pessoas }}</td>
-                <td>{{ $movimento->tipoInstrucaoToStr() }}</td>
-                <td>{{ $movimento->instrutores->nome_informal ?? ""}}</td>
-                <td>{{ $movimento->instrucaoConfirmadaToStr() }}</td>
-                <!--<td>{{ $movimento->observacoes }}</td>-->
-                <td>
-                
-                <a href="#detalhes-{{ $movimento->id }}" class="dropdown-item" data-toggle="modal" data-target="#detalhes-{{ $movimento->id }}">
-                {{ __('Mais Informações') }}
-                </a>
-
-                <!--
-                -->
-                
-
-                <div class="modal" id="detalhes-{{ $movimento->id }}">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button class="close" data-dismiss="modal">&times;</button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="list-group">
-                                    <div class="d-flex w-100 justify-content-between">
-
-                                        <div class="container">
-                                            <h4>Detalhes do Movimento - {{ $movimento->id }}</h4>
-                                            <div class="row justify-content-center">
-                                                <table class="table table-striped">
-                                                    <div class="card-body">
-                                                    
-                                                        <tr>
-                                                            <td><span class="input-group-text">Aeronave: {{ $movimento->aeronave }}</span></td>
-                                                            <td><span class="input-group-text">Natureza: {{ $movimento->naturezaToStr() }}</span></td>
-                                                            <td><span class="input-group-text">Duração de {{ $movimento->horasDeVoo() }}</span></td>
-                                                        </tr>
-
-                                                        <tr>
-                                                            <td><span class="input-group-text">Data do voo: {{ $movimento->data }}</span></td>
-                                                            <td><span class="input-group-text">Hora de partida: {{ $movimento->horaDePartida() }}</span></td>
-                                                            <td><span class="input-group-text">Hora de aterragem: {{ $movimento->horaDeChegada() }}</span></td>
-                                                        </tr>
-
-                                                        <tr>
-                                                            <td><span class="input-group-text">Piloto: {{ $movimento->pilotos->nome_informal }}</span></td>
-                                                            <td><span class="input-group-text">Partida: {{ $movimento->aerodromo_partida }}</span></td>
-                                                            <td><span class="input-group-text">Chegada: {{ $movimento->aerodromo_chegada }}</span></td>
-                                                        </tr>
-
-                                                        <tr>
-                                                            <td><span class="input-group-text">Nº Aterragens: {{ $movimento->num_aterragens }}</span></td>
-                                                            <td><span class="input-group-text">Nº Descolagens: {{ $movimento->num_descolagens }}</span></td>
-                                                            <td><span class="input-group-text">Nº Diário: {{ $movimento->num_diario }}</span></td>
-                                                        </tr>
-
-                                                        <tr>
-                                                            <td><span class="input-group-text">Nº Serviço: {{ $movimento->num_servico }}</span></td>
-                                                            <td><span class="input-group-text">Conta Horas-inicial: {{ $movimento->conta_horas_inicio }}</span></td>
-                                                            <td><span class="input-group-text">Conta Horas-final: {{ $movimento->conta_horas_fim }}</span></td>
-                                                        </tr>
-
-                                                        @if ( $movimento->natureza == 'I' )
-                                                        <tr>
-                                                            <td><span class="input-group-text">Tipo Instrução: {{ $movimento->tipoInstrucaoToStr() }}</span></td>
-                                                            <td><span class="input-group-text">Instrutor: {{ $movimento->instrutores->nome_informal ?? ""}}</span></td>
-                                                            <td><span class="input-group-text">Instrução {{ $movimento->instrucaoConfirmadaToStr() }}</span></td> 
-                                                        </tr>
-                                                        @endif
-
-                                                        <tr>
-                                                            <td><span class="input-group-text">Nº Pessoas: {{ $movimento->num_pessoas }}</span></td>
-                                                        </tr>
-
-                                                    </div>
-
-                                                </table>
-
-                                            </div>
-                                            
-                                            <div><h5><label for ="observacoes">{{ __('Observações') }}</label></h5></div>
-                                            <h6>
-                                            <textarea style="width: 100%; resize: none" class="md-textarea form-control" readonly>{{ $movimento->observacoes }}</textarea>
-                                            </h6>                                
-                                        </div>
-                                    </div>
-                                </div>                            
-                            </div>
-                            <div class="modal-footer">
-                                <div class = "btn-group">
-                                    <a class="btn btn-xs btn-primary" href="{{ route('movimentos.edit', ['id'=> $movimento->id] ) }}">{{ __('Editar movimento') }}</a>
-                                </div>
-                            </div>
-                        </div>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header"><h4>Lista de Movimentos&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div class="btn-group dropright">
+                    <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                    data-toggle="tooltip">
+                        {{ __('Opções direção') }}
+                    </button>
+                    
+                    <div class="dropdown-menu">
+                    <a class="btn btn-xs btn-primary" href="{{ route('movimentos.create') }}" data-toggle="tooltip" title="Adicionar Movimento">{{ __('Adicionar Movimento') }}</a>
+                        <div class="dropdown-divider"></div>
+                           
                     </div>
+                    </h4>
+                    
                 </div>
                 
-                <!--
-                -->
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                </td>
-            </tr>
-        @endforeach
-    </table>
-    {{ $movimentos->links() }}
-@else
-    <h2>Nenhum movimento encontrado.</h2>
-@endif
+                </h3><div class="card-body">
+                @if (session('status'))
+                <div class="alert alert-success" role="alert">
+                    {{ session('status') }}
+                </div>
+                @endif
+
+                @if(count($movimentos))
+                        <table class="table table-striped">
+                        <thead>
+                            <tr>
+                            <th style="width: 10%">ID</th>
+                            <th style="width: 10%">Aeronave</th>
+                            <th style="width: 15%">Data de voo</th>
+                            <th style="width: 10%">Natureza</th>
+                            <th style="width: 20%">Piloto</th>
+                            <th style="width: 15%">Aerodromo Partida</th>
+                            <th style="width: 15%">Aerodromo Chegada</th>
+                            <th style="width: 5%">Nº Serviço</th>
+                            <th style="width: 15%">Confirmação</th>
+                            <th style="width: 10%">Ações</th>
+                            </tr>
+                        </thead>
+                        
+                        <tbody>
+                            @foreach ($movimentos as $movimento)
+                                <tr>
+                                    <td>{{ $movimento->id }}</td>
+                                    <td>{{ $movimento->aeronave }}</td>
+                                    <td>{{ $movimento->data }}</td>
+                                    <td>{{ $movimento->naturezaToStr() }}</td>
+                                    <td>{{ $movimento->pilotos->nome_informal }}</td>
+                                    <td>{{ $movimento->aerodromo_partida }}</td>
+                                    <td>{{ $movimento->aerodromo_chegada }}</td>
+                                    <td>{{ $movimento->num_servico }}</td>
+                                    <td>{{ $movimento->instrucaoConfirmadaToStr() }}</td>
+
+                                    <td>
+                                        <div class="btn-group dropright">
+                                            <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                            data-toggle="tooltip" title="Ações">
+                                                {{ __('Ações') }}
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <a class="btn btn-primary btn-block" href="">Editar</a>
+                                                <a href="#detalhes-{{ $movimento->id }}" class="btn btn-secondary" data-toggle="modal" data-target="#detalhes-{{ $movimento->id }}">{{ __('Mais Informações') }}</a>
+                                                
+                                            </div>
+
+                                            <!--
+                                             -->
+                                             <div class="modal" id="detalhes-{{ $movimento->id }}">
+                                                    <div class="modal-dialog modal-lg">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button class="close" data-dismiss="modal">&times;</button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="list-group">
+                                                                    <div class="d-flex w-100 justify-content-between">
+
+                                                                        <div class="container">
+                                                                            <h4>Detalhes do Movimento - {{ $movimento->id }}</h4>
+                                                                            <div class="row justify-content-center">
+                                                                                <table class="table table-striped">
+                                                                                    <div class="card-body">
+                                                                                    
+                                                                                        <tr>
+                                                                                            <td><span class="input-group-text">Aeronave: {{ $movimento->aeronave }}</span></td>
+                                                                                            <td><span class="input-group-text">Natureza: {{ $movimento->naturezaToStr() }}</span></td>
+                                                                                            <td><span class="input-group-text">Duração de {{ $movimento->horasDeVoo() }}</span></td>
+                                                                                        </tr>
+
+                                                                                        <tr>
+                                                                                            <td><span class="input-group-text">Data do voo: {{ $movimento->data }}</span></td>
+                                                                                            <td><span class="input-group-text">Hora de partida: {{ $movimento->horaDePartida() }}</span></td>
+                                                                                            <td><span class="input-group-text">Hora de aterragem: {{ $movimento->horaDeChegada() }}</span></td>
+                                                                                        </tr>
+
+                                                                                        <tr>
+                                                                                            <td><span class="input-group-text">Piloto: {{ $movimento->pilotos->nome_informal }}</span></td>
+                                                                                            <td><span class="input-group-text">Partida: {{ $movimento->aerodromo_partida }}</span></td>
+                                                                                            <td><span class="input-group-text">Chegada: {{ $movimento->aerodromo_chegada }}</span></td>
+                                                                                        </tr>
+
+                                                                                        <tr>
+                                                                                            <td><span class="input-group-text">Nº Aterragens: {{ $movimento->num_aterragens }}</span></td>
+                                                                                            <td><span class="input-group-text">Nº Descolagens: {{ $movimento->num_descolagens }}</span></td>
+                                                                                            <td><span class="input-group-text">Nº Diário: {{ $movimento->num_diario }}</span></td>
+                                                                                        </tr>
+
+                                                                                        <tr>
+                                                                                            <td><span class="input-group-text">Nº Serviço: {{ $movimento->num_servico }}</span></td>
+                                                                                            <td><span class="input-group-text">Conta Horas-inicial: {{ $movimento->conta_horas_inicio }}</span></td>
+                                                                                            <td><span class="input-group-text">Conta Horas-final: {{ $movimento->conta_horas_fim }}</span></td>
+                                                                                        </tr>
+
+                                                                                        @if ( $movimento->natureza == 'I' )
+                                                                                        <tr>
+                                                                                            <td><span class="input-group-text">Tipo Instrução: {{ $movimento->tipoInstrucaoToStr() }}</span></td>
+                                                                                            <td><span class="input-group-text">Instrutor: {{ $movimento->instrutores->nome_informal ?? ""}}</span></td>
+                                                                                            <td><span class="input-group-text">Instrução {{ $movimento->instrucaoConfirmadaToStr() }}</span></td> 
+                                                                                        </tr>
+                                                                                        @endif
+
+                                                                                        <tr>
+                                                                                            <td><span class="input-group-text">Nº Pessoas: {{ $movimento->num_pessoas }}</span></td>
+                                                                                        </tr>
+
+                                                                                    </div>
+
+                                                                                </table>
+
+                                                                            </div>
+                                                                            
+                                                                            <div><h5><label for ="observacoes">{{ __('Observações') }}</label></h5></div>
+                                                                            <h6>
+                                                                            <textarea style="width: 100%; resize: none" class="md-textarea form-control" readonly>{{ $movimento->observacoes }}</textarea>
+                                                                            </h6>                                
+                                                                        </div>
+                                                                    </div>
+                                                                </div>                            
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <div class = "btn-group">
+                                                                    <a class="btn btn-xs btn-primary" href="{{ route('movimentos.edit', ['id'=> $movimento->id] ) }}">{{ __('Editar movimento') }}</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <!--
+                                                -->
+
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                        </table>
+                        {{ $movimentos->links() }}
+                    @else
+                        <h2>Nenhum movimento encontrado.</h2>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 @endsection
