@@ -152,7 +152,6 @@
                                             <select class="btn btn-xs btn-primary dropdown-toggle btn-block {{ $errors->has('tipo_instrucao') ? ' is-invalid' : '' }}"  name="tipo_instrucao" value="{{ strval(old('tipo_instrucao',request()->tipo_instrucao )) }}" >
                                             <option value="D"  {{ strval(old('tipo_instrucao' ,request()->tipo_instrucao)) == "D"  ? "selected":"" }} >Duplo Comando</option>
                                             <option value="S"  {{ strval(old('tipo_instrucao' ,request()->tipo_instrucao)) == "S"      ? "selected":"" }} >Solo</option>
-                                            
                                             </select> 
                                             
                                             @if ($errors->has('tipo_instrucao'))
@@ -167,7 +166,15 @@
             
                                     <div class="col-md-6">
                                         <input id="nome_informal" type="text" class="form-control{{ $errors->has('nome_informal') ? ' is-invalid' : '' }}" name="nome_informal" 
-                                        value="{{ $movimento->nome_informal }}" >
+                                        value=
+                                        @if($movimento->natureza=='I')
+                                            @if($movimento->piloto_id==Auth::user()->id)
+                                                "{{$movimento->instrutores->nome_informal}}"       
+                                            @elseif ($movimento->instrutor_id==Auth::user()->id)
+                                                "{{$movimento->pilotos->nome_informal}}"       
+                                            @endif              
+                                        @endif
+                                          >
         
                                         @if ($errors->has('nome_informal'))
                                             <span class="invalid-feedback" role="alert">
