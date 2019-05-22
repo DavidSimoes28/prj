@@ -96,6 +96,24 @@
                                 @endif
                             </div>
                         </div>
+                        
+                        <div class="form-group row">
+                            <label for ="is_piloto" class="col-md-4 col-form-label text-md-right">{{ __('Participou como') }}</label>
+                            <div class="col-sm-6">
+                                <select class="btn btn-xs btn-primary dropdown-toggle btn-block {{ $errors->has('is_piloto') ? ' is-invalid' : '' }}"  name="is_piloto" value="{{ strval(old('is_piloto',request()->is_piloto )) }}" >
+                                <option value="1"  {{ strval(old('is_piloto' ,request()->is_piloto)) == "1"  ? "selected":"" }} >Piloto</option>
+                                @if (Auth::user()->isInstrutor())
+                                <option value="0"  {{ strval(old('is_piloto' ,request()->is_piloto)) == "0"      ? "selected":"" }} >Instrutor</option>
+                                @endif
+                                </select> 
+                                
+                                @if ($errors->has('is_piloto'))
+                                    <span class="invalid-feedback" role="alert">
+                                        {{ $errors->first('is_piloto') }}
+                                    </span>
+                                @endif   
+                            </div>                     
+                        </div>
 
                         <div class="form-group row">
                             <label for ="natureza" class="col-md-4 col-form-label text-md-right">{{ __('Natureza do Voo') }}</label>
@@ -142,14 +160,14 @@
                                         </div>                     
                                 </div>
                                 <div class="form-group row">
-                                    <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Nome do Instrutor') }}</label>
+                                    <label for="nome_informal" class="col-md-4 col-form-label text-md-right">{{ __('Nome do outro Piloto') }}</label>
             
                                     <div class="col-md-6">
-                                        <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" >
+                                        <input id="nome_informal" type="text" class="form-control{{ $errors->has('nome_informal') ? ' is-invalid' : '' }}" name="nome_informal" >
         
-                                        @if ($errors->has('name'))
+                                        @if ($errors->has('nome_informal'))
                                             <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $errors->first('name') }}</strong>
+                                                <strong>{{ $errors->first('nome_informal') }}</strong>
                                             </span>
                                         @endif
                                     </div>

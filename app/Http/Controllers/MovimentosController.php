@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
+use App\Aerodromo;
 use App\Movimento;
+use App\Models\Aeronave;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreMovimentoRequest;
@@ -157,60 +160,87 @@ class MovimentosController extends Controller
 
         $movimento = new Movimento();
         $movimento->fill($request->all());
-        dd($movimento);
-
-        //'aeronave', falta verificar que existe
         
-        //'confirmado', meter a 0 
+        $data=date("Y-m-d ",strtotime($request->data));
+        $hora_descolagem=date("H:i:s",strtotime($request->hora_descolagem));
+        $hora_aterragem=date("H:i:s",strtotime($request->hora_aterragem));
         
-        //'piloto_id', falta converter o próprio para o seu piloto id
-        //'num_licenca_piloto',
-        //'validade_licenca_piloto',
-        //'tipo_licenca_piloto',
-        //'num_certificado_piloto',
-        //'validade_certificado_piloto',
-        //'classe_certificado_piloto',
-        
-        //'tempo_voo', calculado
-        //'preco_voo', calculado
-         
-        //'instrutor_id', falta converter o nome informal para id
-        //'num_licenca_instrutor',
-        //'validade_licenca_instrutor',
-        //'tipo_licenca_instrutor',	
-        //'num_certificado_instrutor'	,
-        //'validade_certificado_instrutor',
-        //'classe_certificado_instrutor'
+        $movimento->hora_descolagem = $data.$hora_descolagem;
+        $movimento->hora_aterragem = $data.$hora_aterragem;
 
+        $aeronave = Aeronave::where('matricula',$request->aeronave)->first();
+        $movimento->aeronave_movimentos()->associate($aeronave);
 
+        $movimento->tempo_voo=$this->calculaTempoViagem($request->conta_horas_inicio,$request->conta_horas_fim);
+        $movimento->preco_voo=$this->calculaPrecoViagem();
 
+        $parceiro=Auth::user();
+        if($request->is_piloto){
+            $movimento=$this->atribuirPiloto($parceiro,$movimento);
+        } else{
+            $movimento=$this->atribuirInstrutor($parceiro,$movimento);
+        }       
 
+        $movimento->confirmado=0; 
 
+        //FALTA VERIFICAR SE INSTRUTOR EXISTE E É DIFERENTE DO PILOTO//////////////////////////////////////////////////
+        if($request->natureza=='I'){
 
+            $parceiro = User::where('nome_informal',$request->nome_informal)->first();
+            
 
+            if($request->is_piloto){
+                $movimento=$this->atribuirInstrutor($parceiro,$movimento);
 
+            }else{
+                $movimento=$this->atribuirPiloto($parceiro,$movimento);
+            }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        }else{
+            $movimento->instrutor_id=null;
+            $movimento->num_licenca_instrutor=null;
+            $movimento->validade_licenca_instrutor=null;
+            $movimento->tipo_licenca_instrutor=null;
+            $movimento->num_certificado_instrutor=null;
+            $movimento->validade_certificado_instrutor=null;
+            $movimento->classe_certificado_instrutor=null;         
+        }
 
         $movimento->save();
         return redirect()->route('movimentos')->with("success","Movimento inserido com sucesso.");
     }
 
+    private function atribuirInstrutor($instrutor,$movimento){
+
+        $movimento->num_licenca_instrutor=$instrutor->num_licenca;
+        $movimento->validade_licenca_instrutor=$instrutor->validade_licenca;
+        $movimento->tipo_licenca_instrutor=$instrutor->tipo_licenca;
+        $movimento->num_certificado_instrutor=$instrutor->num_certificado;
+        $movimento->validade_certificado_instrutor=$instrutor->validade_certificado;
+        $movimento->classe_certificado_instrutor=$instrutor->classe_certificado;
+
+        return $movimento->instrutores()->associate($instrutor);
+    }
+
+    private function atribuirPiloto($piloto,$movimento){
+
+        $movimento->num_licenca_piloto=$piloto->num_licenca;
+        $movimento->validade_licenca_piloto=$piloto->validade_licenca;
+        $movimento->tipo_licenca_piloto=$piloto->tipo_licenca;
+        $movimento->num_certificado_piloto=$piloto->num_certificado;
+        $movimento->validade_certificado_piloto=$piloto->validade_certificado;
+        $movimento->classe_certificado_piloto=$piloto->classe_certificado;
+
+        return $movimento->pilotos()->associate($piloto);
+    }
+
+    ////FALTA IMPLEMENTAR//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    private function calculaTempoViagem($conta_horas_inicio, $conta_horas_fim){ 
+        return 90;
+    }
+
+    ////FALTA IMPLEMENTAR//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    private function calculaPrecoViagem(){ 
+        return 410.05;
+    }
 }

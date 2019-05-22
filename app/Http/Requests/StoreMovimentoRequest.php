@@ -2,6 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\User;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreMovimentoRequest extends FormRequest
@@ -22,19 +25,59 @@ class StoreMovimentoRequest extends FormRequest
      * @return array
      */
     public function rules()
-    {
+    {     
+        $nome_informal_aux;
+        $natureza_aux = 'I,E,T';
+        $aux=User::where('id',Auth::user()->id)->first();
+        if($aux->nome_informal==$this->nome_informal){
+            
+            $nome_informal_aux='regex:/^$/i';
+
+        }else{
+
+        if($this->is_piloto){
+            
+            if($this->natureza=='I'){
+                $nome_informal_aux='required|string|min:1|max:40|exists:users,nome_informal|';
+
+                $nome_informal_aux.=Rule::exists('users')->where(function($query){
+                    $query->where('nome_informal',$this->nome_informal);
+                    $query->where('tipo_socio','P');
+                    $query->where('instrutor','1');
+                });
+                
+
+            }else{
+                $natureza_aux = 'E,T';
+                $nome_informal_aux='regex:/^$/i';
+
+            }
+        }else{
+            //ele é instrutor
+            $natureza_aux='I';
+            $nome_informal_aux='required|string|min:1|max:40|exists:users,nome_informal|';
+            $nome_informal_aux.=Rule::exists('users')->where(function($query){
+                $query->where('nome_informal',$this->nome_informal);
+                $query->where('tipo_socio','P');
+            });
+            
+        }}
+
+
+        
+        
         return [
             'data' => 'required|date',
             'hora_descolagem' => 'required',
             'hora_aterragem' => 'required',
-            'aeronave' => 'required|string|min:1|max:8',
+            'aeronave' => 'required|string|min:1|max:8|exists:aeronaves,matricula',
             'num_diario' =>'required|integer|min:1|max:999 999 999 99',
             'num_servico' => 'required|integer|min:1|max:999 999 999 99',
-            'natureza' => 'required|in:T,I,E',
+            'natureza' => 'required|in:'.$natureza_aux,
             'tipo_instrucao' => 'required|in:D,S',
-            'name' => 'string|max:40|nullable',
-            'aerodromo_partida' => 'required|string|max:40',
-            'aerodromo_chegada' =>'required|string|max:40',
+            'nome_informal' => $nome_informal_aux,
+            'aerodromo_partida' => 'required|string|max:40|exists:aerodromos,code',
+            'aerodromo_chegada' =>'required|string|max:40|exists:aerodromos,code',
             'num_aterragens' => 'required|integer|min:1|max:999 999 999 99',
             'num_descolagens' => 'required|integer|min:1|max:999 999 999 99',
             'num_pessoas' => 'required|integer|min:1|max:999 999 999 99',

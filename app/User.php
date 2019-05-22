@@ -124,6 +124,13 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->tipo_socio=="P";
     }
 
+    public function isInstrutor(){
+
+        if($this->isPiloto()) return $this->instrutor;
+    
+        return 0;
+    }
+
     public function certificadoConfirmardoToStr()
     {
         switch ($this->certificado_confirmado) {
