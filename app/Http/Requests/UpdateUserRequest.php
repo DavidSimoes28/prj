@@ -38,7 +38,7 @@ class UpdateUserRequest extends FormRequest
                 'nif' => 'required|string|size:9|regex:/^[1-9][0-9]+$/',
                 'telefone'=> ['max:20','regex:/^([\+][\d]{3}[ ])?[\d]+$/'],
                 'file_foto' => 'nullable|mimes:jpeg,bmp,png,gif',
-                'endereco' => 'required|string|min:1'
+                'endereco'=> 'string|max:255|nullable',
             ];
 
         }
@@ -64,3 +64,21 @@ class UpdateUserRequest extends FormRequest
 
 //'tipo_licenca' => ['nullable',Rule::in($tipos)],
 //'classe_certificado' => ['nullable',Rule::in($tipos)]
+
+
+
+/* US - 15
+'file_foto' => 'mimes:jpeg,bmp,png,gif',
+'file_certificado' => 'mimes:pdf',
+'num_certificado' => 'max:30',
+'validade_certificado' => 'date|nullable',
+'file_licenca' => 'mimes:pdf',
+'instrutor' => 'max:1',
+'num_licenca' => 'max:30',
+'validade_licenca' => 'date|nullable',   
+'ativo' => 'nullable|in:0,1',
+'quota_paga' => 'nullable|in:0,1',
+'direcao' => 'nullable|in:0,1',
+'tipo_licenca' => 'nullable|in:' . implode(',', $tipos),
+'classe_certificado' => 'nullable|in:'. implode(',', $classes)
+*/
