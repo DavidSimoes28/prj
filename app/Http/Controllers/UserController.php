@@ -100,11 +100,7 @@ class UserController extends Controller
 
     public function edit(User $user){
         $this->authorize('update',$user);
-
-        if ( Auth::user()->id == $user->id && !Auth::user()->isAdmin() ){
-            return view('users.editMyUser',compact('user'));
-        }
-
+        
         return view('users.editUser',compact('user'));
     }
 

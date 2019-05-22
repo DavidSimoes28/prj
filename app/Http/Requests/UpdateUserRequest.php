@@ -26,37 +26,56 @@ class UpdateUserRequest extends FormRequest
     public function rules()
     {
         $user = $this->route('user');
+        $logado = Auth::user();
+
         $tipos = array('ALUNO-PPL(A)','ALUNO-PU','ATPL','CPL(A)','NEWTYPE','PPL(A)','PU');
         $classes  = array('Class 1','Class 2','LAPL','NEWCLS');
+        
+        $resultado = array();
+        $aux = array();
 
-        if ( Auth::user()->id == $user->id && !Auth::user()->isAdmin() ){
+        $resultado = [
+                    'name' => ['required','max:255','regex:/^[a-zA-ZçÇáÁéÉíÍóÓúÚàÀèÈìÌòÒùÙãÃõÕâÂêÊîÎôÔûÛ ]+$/'],
+                    'email' => ['required','string', 'max:255', 'email', Rule::unique('users')->ignore($user->id)],
+                    'nome_informal' => 'required|string|max:40',
+                    'nif' => 'required|string|size:9|regex:/^[1-9][0-9]+$/',
+                    'telefone'=> ['max:20','regex:/^([\+][\d]{3}[ ])?[\d]+$/'],
+                    'file_foto' => 'nullable|mimes:jpeg,bmp,png,gif',
+                    'endereco'=> 'string|max:255|nullable',
+        ];
 
-            return [
-                'name' => ['required','max:255','regex:/^[a-zA-ZçÇáÁéÉíÍóÓúÚàÀèÈìÌòÒùÙãÃõÕâÂêÊîÎôÔûÛ ]+$/'],
-                'email' => ['required','string', 'max:255', 'email', Rule::unique('users')->ignore($user->id)],
-                'nome_informal' => 'required|string|max:40',
-                'nif' => 'required|string|size:9|regex:/^[1-9][0-9]+$/',
-                'telefone'=> ['max:20','regex:/^([\+][\d]{3}[ ])?[\d]+$/'],
-                'file_foto' => 'nullable|mimes:jpeg,bmp,png,gif',
-                'endereco'=> 'string|max:255|nullable',
+        if ( $user->isPiloto() ){
+            $aux = [
+                'file_certificado' => 'mimes:pdf',
+                'num_certificado' => 'max:30',
+                'validade_certificado' => 'date|nullable',
+                'classe_certificado' => 'nullable|in:'. implode(',', $classes),
+                'file_licenca' => 'mimes:pdf',
+                'num_licenca' => 'max:30',
+                'validade_licenca' => 'date|nullable',
+                'tipo_licenca' => 'nullable|in:' . implode(',', $tipos),
+                'instrutor' => 'required|max:1'
             ];
 
+            $resultado = array_merge($resultado, $aux);
         }
 
-        return [
-            'num_socio' => 'required|integer|min:1|max:99999999999|'. Rule::unique('users')->ignore($user->id),
-            'name' => ['required','max:255','regex:/^[a-zA-ZçÇáÁéÉíÍóÓúÚàÀèÈìÌòÒùÙãÃõÕâÂêÊîÎôÔûÛ ]+$/'],
-            'email' => ['required','string', 'max:255', 'email', Rule::unique('users')->ignore($user->id)],
-            'nome_informal' => 'required|string|max:40',
-            'nif' => 'required|integer|max:999999999|size:9',
-            'telefone'=> ['max:20','regex:/^([\+][\d]{3}[ ])?[\d]+$/'],
-            'sexo' => 'required|in:M,F',
-            'data_nascimento' => 'required|date',
-            'file_foto' => 'nullable|mimes:jpeg,bmp,png,gif',    
-            'ativo' => 'required|in:0,1',
-            'quota_paga' => 'required|in:0,1',
-            'direcao' => 'required|in:0,1'
-        ];
+        if ( $user->isAdmin() ){
+            $aux = [
+                'ativo' => 'nullable|in:0,1',
+                'quota_paga' => 'nullable|in:0,1',
+                'direcao' => 'nullable|in:0,1',
+                'confirmado' => 'required|in:0,1'
+            ];
+
+            $resultado = array_merge($resultado, $aux);
+        }
+
+        //fica a faltar a alterar o campo instrutor
+
+        dd ($resultado);
+
+        return $resultado;
     }
 }
 //'in:ALUNO-PPL(A),ALUNO-PU,ATPL,CPL(A),NEWTYPE,PPL(A),PU'
@@ -68,7 +87,6 @@ class UpdateUserRequest extends FormRequest
 
 
 /* US - 15
-'file_foto' => 'mimes:jpeg,bmp,png,gif',
 'file_certificado' => 'mimes:pdf',
 'num_certificado' => 'max:30',
 'validade_certificado' => 'date|nullable',
@@ -81,4 +99,10 @@ class UpdateUserRequest extends FormRequest
 'direcao' => 'nullable|in:0,1',
 'tipo_licenca' => 'nullable|in:' . implode(',', $tipos),
 'classe_certificado' => 'nullable|in:'. implode(',', $classes)
+
+,   
+                'ativo' => 'nullable|in:0,1',
+                'quota_paga' => 'nullable|in:0,1',
+                'direcao' => 'nullable|in:0,1',
+                                'instrutor' => 'max:1',
 */
