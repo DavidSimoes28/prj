@@ -6,12 +6,12 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
         @if($errors)
-    @include("partials.errors")
-@endif
+            @include("partials.errors")
+        @endif
             <div class="card">
                 <div class="card-header"><h3 class="text-center">Editar Sócio</h3></div>
                 <div class="card-body">
-                <form method="POST" action="{{ route('socios.update',['id'=>$user->id]) }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('socios.update',['id'=>$user->id]) }}" enctype="multipart/form-data">
                         @csrf
                         @method("PUT")
                         <div class="form-group row">
@@ -152,28 +152,46 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="endereco" class="col-md-4 col-form-label text-md-right">{{ __('Endereço') }}</label>
-
+                            <label for="ativo" class="col-md-4 col-form-label text-md-right">{{ __('Ativo') }}</label>
                             <div class="col-md-6">
-                                <textarea name="endereco" class="form-control{{ $errors->has('endereco') ? ' is-invalid' : '' }}"> {{ $user->endereco }}</textarea>
-                                @if ($errors->has('endereco'))
+                            <input type="radio" class="form{{ $errors->has('ativo') ? ' is-invalid' : '' }}" name="ativo" value="0" {{ intval(old('ativo',$user->ativo)) == 0?"checked":"" }}> Não <br>
+                            <input type="radio" class="form{{ $errors->has('ativo') ? ' is-invalid' : '' }}" name="ativo" value="1" {{ intval(old('ativo',$user->ativo)) == 1?"checked":"" }}> Sim <br>
+                                @if ($errors->has('ativo'))
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('endereco') }}</strong>
+                                        <strong>{{ $errors->first('ativo') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        
+                        <div class="form-group row">
+                            <label for="quota_paga" class="col-md-4 col-form-label text-md-right">{{ __('Quota Paga') }}</label>
+                    
+                            <div class="col-md-6">
+                                <input type="radio" class="form{{ $errors->has('quota_paga') ? ' is-invalid' : '' }}" name="quota_paga" value="0" {{ intval(old('quota_paga',$user->quota_paga)) == 0?"checked":"" }}> Não <br>
+                                <input type="radio" class="form{{ $errors->has('quota_paga') ? ' is-invalid' : '' }}" name="quota_paga" value="1" {{ intval(old('quota_paga',$user->quota_paga)) == 1?"checked":"" }}> Sim <br>
+                                @if ($errors->has('quota_paga'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('quota_paga') }}</strong>
                                     </span>
                                 @endif
                             </div>
                         </div>
 
-                        @if(Auth::user()->isPiloto())
-                            @include('users.piloto.editPiloto')
-                        @endif
-                        
-                        @if(Auth::user()->isPiloto() && Auth::user()->isAdmin() || !Auth::user()->isPiloto() && !Auth::user()->isAdmin())
-                            @include('users.direcao.editDirecao')
-                        @endif
+                        <div class="form-group row">
+                            <label for="direcao" class="col-md-4 col-form-label text-md-right">{{ __('Direção') }}</label>
+                            <div class="col-md-6">
+                                <input type="radio" class="form{{ $errors->has('direcao') ? ' is-invalid' : '' }}" name="direcao" value="0" {{ intval(old('direcao',$user->direcao)) == 0?"checked":"" }}> Não <br>
+                                <input type="radio" class="form{{ $errors->has('direcao') ? ' is-invalid' : '' }}" name="direcao" value="1" {{ intval(old('direcao',$user->direcao)) == 1?"checked":"" }}> Sim <br>
+                                @if ($errors->has('direcao'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('direcao') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
                         
                         <div class="form-group row mb-0">
-                        
                             <div class="col-md-6 offset-md-4 btn-group">
                                 <button type="submit" class="btn btn-success">
                                     {{ __('Guardar') }}
@@ -186,8 +204,7 @@
                                 </form>
                                 @endif
 
-                            </div>
-                            
+                            </div>                          
                         </div>
                     </form>
                 </div>

@@ -342,7 +342,7 @@
                         
                             <div class="col-md-6 offset-md-4 btn-group">
                                 <button type="submit" class="btn btn-success">
-                                    {{ __('Adicionar') }}
+                                    {{ __('Guardar') }}
                                 </button>
                                 <a class="btn btn-xs btn-danger" href="{{ route('movimentos') }}">{{ __('Cancelar') }}</a>
                             </div>
