@@ -89,9 +89,10 @@ class UserController extends Controller
                 $name_foto = $user->id."_".$request->file_foto->hashName();
                 Storage::disk('public')->putFileAs('fotos',$foto_url,$name_foto);
                 $user->foto_url = $name_foto;
+                $user->fill(["foto_url" => $name_foto]);
             }
         }
-        $user->fill(["foto_url" => $name_foto]);
+        
         $user->save();
         $user->sendEmailVerificationNotification();
         return redirect()->route('socios')->with("success","Sócio inserido com sucesso.");
