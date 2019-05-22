@@ -35,7 +35,7 @@ class UpdateUserRequest extends FormRequest
                 'name' => ['required','max:255','regex:/^[a-zA-ZçÇáÁéÉíÍóÓúÚàÀèÈìÌòÒùÙãÃõÕâÂêÊîÎôÔûÛ ]+$/'],
                 'email' => ['required','string', 'max:255', 'email', Rule::unique('users')->ignore($user->id)],
                 'nome_informal' => 'required|string|max:40',
-                'nif' => 'required|string|size:9|regex:/^[0-9]+$/',
+                'nif' => 'required|string|size:9|regex:/^[1-9][0-9]+$/',
                 'telefone'=> ['max:20','regex:/^([\+][\d]{3}[ ])?[\d]+$/'],
                 'file_foto' => 'nullable|mimes:jpeg,bmp,png,gif',
                 'endereco' => 'required|string|min:1'
