@@ -15,7 +15,7 @@ US12 - &#10004; Sem Teste\
 US13 - &#10006; Grafico &#10140; Fica para o fim\
 US14 - &#10006; &#10140; Erro nos Testes\
 US15 - &#10006; &#10140; Erro nos Testes alguns não sei\
-US16 - &#10006;\
+US16 - &#10004; finalizado, não existem testes\
 US17 - &#10006;\
 US18 - &#10006;\
 US19 - &#10006;\
