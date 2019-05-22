@@ -96,6 +96,34 @@
                         </div>
 
                         <div class="form-group row">
+                            <label for="nif" class="col-md-4 col-form-label text-md-right">{{ __('Nif') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="nif" type="text" class="form-control{{ $errors->has('nif') ? ' is-invalid' : '' }}" name="nif" required autofocus>
+
+                                @if ($errors->has('nif'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('nif') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="telefone" class="col-md-4 col-form-label text-md-right">{{ __('Telefone') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="telefone" type="text" class="form-control{{ $errors->has('telefone') ? ' is-invalid' : '' }}" name="telefone" required autofocus>
+
+                                @if ($errors->has('telefone'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('telefone') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label for="file_foto" class="col-md-4 col-form-label text-md-right">{{ __('Foto') }}</label>
 
                             <div class="col-md-6">
@@ -123,13 +151,54 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="ativo" class="col-md-4 col-form-label text-md-right">{{ __('Ativo') }}</label>
+                            <label for="quota_paga" class="col-md-4 col-form-label text-md-right">{{ __('Quota Paga') }}</label>
                             <div class="col-md-6">
-                                <input type="radio" class="form{{ $errors->has('ativo') ? ' is-invalid' : '' }}" name="ativo" value="0" checked required> Ativo <br>
-                                <input type="radio" class="form-{{ $errors->has('ativo') ? ' is-invalid' : '' }}" name="ativo" value="1" required> Não Ativo
+                                <input type="radio" class="form{{ $errors->has('quota_paga') ? ' is-invalid' : '' }}" name="quota_paga" value="P" checked required> Sim<br>
+                                <input type="radio" class="form{{ $errors->has('quota_paga') ? ' is-invalid' : '' }}" name="quota_paga" value="NP" required> Não<br>
+                                
+                                @if ($errors->has('quota_paga'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('quota_paga') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="direcao" class="col-md-4 col-form-label text-md-right">{{ __('Direção') }}</label>
+                            <div class="col-md-6">
+                                <input type="radio" class="form{{ $errors->has('direcao') ? ' is-invalid' : '' }}" name="direcao" value="0" {{ intval(old('direcao',$user->direcao)) == 0?"checked":"" }}> Não <br>
+                                <input type="radio" class="form{{ $errors->has('direcao') ? ' is-invalid' : '' }}" name="direcao" value="1" {{ intval(old('direcao',$user->direcao)) == 1?"checked":"" }}> Sim <br>
+                                @if ($errors->has('direcao'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('direcao') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="ativo" class="col-md-4 col-form-label text-md-right">{{ __('Sócio Ativo') }}</label>
+                            <div class="col-md-6">
+                                <input type="radio" class="form{{ $errors->has('ativo') ? ' is-invalid' : '' }}" name="ativo" value="0" checked required> Sim <br>
+                                <input type="radio" class="form-{{ $errors->has('ativo') ? ' is-invalid' : '' }}" name="ativo" value="1" required> Não 
                                 @if ($errors->has('ativo'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('ativo') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="endereco" class="col-md-4 col-form-label text-md-right">{{ __('Endereço') }}</label>
+
+                            <div class="col-md-6">
+                                <textarea id="endereco" class="form-control{{ $errors->has('endereco') ? ' is-invalid' : '' }}" name="endereco"> </textarea>
+
+                                @if ($errors->has('endereco'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('endereco') }}</strong>
                                     </span>
                                 @endif
                             </div>

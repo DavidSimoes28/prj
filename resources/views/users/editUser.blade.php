@@ -152,7 +152,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="ativo" class="col-md-4 col-form-label text-md-right">{{ __('Ativo') }}</label>
+                            <label for="ativo" class="col-md-4 col-form-label text-md-right">{{ __('Sócio Ativo') }}</label>
                             <div class="col-md-6">
                             <input type="radio" class="form{{ $errors->has('ativo') ? ' is-invalid' : '' }}" name="ativo" value="0" {{ intval(old('ativo',$user->ativo)) == 0?"checked":"" }}> Não <br>
                             <input type="radio" class="form{{ $errors->has('ativo') ? ' is-invalid' : '' }}" name="ativo" value="1" {{ intval(old('ativo',$user->ativo)) == 1?"checked":"" }}> Sim <br>
