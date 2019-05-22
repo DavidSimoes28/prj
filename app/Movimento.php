@@ -121,8 +121,10 @@ class Movimento extends Authenticatable
 
     public function horasDeVoo()
     {  
-        $hora = floor($this->tempo_voo / 60).':'.($this->tempo_voo -   floor($this->tempo_voo / 60) * 60);
-        return $hora;
+        $format = '%02.0f:%02.0f';
+        //echo sprintf($format, floor($this->tempo_voo / 60), ($this->tempo_voo -   floor($this->tempo_voo / 60) * 60);
+        //$hora = floor($this->tempo_voo / 60).':'.($this->tempo_voo -   floor($this->tempo_voo / 60) * 60);
+        return sprintf($format, floor($this->tempo_voo / 60), ($this->tempo_voo -   floor($this->tempo_voo / 60) * 60));
     }   
 
     
