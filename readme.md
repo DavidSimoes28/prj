@@ -7,7 +7,7 @@ US04 - &#10004;\
 US05 - &#10004;\
 US06 - &#10004;\
 US07 - &#10004;\
-US08 - &#10006; &#10140; Erro no Teste por causa da foto - Desconheço o motivo do erro\
+US08 - &#10004;\
 US09 - &#10004;\
 US10 - &#10004;\
 US11 - &#10004;\
