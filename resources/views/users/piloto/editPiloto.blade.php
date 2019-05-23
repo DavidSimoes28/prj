@@ -42,7 +42,7 @@
 </div>
 
 <div class="form-group row">
-    <label for="validade_licenca" class="col-md-4 col-form-label text-md-right">{{ __('Validade') }}</label>
+    <label for="validade_licenca" class="col-md-4 col-form-label text-md-right">{{ __('Validade Licença') }}</label>
 
     <div class="col-md-6">
         <input id="validade_licenca" type="date" class="form-control{{ $errors->has('validade_licenca') ? ' is-invalid' : '' }}" name="validade_licenca" value="{{ $user->validade_licenca }}" autofocus>
@@ -99,7 +99,7 @@
 </div>
 
 <div class="form-group row">
-    <label for="validade_certificado" class="col-md-4 col-form-label text-md-right">{{ __('Validade') }}</label>
+    <label for="validade_certificado" class="col-md-4 col-form-label text-md-right">{{ __('Validade Certificado') }}</label>
     <div class="col-md-6">
         <input id="validade_certificado" type="date" class="form-control{{ $errors->has('validade_certificado') ? ' is-invalid' : '' }}" name="validade_certificado" value="{{ $user->validade_certificado }}" autofocus>
         @if ($errors->has('validade_certificado'))
