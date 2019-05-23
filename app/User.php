@@ -168,15 +168,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function hasLicenca(){
         //return Storage::exists(storage_path('app/docs_piloto/' . 'licenca_' . $this->id . '.pdf'));
         //return Storage::disk("local")->exists('app/docs_piloto/' . 'licenca_' . $this->id . '.pdf');
+
         $path = storage_path('app/docs_piloto/' . 'licenca_' . $this->id . '.pdf');
 
-        if(!Storage::exists($path)){
-            return true;
-        }
-
-        return false;
-
         
+        return file_exists ($path);
     }
 
     public function hasCertificado(){
@@ -185,10 +181,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
         $path = storage_path('app/docs_piloto/' . 'certificado_' . $this->id . '.pdf');
 
-        if(!Storage::exists($path)){
-            return true;
-        }
-
-        return false;
+        
+        return file_exists ($path);
     }
 }
