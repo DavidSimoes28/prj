@@ -31,8 +31,8 @@ class UpdateUserRequest extends FormRequest
         $user = $this->route('user');
         $logado = Auth::user();
 
-        $tipos = array('ALUNO-PPL(A)','ALUNO-PU','ATPL','CPL(A)','NEWTYPE','PPL(A)','PU');
-        $classes  = array('Class 1','Class 2','LAPL','NEWCLS');
+        $classes = Classes_certificado::all();
+        $tipos = Tipos_licenca::all();
         
         $resultado = array();
         $aux = array();
