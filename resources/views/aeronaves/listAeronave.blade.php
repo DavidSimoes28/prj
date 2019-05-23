@@ -34,7 +34,7 @@
                                 <th class="text-center">Marca</th>
                                 <th class="text-center">Modelo</th>
                                 <th class="text-center">Nº de Lugares</th>
-                                <th class="text-center">Total de Horas</th>
+                                <th class="text-center">Conta Horas</th>
                                 <th class="text-center">Preço por Hora</th>
                                 @if(Auth::user()->isAdmin())
                                 <th class="text-center">Ações</th>
