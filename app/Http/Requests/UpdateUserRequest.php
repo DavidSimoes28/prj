@@ -53,6 +53,7 @@ class UpdateUserRequest extends FormRequest
         $aux = array();
 
         $resultado = [
+                    'num_socio' => 'required|unique:users|integer|max:11|regex:/^[0-9][0-9]+$/',
                     'name' => ['required','max:255','regex:/^[a-zA-ZçÇáÁéÉíÍóÓúÚàÀèÈìÌòÒùÙãÃõÕâÂêÊîÎôÔûÛ ]+$/'],
                     'email' => ['required','string', 'max:255', 'email', Rule::unique('users')->ignore($user->id)],
                     'data_nascimento' =>'required|date|before:today',
@@ -60,7 +61,9 @@ class UpdateUserRequest extends FormRequest
                     'nif' => 'size:9|regex:/^[1-9][0-9]{8}+$/',
                     'telefone'=> ['max:20','regex:/^([\+][\d]{3}[ ])?[\d]+$/'],
                     'file_foto' => 'nullable|mimes:jpeg,bmp,png,gif',
-                    'endereco'=> 'string|max:255|nullable'
+                    'endereco'=> 'string|max:255|nullable',
+                    'sexo'=>'required|in:M,F',
+                    'tipo_socio' => 'required|string|min:1|in:P,NP,A'
         ];
 
         if ( $user->isPiloto() ){
