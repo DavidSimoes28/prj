@@ -13,6 +13,9 @@
                 @endif              
             @else
                 <option value="1"   >Piloto</option>
+                @if($movimento->instrutor_id==Auth::user()->id)
+                    <option value="0"  >Instrutor</option> 
+                @endif
             @endif
         </select> 
         
