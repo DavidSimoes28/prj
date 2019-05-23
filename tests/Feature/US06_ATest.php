@@ -52,6 +52,7 @@ class US06_ATest extends USTestBase
                 'Campo [file_foto] não incluido ou inválido');
         $response->assertSeeInOrder_2(['<textarea', 'name="endereco"', '>', $this->normalUser->endereco, '</textarea>'],
                 'Campo [endereco] não incluido ou inválido');
+                //dd ($this->format_date_input($this->normalUser->data_nascimento));
         $response->assertSeeInOrder_2(['<input', 'name="data_nascimento"', 'value="'.$this->format_date_input($this->normalUser->data_nascimento).'"', '>'],
                 'Campo [data_nascimento] não incluido ou inválido');
         
