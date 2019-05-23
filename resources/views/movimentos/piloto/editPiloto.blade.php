@@ -2,21 +2,15 @@
     <label for ="is_piloto" class="col-md-4 col-form-label text-md-right">{{ __('Participou como') }}</label>
     <div class="col-sm-6">
         <select class="btn btn-xs btn-primary dropdown-toggle btn-block {{ $errors->has('is_piloto') ? ' is-invalid' : '' }}"  name="is_piloto" >
-        
-            @if($movimento->natureza=='I')
-                @if($movimento->piloto_id==Auth::user()->id)
-                    <option value="1"  selected >Piloto</option>
-                    <option value="0"  >Instrutor</option>   
-                @elseif ($movimento->instrutor_id==Auth::user()->id)
-                    <option value="1"   >Piloto</option>
-                    <option value="0" selected >Instrutor</option>  
-                @endif              
-            @else
-                <option value="1"   >Piloto</option>
-                @if($movimento->instrutor_id==Auth::user()->id)
-                    <option value="0"  >Instrutor</option> 
+            @if($movimento->piloto_id==Auth::user()->id)
+                <option value="1"  selected >Piloto</option>
+                @if($movimento->pilotos->instrutor)
+                    <option value="0"  >Instrutor</option>  
                 @endif
-            @endif
+            @elseif ($movimento->instrutor_id==Auth::user()->id)
+                <option value="1"   >Piloto</option>
+                <option value="0" selected >Instrutor</option>  
+            @endif                        
         </select> 
         
         @if ($errors->has('is_piloto'))
