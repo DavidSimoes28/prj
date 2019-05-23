@@ -31,8 +31,23 @@ class UpdateUserRequest extends FormRequest
         $user = $this->route('user');
         $logado = Auth::user();
 
-        $classes = Classes_certificado::all();
-        $tipos = Tipos_licenca::all();
+        $classes = Classes_certificado::all()->toArray();
+        $tipos = Tipos_licenca::all()->toArray();
+
+        $classes2 = array();
+        $tipos2 = array();
+
+
+        for ($i = 0; $i < count ($classes); $i++ ){
+            $classes2[] = $classes[$i]['code'];
+        }
+
+        for ($i = 0; $i < count ($tipos); $i++ ){
+            $tipos2[] = $tipos[$i]['code'];
+        }
+
+        //dd($tipos2);
+        //dd($classes);
         
         $resultado = array();
         $aux = array();
@@ -53,11 +68,11 @@ class UpdateUserRequest extends FormRequest
                 'file_certificado' => 'mimes:pdf',
                 'num_certificado' => 'required|string|max:30',
                 'validade_certificado' => 'date|nullable',
-                'classe_certificado' => 'nullable|in:'. implode(',', $classes),
+                'classe_certificado' => 'nullable|in:'. implode(',', $classes2),
                 'file_licenca' => 'mimes:pdf',
                 'num_licenca' => 'required|string|max:30|regex:/^[1-9][0-9]+$/',
                 'validade_licenca' => 'date|nullable',
-                'tipo_licenca' => 'nullable|in:' . implode(',', $tipos),
+                'tipo_licenca' => 'nullable|in:' . implode(',',  $tipos2),
                 'instrutor' => 'required|in:0,1'
             ];
 
