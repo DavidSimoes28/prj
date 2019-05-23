@@ -169,7 +169,9 @@
                                             <div class="dropdown-menu">
                                                 <a class="btn btn-xs btn-primary btn-block" href="{{ route('movimentos.edit', ['id'=> $movimento->id] ) }}">{{ __('Editar') }}</a>
                                                 <a href="#detalhes-{{ $movimento->id }}" class="btn btn-secondary btn-block" data-toggle="modal" data-target="#detalhes-{{ $movimento->id }}">{{ __('Mais Informações') }}</a>
-                                                
+                                                @if(Auth::user()->isAdmin())
+                                                    <a class="btn btn-xs btn-danger btn-block" href="{{ route('movimentos.edit', ['id'=> $movimento->id] ) }}">{{ __('Remover') }}</a>
+                                                @endif
                                             </div>
 
                                             <!--
