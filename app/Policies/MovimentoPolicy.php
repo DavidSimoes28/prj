@@ -35,7 +35,9 @@ class MovimentoPolicy
     }
 
     public function delete(User $user, Movimento $movimento)
-    {
+    {   
+        if($movimento->isConfirmado()) return false;
+        if($user->isAdmin()) return true; 
         return false;
     }
 }

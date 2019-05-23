@@ -36,6 +36,7 @@
                         <a class="nav-link" href="{{ route('socios') }}">{{ __('Sócios') }}</a>
                         <a class="nav-link" href="{{ route('aeronaves') }}">{{ __('Aeronaves') }}</a>
                         <a class="nav-link" href="{{ route('movimentos') }}">{{ __('Movimentos') }}</a>
+                        <a class="nav-link" href="{{ route('pendentes') }}">{{ __('Pendentes') }}</a>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

@@ -48,4 +48,7 @@ Route::middleware(['auth', 'verified', 'ativo'])->group(function () {
     Route::GET('/movimentos/{movimento}/edit', 'MovimentosController@edit')->name('movimentos.edit');
     Route::PUT('/movimentos/{movimento}', 'MovimentosController@update')->name('movimentos.update');
     Route::DELETE('/movimentos/{movimento}', 'MovimentosController@destroy')->name('movimentos.destroy');
+
+    Route::GET('/pendentes', 'PendentesController@index')->name('pendentes');
+    
 });

@@ -249,6 +249,7 @@ class MovimentosController extends Controller
         $this->authorize('update', $movimento);
 
         $movimento->fill( $request->all() );
+
         
         $data=date("Y-m-d ",strtotime($request->data));
         $hora_descolagem=date("H:i:s",strtotime($request->hora_descolagem));
@@ -270,7 +271,10 @@ class MovimentosController extends Controller
             $movimento=$this->atribuirInstrutor($parceiro,$movimento);
         }       
 
-        $movimento->confirmado=0; 
+        if (!$parceiro->isAdmin()){
+            $movimento->confirmado=0; 
+        }
+        
 
         if($request->natureza=='I'){
 
@@ -296,5 +300,16 @@ class MovimentosController extends Controller
 
         $movimento->save();
         return redirect()->route('movimentos')->with("success","Movimento editado com sucesso.");
+    }
+
+    public function destroy(Movimento $movimento){
+        $this->authorize('delete',$movimento);
+        $this->diminuirContaHoras($movimento);
+        $movimento->delete();
+        return redirect()->route('movimentos')->with("success","Movimento apagado com sucesso.");
+    }
+
+    private function diminuirContaHoras(Movimento $movimento){
+        // DIMINUIR CONTA HORAS DAS AERONAVES
     }
 }
