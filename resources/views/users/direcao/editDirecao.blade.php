@@ -43,7 +43,7 @@
     <div class="form-group row">
         <label for="certificado_confirmado" class="col-md-4 col-form-label text-md-right">{{ __('Certificado confirmado') }}</label>
         <div class="col-md-6">
-            <input type="radio" class="form{{ $errors->has('certificado_confirmado') ? ' is-invalid' : '' }}" name="certificado_confirmado" value="0" {{ strval(old('certificado_confirmado',$user->certificado_confirmado)) == "0"?"checked":"" }} > Não <br>
+            <input type="radio" class="form{{ $errors->has('certificado_confirmado') ? ' is-invalid' : '' }}" name="certificado_confirmado" value="0" {{ strval(old('certificado_confirmado',$user->certificado_confirmado)) == "0"?"checked":"" }} @if($user->certificado_confirmado == null) checked @endif> Não <br>
             <input type="radio" class="form{{ $errors->has('certificado_confirmado') ? ' is-invalid' : '' }}" name="certificado_confirmado" value="1" {{ strval(old('certificado_confirmado',$user->certificado_confirmado)) == "1"?"checked":"" }} > Sim <br>
             @if ($errors->has('certificado_confirmado'))
                 <span class="invalid-feedback" role="alert">
@@ -56,7 +56,7 @@
     <div class="form-group row">
         <label for="licenca_confirmada" class="col-md-4 col-form-label text-md-right">{{ __('Licença confirmada') }}</label>
         <div class="col-md-6">
-            <input type="radio" class="form{{ $errors->has('licenca_confirmada') ? ' is-invalid' : '' }}" name="licenca_confirmada" value="0" {{ strval(old('licenca_confirmada',$user->licenca_confirmada)) == "0"?"checked":"" }} > Não <br>
+            <input type="radio" class="form{{ $errors->has('licenca_confirmada') ? ' is-invalid' : '' }}" name="licenca_confirmada" value="0" {{ strval(old('licenca_confirmada',$user->licenca_confirmada)) == "0"?"checked":"" }} @if($user->licenca_confirmada == null) checked @endif > Não <br>
             <input type="radio" class="form{{ $errors->has('licenca_confirmada') ? ' is-invalid' : '' }}" name="licenca_confirmada" value="1" {{ strval(old('licenca_confirmada',$user->licenca_confirmada)) == "1"?"checked":"" }} > Sim <br>
             @if ($errors->has('licenca_confirmada'))
                 <span class="invalid-feedback" role="alert">

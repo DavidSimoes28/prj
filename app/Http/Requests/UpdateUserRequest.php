@@ -66,14 +66,14 @@ class UpdateUserRequest extends FormRequest
         if ( $user->isPiloto() ){
             $aux = [
                 'file_certificado' => 'mimes:pdf',
-                'num_certificado' => 'required|string|max:30',
+                'num_certificado' => 'nullable|string|max:30',
                 'validade_certificado' => 'date|nullable',
                 'classe_certificado' => 'nullable|in:'. implode(',', $classes2),
                 'file_licenca' => 'mimes:pdf',
-                'num_licenca' => 'required|string|max:30',
+                'num_licenca' => 'nullable|string|max:30',
                 'validade_licenca' => 'date|nullable',
                 'tipo_licenca' => 'nullable|in:' . implode(',',  $tipos2),
-                'instrutor' => 'required|in:0,1'
+                'instrutor' => 'in:0,1'
             ];
 
             $resultado = array_merge($resultado, $aux);

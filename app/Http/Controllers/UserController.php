@@ -121,13 +121,9 @@ class UserController extends Controller
         unset($validated['file_licenca']);
         unset($validated['file_certificado']);
         
-        if(!Auth::User()->isAdmin()){
-            $user->fill(Arr::except($validated,["id","num_socio","ativo","password_inicial","quota_paga",
-            "sexo","tipo_socio","direcao","instrutor","aluno","certificado_confirmado" ,"licenca_confirmada","num_licenca",
-            "tipo_licenca","validade_licenca","num_certificado","classe_certificado","validade_certificado"]));
-        }else{
-            $user->fill($validated);
-        }
+        
+        $user->fill($validated);
+        
         if ($request->hasFile('file_foto')) {
             if ($request->file('file_foto')->isValid()) {
                 $file_foto = $request->file('file_foto');
@@ -140,13 +136,17 @@ class UserController extends Controller
         if($request->file_certificado!=NULL){
             $certificado = $request->file('file_certificado');
             Storage::putFileAs('docs_piloto',$certificado,"certificado_".$user->id.".pdf");
-            $user->certificado_confirmado = 0;
+            if($user->certificado_confirmado == null){
+                $user->certificado_confirmado = 0;
+            }
         }
 
         if($request->file_licenca!=NULL){
             $licenca = $request->file('file_licenca');
             Storage::putFileAs('docs_piloto',$licenca,"licenca_".$user->id.".pdf");
-            $user->licenca_confirmada = 0;
+            if($user->licenca_confirmada == null){
+                $user->licenca_confirmada = 0;
+            }
         }
         unset($validated['file_foto']);
         $user->save();
