@@ -105,7 +105,7 @@
                             <div class="col-sm-6">
                                 <select class="btn btn-xs btn-primary dropdown-toggle btn-block {{ $errors->has('is_piloto') ? ' is-invalid' : '' }}"  name="is_piloto" >
                                 
-                                        @if($movimento->natureza=='I')
+                                    @if($movimento->natureza=='I')
                                         @if($movimento->piloto_id==Auth::user()->id)
                                             <option value="1"  selected >Piloto</option>
                                             <option value="0"  >Instrutor</option>   
@@ -113,6 +113,8 @@
                                             <option value="1"   >Piloto</option>
                                             <option value="0" selected >Instrutor</option>  
                                         @endif              
+                                    @else
+                                        <option value="1"   >Piloto</option>
                                     @endif
                                 </select> 
                                 
