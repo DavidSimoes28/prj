@@ -136,13 +136,17 @@ class UserController extends Controller
         if($request->file_certificado!=NULL){
             $certificado = $request->file('file_certificado');
             Storage::putFileAs('docs_piloto',$certificado,"certificado_".$user->id.".pdf");
-            $user->certificado_confirmado = intval($user->certificado_confirmado);
+            if($user->certificado_confirmado == null){
+                $user->certificado_confirmado = 0;
+            }
         }
 
         if($request->file_licenca!=NULL){
             $licenca = $request->file('file_licenca');
             Storage::putFileAs('docs_piloto',$licenca,"licenca_".$user->id.".pdf");
-            $user->licenca_confirmada = intval($user->licenca_confirmada);
+            if($user->licenca_confirmada == null){
+                $user->licenca_confirmada = 0;
+            }
         }
         unset($validated['file_foto']);
         $user->save();
