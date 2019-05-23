@@ -2,10 +2,11 @@
 
 namespace App;
 
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -162,5 +163,32 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function isQuotaPaga(){
         return $this->quota_paga==1;
+    }
+
+    public function hasLicenca(){
+        //return Storage::exists(storage_path('app/docs_piloto/' . 'licenca_' . $this->id . '.pdf'));
+        //return Storage::disk("local")->exists('app/docs_piloto/' . 'licenca_' . $this->id . '.pdf');
+        $path = storage_path('app/docs_piloto/' . 'licenca_' . $this->id . '.pdf');
+
+        if(!Storage::exists($path)){
+            return true;
+        }
+
+        return false;
+
+        
+    }
+
+    public function hasCertificado(){
+        //return Storage::exists(storage_path('app/docs_piloto/' . 'certificado_' . $this->id . '.pdf'));
+        //return Storage::disk("local")->exists('app/docs_piloto/' . 'certificado_' . $this->id . '.pdf');
+
+        $path = storage_path('app/docs_piloto/' . 'certificado_' . $this->id . '.pdf');
+
+        if(!Storage::exists($path)){
+            return true;
+        }
+
+        return false;
     }
 }

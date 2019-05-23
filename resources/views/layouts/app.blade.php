@@ -144,7 +144,7 @@
                                                                                 <td style="width: 35%"><h4>Licença</h4></td>
                                                                                 <td style="width: 40%">
                                                                                     <h5 class="d-inline">
-                                                                                    @if(Storage::exists(storage_path('app/docs_piloto/' . 'licenca_' . Auth::user()->id . '.pdf')))
+                                                                                    @if(Auth::user()->hasLicenca())
                                                                                     <a href="{{ route('pilotos.licenca',['id'=>Auth::user()->id]) }}" title="Licenca" target="_blank"> Cópia Digital</a>
                                                                                     @else
                                                                                     Não possui Cópia Digital
@@ -171,7 +171,7 @@
                                                                                 <td style="width: 35%"><h4 class="d-inline">Certificado</h4></td>
                                                                                 <td style="width: 40%">
                                                                                     <h5 class="d-inline">
-                                                                                    @if(Storage::exists(storage_path('app/docs_piloto/' . 'certificado_' . Auth::user()->id . '.pdf')))
+                                                                                    @if(Auth::user()->hasCertificado())
                                                                                     <a href="{{ route('pilotos.certificado',['id'=>Auth::user()->id]) }}" title="Certificado" target="_blank"> Cópia Digital</a>
                                                                                     @else
                                                                                     Não possui Cópia Digital
