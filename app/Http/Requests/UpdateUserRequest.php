@@ -70,7 +70,7 @@ class UpdateUserRequest extends FormRequest
                 'validade_certificado' => 'date|nullable',
                 'classe_certificado' => 'nullable|in:'. implode(',', $classes2),
                 'file_licenca' => 'mimes:pdf',
-                'num_licenca' => 'required|string|max:30|regex:/^[1-9][0-9]+$/',
+                'num_licenca' => 'required|string|max:30',
                 'validade_licenca' => 'date|nullable',
                 'tipo_licenca' => 'nullable|in:' . implode(',',  $tipos2),
                 'instrutor' => 'required|in:0,1'

@@ -61,7 +61,7 @@
                             <label for="data_nascimento" class="col-md-4 col-form-label text-md-right">{{ __('Data de Nascimento') }}</label>
 
                             <div class="col-md-6">
-                                <input id="data_nascimento" type="date" class="form-control{{ $errors->has('data_nascimento') ? ' is-invalid' : '' }}" value="{{ $user->data_nascimento }}" name="data_nascimento" required>
+                                <input id="data_nascimento" type="date" class="form-control{{ $errors->has('data_nascimento') ? ' is-invalid' : '' }}"  name="data_nascimento" value="{{$user->data_nascimento }}" required>
 
                                 @if ($errors->has('data_nascimento'))
                                     <span class="invalid-feedback" role="alert">
