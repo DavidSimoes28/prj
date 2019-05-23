@@ -71,11 +71,19 @@ class UpdateMovimentoRequest extends FormRequest
             
             if($this->natureza=='I'){
                 
-                $nome_informal_aux.='|'.Rule::exists('users')->where(function($query){
+                $nome_informal_aux.= Rule::exists('users')->where(function($query){
                     $query->where('nome_informal',$this->nome_informal);
                     $query->where('tipo_socio','P');
                     $query->where('instrutor','1');
                 });
+
+                $nome_informal_aux = User::where(function($query){
+                    $query->where('nome_informal',$this->nome_informal);
+                    $query->where('tipo_socio','P');
+                    $query->where('instrutor','1');
+                });
+
+                dd($nome_informal_aux);
                 
 
             }
@@ -100,7 +108,7 @@ class UpdateMovimentoRequest extends FormRequest
         
         $aux = [
             'is_piloto'=>'required|in:0,1',
-            'nome_informal' => 'nullable|required_unless:natureza,T,E|max:40|exists:users,nome_informal'. $nome_informal_aux          
+            'nome_informal' => 'required_if:natureza,I|max:40'. $nome_informal_aux          
         ];
 
         $resultado = array_merge($resultado, $aux);
