@@ -54,13 +54,34 @@ class UpdateMovimentoRequest extends FormRequest
 
         if ( $logado->isAdmin() ){
             $natureza_aux = '';
+            $nome_informal_piloto_aux = '';
+            $nome_informal_instrutor_aux = '';
+
             if ($this->natureza != 'I'){
                 $natureza_aux = '|regex:/^$/';
             }
 
+            $piloto = User::all()
+            ->where('nome_informal',$this->nome_informal_piloto)
+            ->where ('tipo_socio','P')->count(); 
+                
+            if (!$piloto){
+                $nome_informal_piloto_aux='|regex:/^$/';
+            }
+
+            $instrutor = User::all()
+            ->where('nome_informal',$this->nome_informal_piloto)
+            ->where ('tipo_socio','P')
+            ->where('instrutor','1')
+            ->count();
+                
+            if (!$instrutor){
+                $nome_informal_instrutor_aux='|regex:/^$/';
+            }
+
             $aux = [
-                'nome_informal_piloto' => 'required|string|min:1|max:40|exists:users,nome_informal|different:nome_informal_instrutor',
-                'nome_informal_instrutor' => 'nullable|string|max:40|exists:users,nome_informal|required_unless:natureza,T,E'.$natureza_aux,
+                'nome_informal_piloto' => 'required|string|min:1|max:40|exists:users,nome_informal|different:nome_informal_instrutor' . $nome_informal_piloto_aux,
+                'nome_informal_instrutor' => 'nullable|string|max:40|exists:users,nome_informal|required_unless:natureza,T,E'.$natureza_aux . $nome_informal_instrutor_aux,
                 'confirmado' => 'required|in:0,1'
             ];
             $resultado = array_merge($resultado, $aux);
