@@ -127,5 +127,14 @@ class Movimento extends Authenticatable
         return sprintf($format, floor($this->tempo_voo / 60), ($this->tempo_voo -   floor($this->tempo_voo / 60) * 60));
     }   
 
-    
+    public function isConfirmado(){
+        return $this->confirmado==1;
+    }
+
+    public function pertencePiloto(User $user){////////////////////////////////////POR IMPLEMENTAR////////////////////
+        if ($this->pilotos->id==$user->id) return true;
+        if ($this->instrutores()->exists() && $this->instrutores->id==$user->id) return true;
+        return false;
+    }
+
 }

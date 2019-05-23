@@ -29,10 +29,9 @@ class MovimentoPolicy
 
     public function update(User $user, Movimento $movimento)
     {
-
-        if ($movimento->pilotos->id==$user->id) return true;
-        if ($movimento->instrutores()->exists() && $movimento->instrutores->id==$user->id) return true;
-        return false;
+        if($movimento->isConfirmado()) return false;
+        if($user->isAdmin()) return true; 
+        return $movimento->pertencePiloto($user);
     }
 
     public function delete(User $user, Movimento $movimento)
