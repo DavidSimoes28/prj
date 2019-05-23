@@ -53,7 +53,7 @@ class UpdateUserRequest extends FormRequest
         $aux = array();
 
         $resultado = [
-                    'num_socio' => 'required|unique:users|integer|max:11|regex:/^[0-9][0-9]+$/',
+                    'num_socio' => 'required|unique:users|integer|max:11|min:0',
                     'name' => ['required','max:255','regex:/^[a-zA-ZçÇáÁéÉíÍóÓúÚàÀèÈìÌòÒùÙãÃõÕâÂêÊîÎôÔûÛ ]+$/'],
                     'email' => ['required','string', 'max:255', 'email', Rule::unique('users')->ignore($user->id)],
                     'data_nascimento' =>'required|date|before:today',
