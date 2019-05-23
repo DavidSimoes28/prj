@@ -33,7 +33,6 @@ class UpdateMovimentoRequest extends FormRequest
 
         $resultado = [
             'data' => 'required|date',
-            
             'natureza' => 'required|in:T,E,I',
             'hora_descolagem' => 'required',
             'hora_aterragem' => 'required',
@@ -54,9 +53,14 @@ class UpdateMovimentoRequest extends FormRequest
         ];
 
         if ( $logado->isAdmin() ){
+            $natureza_aux = '';
+            if ($this->natureza != 'I'){
+                $natureza_aux = '|regex:/^$/';
+            }
+
             $aux = [
                 'nome_informal_piloto' => 'required|string|min:1|max:40|exists:users,nome_informal|different:nome_informal_instrutor',
-                'nome_informal_instrutor' => 'nullable|string|max:40|exists:users,nome_informal|required_unless:natureza,T,E',
+                'nome_informal_instrutor' => 'nullable|string|max:40|exists:users,nome_informal|required_unless:natureza,T,E'.$natureza_aux,
                 'confirmado' => 'required|in:0,1'
             ];
             $resultado = array_merge($resultado, $aux);

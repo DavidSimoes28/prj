@@ -284,6 +284,7 @@ class MovimentosController extends Controller
             }
 
         }else{
+            $movimento->tipo_instrucao=null;
             $movimento->instrutor_id=null;
             $movimento->num_licenca_instrutor=null;
             $movimento->validade_licenca_instrutor=null;
