@@ -28,9 +28,9 @@
 <div class="form-group row">
     <label for="tipo_licenca" class="col-md-4 col-form-label text-md-right">{{ __('Tipo Licença') }}</label>
     <div class="col-md-6">
-        <select class="btn btn-xs btn-primary dropdown-toggle btn-block {{ $errors->has('tipo_licenca') ? ' is-invalid' : '' }}"  name="tipo_licenca" >                   
+        <select class="btn btn-xs btn-primary dropdown-toggle btn-block {{ $errors->has('tipo_licenca') ? ' is-invalid' : '' }}"  name="tipo_licenca">                   
             @foreach ($licencas as $tipo)
-                <option value ="{{$tipo->code}}">{{ $tipo->code }} </option>
+                <option value ="{{$tipo->code}}" {{ strval(old('tipo_licenca',$tipo->code)) == $user->tipo_licenca ?"selected":"" }}>{{ $tipo->code }} </option>
             @endforeach
         </select>
         @if ($errors->has('tipo_licenca'))
@@ -87,7 +87,7 @@
     <div class="col-md-6">
         <select class="btn btn-xs btn-primary dropdown-toggle btn-block {{ $errors->has('classe_certificado') ? ' is-invalid' : '' }}"  name="classe_certificado" >                   
             @foreach ($certificados as $classe)
-                <option value ="{{$classe->code}}">{{ $classe->code }} </option>
+                <option value ="{{$classe->code}}" {{ strval(old('classe_certificado',$classe->code)) == $user->classe_certificado ?"selected":"" }}>{{ $classe->code }} </option>
             @endforeach
         </select>
         @if ($errors->has('classe_certificado'))
