@@ -64,50 +64,47 @@ class UpdateMovimentoRequest extends FormRequest
             return $resultado;
         }
 
+        
+      
+
 
         $nome_informal_aux='';
+        $is_piloto_aux='';
 
         if($this->is_piloto){
             
             if($this->natureza=='I'){
+
+                $nome_informal_aux = User::all()
+                ->where('nome_informal',$this->nome_informal)
+                ->where ('tipo_socio','P')
+                ->where('instrutor','1')->count(); 
                 
-                $nome_informal_aux.= Rule::exists('users')->where(function($query){
-                    $query->where('nome_informal',$this->nome_informal);
-                    $query->where('tipo_socio','P');
-                    $query->where('instrutor','1');
-                });
+                if (!$nome_informal_aux){
+                    $nome_informal_aux='|regex:/^$/';
+                }
 
-                $nome_informal_aux = User::where(function($query){
-                    $query->where('nome_informal',$this->nome_informal);
-                    $query->where('tipo_socio','P');
-                    $query->where('instrutor','1');
-                });
-
-                dd($nome_informal_aux);
+                if ($logado->nome_informal == $this->nome_informal){
+                    $nome_informal_aux='|regex:/^$/';
+                }
                 
 
             }
-        }else{
-            //ele é instrutor
-            
-            //$natureza_aux='I';
-            //$nome_informal_aux='required|string|min:1|max:40|exists:users,nome_informal|';
-            /*$nome_informal_aux.=Rule::exists('users')->where(function($query){
-                $query->where('nome_informal',$this->nome_informal);
-                $query->where('tipo_socio','P');
-            });*/
-            
-        
+        }
+        else {
+
+            if ($this->natureza != 'I'){
+                $is_piloto_aux = '|regex:/^$/';
+            }
+
         }
         
 
 
-        if (isset ($this->nome_informal) && $logado->nome_infomal == $this->nome_informal){
-            $nome_informal_aux.='|regex:/^$/';
-        }
+        
         
         $aux = [
-            'is_piloto'=>'required|in:0,1',
+            'is_piloto'=>'required|in:0,1'.$is_piloto_aux,
             'nome_informal' => 'required_if:natureza,I|max:40'. $nome_informal_aux          
         ];
 
