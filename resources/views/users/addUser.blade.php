@@ -153,8 +153,8 @@
                         <div class="form-group row">
                             <label for="quota_paga" class="col-md-4 col-form-label text-md-right">{{ __('Quota Paga') }}</label>
                             <div class="col-md-6">
-                                <input type="radio" class="form{{ $errors->has('quota_paga') ? ' is-invalid' : '' }}" name="quota_paga" value="P" checked required> Sim<br>
-                                <input type="radio" class="form{{ $errors->has('quota_paga') ? ' is-invalid' : '' }}" name="quota_paga" value="NP" required> Não<br>
+                                <input type="radio" class="form{{ $errors->has('quota_paga') ? ' is-invalid' : '' }}" name="quota_paga" value="1" checked required> Sim<br>
+                                <input type="radio" class="form{{ $errors->has('quota_paga') ? ' is-invalid' : '' }}" name="quota_paga" value="0" required> Não<br>
                                 
                                 @if ($errors->has('quota_paga'))
                                     <span class="invalid-feedback" role="alert">
