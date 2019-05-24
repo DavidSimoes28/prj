@@ -13,14 +13,14 @@ US10 - &#10004;\
 US11 - &#10004;\
 US12 - &#10004; Sem teste  &#10140; por testar\
 US13 - &#10006; Grafico &#10140; Fica para o fim\
-US14 - &#10006; &#10140; Erro nos Testes\
+US14 - &#10004;\
 US15 - &#10006; &#10140; Erro nos Testes alguns não sei\
 US16 - &#10004; Sem teste  &#10140; por testar\
 US17 - &#10004; Sem teste  &#10140; por testar\
 US18 - &#10006;\
 US19 - &#10006;\
 US20 - &#10004; Sem teste  &#10140; por testar\
-US21 - &#10006; Quase finalizado\
+US21 - &#10004;\
 US22 - &#10006;\
 US23 - &#10004;\
 US24 - &#10006; Parcialmente\
