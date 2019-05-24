@@ -20,7 +20,7 @@ US17 - &#10004; Sem teste  &#10140; por testar\
 US18 - &#10006;\
 US19 - &#10006;\
 US20 - &#10004; Sem teste  &#10140; por testar\
-US21 - &#10006; Quase finalizado\
+US21 - &#10004;\
 US22 - &#10006;\
 US23 - &#10004;\
 US24 - &#10006; Parcialmente\
