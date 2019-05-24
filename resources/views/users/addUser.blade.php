@@ -180,8 +180,8 @@
                         <div class="form-group row">
                             <label for="ativo" class="col-md-4 col-form-label text-md-right">{{ __('Sócio Ativo') }}</label>
                             <div class="col-md-6">
-                                <input type="radio" class="form{{ $errors->has('ativo') ? ' is-invalid' : '' }}" name="ativo" value="0" checked required> Sim <br>
-                                <input type="radio" class="form-{{ $errors->has('ativo') ? ' is-invalid' : '' }}" name="ativo" value="1" required> Não 
+                                <input type="radio" class="form{{ $errors->has('ativo') ? ' is-invalid' : '' }}" name="ativo" value="1" checked required> Sim <br>
+                                <input type="radio" class="form-{{ $errors->has('ativo') ? ' is-invalid' : '' }}" name="ativo" value="0" required> Não 
                                 @if ($errors->has('ativo'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('ativo') }}</strong>

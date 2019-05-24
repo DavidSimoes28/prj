@@ -167,21 +167,19 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function hasLicenca(){
         //return Storage::exists(storage_path('app/docs_piloto/' . 'licenca_' . $this->id . '.pdf'));
-        //return Storage::disk("local")->exists('app/docs_piloto/' . 'licenca_' . $this->id . '.pdf');
+        return Storage::disk()->exists('docs_piloto/' . 'licenca_' . $this->id . '.pdf');
 
-        $path = storage_path('app/docs_piloto/' . 'licenca_' . $this->id . '.pdf');
+        /*$path = storage_path('app/docs_piloto/' . 'licenca_' . $this->id . '.pdf');
 
         
-        return file_exists ($path);
+        return file_exists ($path);*/
     }
 
     public function hasCertificado(){
         //return Storage::exists(storage_path('app/docs_piloto/' . 'certificado_' . $this->id . '.pdf'));
-        //return Storage::disk("local")->exists('app/docs_piloto/' . 'certificado_' . $this->id . '.pdf');
+        return Storage::disk()->exists('docs_piloto/' . 'certificado_' . $this->id . '.pdf');
 
-        $path = storage_path('app/docs_piloto/' . 'certificado_' . $this->id . '.pdf');
-
-        
-        return file_exists ($path);
+        /*$path = storage_path('app/docs_piloto/' . 'certificado_' . $this->id . '.pdf');
+        return file_exists ($path);*/
     }
 }

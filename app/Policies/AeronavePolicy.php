@@ -16,7 +16,7 @@ class AeronavePolicy
 
     }
 
-    public function view(User $user, Aeronave $aeronave)
+    public function view(User $user)
     {
         return true;
     }
@@ -28,12 +28,12 @@ class AeronavePolicy
     }
 
    
-    public function update(User $user, Aeronave $aeronave)
+    public function update(User $user)
     {
         return false;
     }
 
-    public function delete(User $user, Aeronave $aeronave)
+    public function delete(User $user)
     {
         return false;
     }

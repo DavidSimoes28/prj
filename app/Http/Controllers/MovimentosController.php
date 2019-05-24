@@ -23,7 +23,7 @@ class MovimentosController extends Controller
         
         if ( !request()->query() ){
 
-            $movimentos = Movimento::with("pilotos","instrutores")->orderBy('data','desc')->paginate(14);
+            $movimentos = Movimento::with("pilotos","instrutores")->orderBy('data','desc')->paginate(20);
             //$movimentos = Movimento::where("piloto_id",Auth::user()->id)->orderBy('data','desc')->paginate(14);
             return view('movimentos.listMovimentos', compact('movimentos'));
 
@@ -136,7 +136,7 @@ class MovimentosController extends Controller
     
 
 
-        $movimentos = $movimentos->orderBy('data','desc')->paginate(14)->appends(request()->query());
+        $movimentos = $movimentos->orderBy('data','desc')->paginate(20)->appends(request()->query());
 
     return view('movimentos.listMovimentos', compact('movimentos'));
     }

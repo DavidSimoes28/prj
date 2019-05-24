@@ -36,10 +36,10 @@ class UserController extends Controller
         if ( !request()->query() ){
 
             if(Auth::User()->isAdmin()){
-                $users = User::paginate(800);
+                $users = User::paginate(20);
             }else{
                 $users =  User::where('ativo', true);
-                $users = $users->paginate(800);
+                $users = $users->paginate(20);
             }
 
             return view('users.listUser', compact('users'));
@@ -136,19 +136,21 @@ class UserController extends Controller
         if($request->file_certificado!=NULL){
             $certificado = $request->file('file_certificado');
             Storage::putFileAs('docs_piloto',$certificado,"certificado_".$user->id.".pdf");
-            if($user->certificado_confirmado == null){
-                $user->certificado_confirmado = 0;
-            }
         }
 
         if($request->file_licenca!=NULL){
             $licenca = $request->file('file_licenca');
             Storage::putFileAs('docs_piloto',$licenca,"licenca_".$user->id.".pdf");
-            if($user->licenca_confirmada == null){
-                $user->licenca_confirmada = 0;
-            }
         }
         unset($validated['file_foto']);
+
+        if($user->licenca_confirmada == 0){
+            $user->licenca_confirmada = null;
+        }
+        if($user->certificado_confirmado == 0){
+            $user->certificado_confirmado = null;
+        }
+        
         $user->save();
         return redirect()->route('socios')->with("success","Sócio atualizado com sucesso.");
     }
@@ -177,12 +179,18 @@ class UserController extends Controller
     }
 
     public function mostrarLicenca(User $user){
-        $path = storage_path('app/docs_piloto/' . 'licenca_' . $user->id . '.pdf');
-        return response()->file($path);
+        if(($user->id == Auth::user()->id || Auth::user()->isAdmin()) && $user->hasLicenca()){
+            $path = storage_path('app/docs_piloto/' . 'licenca_' . $user->id . '.pdf');
+            return response()->file($path);
+        }
+        abort(403,"Não pode consultar licencas de outros Socios");
     }
     public function mostrarCertificado(User $user){
-        $path = storage_path('app/docs_piloto/' . 'certificado_' . $user->id . '.pdf');
-        return response()->file($path);
+        if(($user->id == Auth::user()->id || Auth::user()->isAdmin()) && $user->hasCertificado()){
+            $path = storage_path('app/docs_piloto/' . 'certificado_' . $user->id . '.pdf');
+            return response()->file($path);
+        }
+        abort(403,"Não pode consultar certificados de outros Socios");
     }
     public function downloadLicenca(User $user){
         return Response::download(asset('storage/app/docs_piloto/' . 'licenca_' . $user->id . '.pdf'));

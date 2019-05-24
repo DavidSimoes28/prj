@@ -53,7 +53,7 @@ class UpdateUserRequest extends FormRequest
         $aux = array();
 
         $resultado = [
-                    'num_socio' => 'required|unique:users|integer|max:11|min:0',
+                    'num_socio' => ['required','integer','max:99999999999','min:1', Rule::unique('users')->ignore($user->id)],
                     'name' => ['required','max:255','regex:/^[a-zA-ZçÇáÁéÉíÍóÓúÚàÀèÈìÌòÒùÙãÃõÕâÂêÊîÎôÔûÛ ]+$/'],
                     'email' => ['required','string', 'max:255', 'email', Rule::unique('users')->ignore($user->id)],
                     'data_nascimento' =>'required|date|before:today',
@@ -93,8 +93,8 @@ class UpdateUserRequest extends FormRequest
 
             if ( $user->isPiloto() ){
                 $aux = [
-                    'certificado_confirmado' => 'required|integer|in:0,1',
-                    'licenca_confirmada' => 'required|integer|in:0,1'
+                    'certificado_confirmado' => 'nullable|integer|in:0,1',
+                    'licenca_confirmada' => 'nullable|integer|in:0,1'
                 ];
     
                 $resultado = array_merge($resultado, $aux);

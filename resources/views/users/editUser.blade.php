@@ -14,6 +14,19 @@
                     <form method="POST" action="{{ route('socios.update',['id'=>$user->id]) }}" enctype="multipart/form-data">
                         @csrf
                         @method("PUT")
+                        <div class="form-group row">
+                            <label for="num_socio" class="col-md-4 col-form-label text-md-right">{{ __('Nº Sócio') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="num_socio" type="text" class="form-control{{ $errors->has('num_socio') ? ' is-invalid' : '' }}" name="num_socio" value="{{$user->num_socio }}" required autofocus>
+
+                                @if ($errors->has('num_socio'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('num_socio') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
 
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Nome') }}</label>
@@ -44,6 +57,19 @@
                         </div>
 
                         <div class="form-group row">
+                            <label for="sexo" class="col-md-4 col-form-label text-md-right">{{ __('Sexo') }}</label>
+                            <div class="col-md-6">
+                                <input type="radio" class="form{{ $errors->has('sexo') ? ' is-invalid' : '' }}" name="sexo" value="M" {{ strval(old('sexo',$user->sexo)) == "M"?"checked":"" }} > Masculino <br>
+                                <input type="radio" class="form-{{ $errors->has('sexo') ? ' is-invalid' : '' }}" name="sexo" value="F" {{ strval(old('sexo',$user->sexo)) == "F"?"checked":"" }}> Feminino
+                                @if ($errors->has('sexo'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('sexo') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail') }}</label>
 
                             <div class="col-md-6">
@@ -66,6 +92,20 @@
                                 @if ($errors->has('data_nascimento'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('data_nascimento') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="tipo_socio" class="col-md-4 col-form-label text-md-right">{{ __('Tipo de sócio') }}</label>
+                            <div class="col-md-6">
+                                <input type="radio" class="form{{ $errors->has('tipo_socio') ? ' is-invalid' : '' }}" name="tipo_socio" value="P" {{ strval(old('tipo_socio',$user->tipo_socio)) == "P"?"checked":"" }}> Piloto<br>
+                                <input type="radio" class="form{{ $errors->has('tipo_socio') ? ' is-invalid' : '' }}" name="tipo_socio" value="NP" {{ strval(old('tipo_socio',$user->tipo_socio)) == "NP"?"checked":"" }}> Não Piloto<br>
+                                <input type="radio" class="form{{ $errors->has('tipo_socio') ? ' is-invalid' : '' }}" name="tipo_socio" value="A" {{ strval(old('tipo_socio',$user->tipo_socio)) == "A"?"checked":"" }}> Aeromodelista
+                                @if ($errors->has('tipo_socio'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('tipo_socio') }}</strong>
                                     </span>
                                 @endif
                             </div>
