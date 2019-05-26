@@ -3,6 +3,7 @@
 @section('content')
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 <div class="row justify-content-center">
 @include("partials.errors")
 
@@ -46,7 +47,7 @@
                         <tbody>
                             @foreach ($movimentos as $movimento)
                                 <tr>
-                                    <td class="text-center">Movimento</td>
+                                    <td class="text-center"><a href="{{ route('movimentos.edit', ['id'=> $movimento->id] ) }}">Movimento&nbsp;<i class="far fa-edit"></i></a></td>
                                     <td class="text-center">{{ $movimento->id }}</td>
                                     <td class="text-center">{{ $movimento->pilotos->nome_informal }}</td>
                                     <td class="text-center">{{ $movimento->naturezaToStr() }}</td>
@@ -54,10 +55,34 @@
                             @endforeach
                         </tbody>
                         </table>  
+                        <br>
                         @endif
 
-                        <br>
+                        
 
+                        @if( count($conflitos))
+                        <div class="card-header"><th><h4>Lista de movimentos conflituosos</h4></th>
+                        </div>
+                        <table class="table table-striped">
+                        <thead>
+                            <tr>
+                            <th class="text-center" style="width: 20%">Tipo</th>
+
+                            </tr>
+                        </thead>
+                        
+                        <tbody>
+                            @foreach ($conflitos as $conflito)
+                                <tr>
+                                    <td class="text-center"><a href="{{ route('movimentos.edit', ['id'=> $conflito->id] ) }}">Conflito&nbsp;<i class="far fa-edit"></i></a></td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                        </table>  
+                        <br>
+                        @endif
+
+                        
                         @if( count($certificados) )
                         <div class="card-header"><th><h4>Lista de certificados por confirmar</h4></th>
                         </div>
@@ -74,17 +99,18 @@
                         <tbody>
                             @foreach ($certificados as $certificado)
                                 <tr>
-                                    <td class="text-center" >Certificado</td>
+                                    <td class="text-center" ><a href="{{ route('socios.edit', ['id'=> $certificado->id] ) }}">Certificado&nbsp;<i class="far fa-edit"></i></a></td>
                                     <td class="text-center" >{{$certificado->num_socio}}</td>
                                     <td class="text-center" >{{$certificado->nome_informal}}</td>
                                     <td class="text-center" >{{$certificado->num_certificado}}</td>
                                 </tr>
                             @endforeach
                         </tbody>
-                        </table>  
+                        </table>
+                        <br>  
                         @endif
 
-                        <br>
+                        
 
                         @if( count($licencas) )
                         <div class="card-header"><th><h4>Lista de licenças por confirmar</h4></th>
@@ -104,38 +130,17 @@
                         <tbody>
                             @foreach ($licencas as $licenca)
                                 <tr>
-                                    <td class="text-center">Licença</td>
+                                    <td class="text-center"><a href="{{ route('socios.edit', ['id'=> $licenca->id] ) }}">Licença&nbsp;<i class="far fa-edit"></i></a></td>
                                     <td class="text-center">{{$licenca->num_socio}}</td>
                                     <td class="text-center">{{$licenca->nome_informal}}</td>
                                     <td class="text-center">{{$licenca->num_licenca}}</td>
                                 </tr>
                             @endforeach
                         </tbody>
-                        </table>  
+                        </table> 
+                        <br> 
                         @endif
-
-                        <br>
-
-                        @if( count($conflitos))
-                        <div class="card-header"><th><h4>Lista de movimentos conflituosos</h4></th>
-                        </div>
-                        <table class="table table-striped">
-                        <thead>
-                            <tr>
-                            <th class="text-center" style="width: 20%">Tipo</th>
-
-                            </tr>
-                        </thead>
-                        
-                        <tbody>
-                            @foreach ($conflitos as $conflito)
-                                <tr>
-                                    <td class="text-center">Conflito</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                        </table>  
-                        @endif
+                       
                     @else
                         <h2>Nenhum assunto pendente.</h2>
                     @endif
