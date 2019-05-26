@@ -204,9 +204,9 @@
                                                     @method('patch')
                                                     
                                                     @if($user->isQuotaPaga())
-                                                        <button type="submit" class="btn btn-danger btn-block">Sócio não pagou&nbsp;<i class="fas fa-coins"></i></button>
+                                                        <button name="quota_paga" type="submit" class="btn btn-danger btn-block">Sócio não pagou&nbsp;<i class="fas fa-coins"></i></button>
                                                     @else
-                                                    <button type="submit" class="btn btn-success btn-block">Sócio já pagou&nbsp;<i class="fas fa-coins"></i></button>
+                                                    <button name="quota_paga" type="submit" class="btn btn-success btn-block">Sócio já pagou&nbsp;<i class="fas fa-coins"></i></button>
                                                     @endif
                                                 </form>
                                             </div>
