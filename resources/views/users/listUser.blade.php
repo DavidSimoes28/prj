@@ -91,7 +91,7 @@
                     <div class="btn-group dropright">
                     <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                     data-toggle="tooltip">
-                        {{ __('Opções direção') }}
+                    <i class="fas fa-user-tie"></i> {{ __(' Opções direção') }}
                     </button>
                     
                     <div class="dropdown-menu">
