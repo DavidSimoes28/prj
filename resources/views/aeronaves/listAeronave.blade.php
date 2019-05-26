@@ -67,8 +67,7 @@
 
                                                 <input type="hidden" name="id" value="{{$aeronave->matricula}}">
                                                 <input type="submit" class="btn btn-danger btn-block" value="Apagar">
-                                                </form>
-                                                <div class="dropdown-divider"></div>   
+                                                </form>  
 
                                             </div>
 
