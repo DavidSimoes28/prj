@@ -12,7 +12,7 @@ US09 - &#10004;\
 US10 - &#10004;\
 US11 - &#10004;\
 US12 - &#10004; Erros nos Testes\
-US13 - &#10006; Grafico &#10140; Fica para o fim\
+US13 - &#10006; X Grafico &#10140; Fica para o fim\
 US14 - &#10004;\
 US15 - &#10006; &#10140; Erro nos Testes alguns não sei\
 US16 - &#10004; Testes por correr\
