@@ -285,17 +285,20 @@
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="edit_confimacao">Modal title</h5>
+                                                    <h4 class="modal-title" id="edit_confimacao">Confirmação Movimento</h4>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                ...
+                                                Pretende confirmar o movimento?<br>
+                                                <p class="alert alert-danger">Depois não poderá ser alterado.</p>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                                                    <button type="submit" class="btn btn-success">
+                                                        {{ __('Guardar') }}
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>

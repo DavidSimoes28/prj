@@ -110,15 +110,14 @@
                         <div class="btn-group dropright">
                         <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                         data-toggle="tooltip">
-                            {{ __('Opções de piloto') }}
+                            {{ __('Opções') }}
                         </button>
                         
                         <div class="dropdown-menu">
-                        <a class="btn btn-xs btn-primary" href="{{ route('movimentos.create') }}" data-toggle="tooltip" title="Adicionar Movimento">{{ __('Adicionar Movimento') }}</a>
-                            <div class="dropdown-divider"></div>   
+                        <a class="btn btn-xs btn-primary" href="{{ route('movimentos.create') }}" data-toggle="tooltip" title="Adicionar Movimento">{{ __('Adicionar Movimento') }}</a>   
                             @if(Auth::user()->isAdmin())
-                                
-                                    <a href="#list_confirmacao" class="btn btn-success btn-block" data-toggle="modal" data-target="#list_confirmacao" >{{ __('Confirmar') }}</a>
+                                <div class="dropdown-divider"></div>
+                                <a href="#list_confirmacao" class="btn btn-success btn-block" data-toggle="modal" data-target="#list_confirmacao" >{{ __('Confirmar') }}</a>
                             @endif
                         </div>               
                     @endif
@@ -149,7 +148,7 @@
                             <th style="width: 9%">Ações</th>
                             </tr>
                         </thead>
-                        
+                    
                         <tbody>
                             @foreach ($movimentos as $movimento)
                                 <tr>
@@ -287,28 +286,32 @@
                                 </tr>
                             @endforeach
                             @if(Auth::user()->isAdmin())
-                            <div class="modal" id="list_confirmacao" tabindex="-1" role="dialog" aria-labelledby="list_confirmacaoLabel" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="list_confirmacaoLabel">Modal title</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                ...
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                <div class="modal" id="list_confirmacao" tabindex="-1" role="dialog" aria-labelledby="list_confirmacaoLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title" id="list_confirmacaoLabel">Confirmação Movimento</h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Pretende confirmar o(s) movimento(s)? <br>
+                                                <p class="alert alert-danger">Depois não poderá ser alterado.</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                                                <form action="" method="post">
+                                                    @csrf
+                                                    <input type="submit" class="btn btn-xs btn-success" value="Guardar">
+                                                </form>
 
-                                                    
+                                                
 
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
+                                </div>
                             @endif
                         </tbody>
                         </table>
