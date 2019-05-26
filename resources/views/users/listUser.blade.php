@@ -69,15 +69,11 @@
     <div class="col-xs-2">
         <label>&nbsp;</label>
         <div class="btn-group">
-            <input type="submit" class="btn btn-xs btn-primary" value = "Pesquisar" data-toggle="tooltip"  title="Pesquisar">
-            <a class="btn btn-xs btn-danger" href=" {{ route('socios') }} " data-toggle="tooltip" title="Limpar pesquisa">
-            <i class="fa fa-trash"></i></a>
+            <button type="submit" class="btn btn-xs btn-primary" data-toggle="tooltip"  title="Pesquisar">Pesquisa&nbsp;<i class="fas fa-search"></i></button>
+            <a class="btn btn-xs btn-danger" href=" {{ route('socios') }} " data-toggle="tooltip" title="Limpar pesquisa"><i class="fa fa-trash"></i></a>
         </div>
     </div>
     </div>
-
-   
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     
   
 </form>
