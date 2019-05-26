@@ -172,7 +172,7 @@
                                                 {{ __('Ações') }}
                                             </button>
                                             <div class="dropdown-menu">
-                                                <a href="#detalhes-{{ $movimento->id }}" class="btn btn-secondary btn-block" data-toggle="modal" data-target="#detalhes-{{ $movimento->id }}">{{ __('Mais Informações') }}</a> 
+                                                <a href="#detalhes-{{ $movimento->id }}" class="btn btn-secondary btn-block" data-toggle="modal" data-target="#detalhes-{{ $movimento->id }}">{{ __('Mais Informações ') }}<i class="far fa-file-alt"></i></a> 
                                                 @if(!$movimento->isConfirmado()) 
                                                     @if(Auth::user()->isAdmin() || $movimento->pertencePiloto(Auth::user())) 
                                                     <div class="dropdown-divider"></div>
@@ -182,8 +182,7 @@
                                                             <form action="{{route('movimentos.destroy',['id'=>$movimento->id])}}" method="post">
                                                                 @csrf
                                                                 @method('DELETE')
-                                                                <input type="hidden" name="id" value="{{$movimento->id}}">
-                                                                <input type="submit" class="btn btn-xs btn-danger btn-block" value="Remover">
+                                                                <input type="hidden" name="id" value="{{$movimento->id}}"> <button type="submit" class="btn btn-danger btn-block">Remover&nbsp;<i class="far fa-trash-alt"></i></button>
                                                             </form>
                                                         @endif
                                                     @endif

@@ -187,7 +187,7 @@
                                                 @method('DELETE')
 
                                                 <input type="hidden" name="id" value="{{$user->id}}">
-                                                <input type="submit" class="btn btn-danger btn-block" value="Apagar">
+                                                <button type="submit" class="btn btn-danger btn-block">Apagar&nbsp;<i class="fas fa-user-times"></i></button>
                                                 </form>
 
                                                 <div class="dropdown-divider"></div>            
@@ -208,9 +208,9 @@
                                                     @method('patch')
                                                     
                                                     @if($user->isQuotaPaga())
-                                                        <input type="submit" class="btn btn-dark btn-block" name="quota_paga" value="Sócio não pagou">
+                                                        <button type="submit" class="btn btn-danger btn-block">Sócio não pagou&nbsp;<i class="fas fa-coins"></i></button>
                                                     @else
-                                                        <input type="submit" class="btn btn-dark btn-block" name="quota_paga" value="Sócio já pagou">
+                                                    <button type="submit" class="btn btn-success btn-block">Sócio já pagou&nbsp;<i class="fas fa-coins"></i></button>
                                                     @endif
                                                 </form>
                                             </div>
