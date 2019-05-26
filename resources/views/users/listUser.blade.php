@@ -99,7 +99,7 @@
                     </button>
                     
                     <div class="dropdown-menu">
-                        <a class="btn btn-success btn-block" data-toggle="tooltip" title="Adicionar sócio" href="{{ route('socios.create') }}">{{ __('Adicionar sócio') }}</a>
+                        <a class="btn btn-success btn-block" data-toggle="tooltip" title="Adicionar sócio" href="{{ route('socios.create') }}">{{ __('Adicionar sócio ') }}<i class="fas fa-user-plus"></i></a>
                         <div class="dropdown-divider"></div>
                         
                         <form method="post" action="{{route('socios.reset_quotas')}}">
@@ -179,7 +179,7 @@
                                                 {{ __('Ações') }}
                                             </button>
                                             <div class="dropdown-menu">
-                                                <a class="btn btn-primary btn-block" href="{{route('socios.edit',['id'=>$user->id])}}">Editar</a>
+                                                <a class="btn btn-primary btn-block" href="{{route('socios.edit',['id'=>$user->id])}}">Editar&nbsp;<i class="far fa-edit"></i></a>
                                                 <div class="dropdown-divider"></div>
 
                                                 <form action="{{route('socios.destroy',['id'=>$user->id])}}" method="post">
