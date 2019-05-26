@@ -135,11 +135,13 @@ class UserController extends Controller
         }
         if($request->file_certificado!=NULL){
             $certificado = $request->file('file_certificado');
+            if ($user->hasCertificado()) Storage::disk('public')->delete('docs_piloto',$certificado,"certificado_".$user->id.".pdf");
             Storage::putFileAs('docs_piloto',$certificado,"certificado_".$user->id.".pdf");
         }
 
         if($request->file_licenca!=NULL){
             $licenca = $request->file('file_licenca');
+            if ($user->hasLicenca()) Storage::disk('public')->delete('docs_piloto',$licenca,"licenca_".$user->id.".pdf");
             Storage::putFileAs('docs_piloto',$licenca,"licenca_".$user->id.".pdf");
         }
         unset($validated['file_foto']);
