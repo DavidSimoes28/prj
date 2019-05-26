@@ -30,7 +30,7 @@ US27 - &#10004;\
 US28 - &#10006; falta ao remover baixar o conta horas\
 US29 - &#10006; só falta confirmar os Checks\
 US30 - &#10006; falta adicionar a pesquisa dos movimentos conflituosos\
-US31 - &#10006;\
+US31 - &#10004;\
 US32 - &#10006;\
 US33 - &#10006;
 
