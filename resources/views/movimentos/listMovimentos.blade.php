@@ -88,8 +88,6 @@
         </div>
     </div>
 
-   
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     
   </div>
 </form>
@@ -178,7 +176,7 @@
                                                 @if(!$movimento->isConfirmado()) 
                                                     @if(Auth::user()->isAdmin() || $movimento->pertencePiloto(Auth::user())) 
                                                     <div class="dropdown-divider"></div>
-                                                        <a class="btn btn-xs btn-primary btn-block" href="{{ route('movimentos.edit', ['id'=> $movimento->id] ) }}">{{ __('Editar') }}</a>
+                                                        <a class="btn btn-xs btn-primary btn-block" href="{{ route('movimentos.edit', ['id'=> $movimento->id] ) }}">{{ __('Editar ') }}<i class="far fa-edit"></i></a>
                                                         @if(Auth::user()->isAdmin())
                                                             <div class="dropdown-divider"></div>
                                                             <form action="{{route('movimentos.destroy',['id'=>$movimento->id])}}" method="post">
