@@ -19,6 +19,16 @@
         <input type="text" class="form-control" name="aeronave" value="{{ strval(old('aeronave',request()->aeronave )) }}">
     </div>
     &nbsp;&nbsp;&nbsp;
+    <div class="col-xs-2">
+        <label for ="piloto"><strong>{{ __('Piloto') }}</strong></label>
+        <input type="text" class="form-control" name="piloto" value="{{ strval(old('piloto',request()->piloto )) }}">
+    </div>
+    &nbsp;&nbsp;&nbsp;
+    <div class="col-xs-2">
+        <label for ="instrutor"><strong>{{ __('Instrutor') }}</strong></label>
+        <input type="text" class="form-control" name="instrutor" value="{{ strval(old('instrutor',request()->instrutor )) }}">
+    </div>
+    &nbsp;&nbsp;&nbsp;
     </div>
     <br>
     <div class="form-inline">
@@ -42,16 +52,6 @@
         <option value="I"       {{ strval(old('natureza' ,request()->natureza)) == "I"      ? "selected":"" }} >Instrução</option>
         <option value="E"       {{ strval(old('natureza' ,request()->natureza)) == "E"      ? "selected":"" }} >Especial</option>
         </select>
-    </div>
-    &nbsp;&nbsp;&nbsp;
-    <div class="col-xs-2">
-        <label for ="piloto"><strong>{{ __('Piloto') }}</strong></label>
-        <input type="text" class="form-control" name="piloto" value="{{ strval(old('piloto',request()->piloto )) }}">
-    </div>
-    &nbsp;&nbsp;&nbsp;
-    <div class="col-xs-2">
-        <label for ="instrutor"><strong>{{ __('Instrutor') }}</strong></label>
-        <input type="text" class="form-control" name="instrutor" value="{{ strval(old('instrutor',request()->instrutor )) }}">
     </div>
     &nbsp;&nbsp;&nbsp;
 
@@ -83,7 +83,7 @@
     <div class="col-xs-2">
         <label>&nbsp;</label>
         <div class="btn-group">
-            <input type="submit" class="btn btn-xs btn-primary" value = "Pesquisar" data-toggle="tooltip" title="Pesquisar">
+            <button type="submit" class="btn btn-xs btn-primary" data-toggle="tooltip"  title="Pesquisar">Pesquisa&nbsp;<i class="fas fa-search"></i></button>
             <a class="btn btn-xs btn-danger" href=" {{ route('movimentos') }} " data-toggle="tooltip" title="Limpar pesquisa"><i class="fa fa-trash"></i></a>
         </div>
     </div>

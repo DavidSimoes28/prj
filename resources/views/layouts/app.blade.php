@@ -35,10 +35,10 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        <a class="nav-link" href="{{ route('socios') }}">{{ __('Sócios') }}</a>
-                        <a class="nav-link" href="{{ route('aeronaves') }}">{{ __('Aeronaves') }}</a>
-                        <a class="nav-link" href="{{ route('movimentos') }}">{{ __('Movimentos') }}</a>
-                        <a class="nav-link" href="{{ route('pendentes') }}">{{ __('Pendentes') }}</a>
+                        <a class="nav-link" href="{{ route('socios') }}"><i class="fas fa-users"></i>&nbsp;{{ __('Sócios') }}</a>
+                        <a class="nav-link" href="{{ route('aeronaves') }}"><i class="fas fa-plane"></i>&nbsp;{{ __('Aeronaves') }}</a>
+                        <a class="nav-link" href="{{ route('movimentos') }}"><i class="fas fa-exchange-alt"></i>&nbsp;{{ __('Movimentos') }}</a>
+                        <a class="nav-link" href="{{ route('pendentes') }}"><i class="fas fa-tasks"></i>&nbsp;{{ __('Pendentes') }}</a>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -57,20 +57,20 @@
                         
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="  "></span>
+                                <i class="far fa-user"></i>&nbsp;{{ Auth::user()->name }} <span class="  "></span>
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                         
                                         <a href="#response" class="dropdown-item" data-toggle="modal" data-target="#response">
-                                        {{ __('Perfil') }}
+                                        <i class="far fa-user"></i>{{ __(' Perfil') }}
                                         </a>
                                         
                                         <a class="dropdown-item" href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                             document.getElementById('logout-form').submit();">
                                     
-                                            {{ __('Logout') }}
+                                        <i class="fas fa-sign-out-alt"></i>{{ __(' Logout') }}
                                         </a>
                                         
 
