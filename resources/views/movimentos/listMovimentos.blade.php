@@ -286,6 +286,7 @@
                                     </td>
                                 </tr>
                             @endforeach
+                            @if(Auth::user()->isAdmin())
                             <div class="modal" id="list_confirmacao" tabindex="-1" role="dialog" aria-labelledby="list_confirmacaoLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
@@ -308,6 +309,7 @@
                                             </div>
                                         </div>
                                     </div>
+                            @endif
                         </tbody>
                         </table>
                         {{ $movimentos->links() }}
