@@ -112,10 +112,10 @@
                         </button>
                         
                         <div class="dropdown-menu">
-                        <a class="btn btn-xs btn-primary" href="{{ route('movimentos.create') }}" data-toggle="tooltip" title="Adicionar Movimento">{{ __('Adicionar Movimento') }}</a>   
+                        <a class="btn btn-xs btn-primary" href="{{ route('movimentos.create') }}" data-toggle="tooltip" title="Adicionar Movimento">{{ __('Adicionar Movimento ') }}<i class="fas fa-plus"></i></a>   
                             @if(Auth::user()->isAdmin())
                                 <div class="dropdown-divider"></div>
-                                <a href="#list_confirmacao" class="btn btn-success btn-block" data-toggle="modal" data-target="#list_confirmacao" >{{ __('Confirmar') }}</a>
+                                <a href="#list_confirmacao" class="btn btn-success btn-block" data-toggle="modal" data-target="#list_confirmacao" >{{ __('Confirmar ') }}<i class="far fa-check-circle"></i></a>
                             @endif
                         </div>               
                     @endif
