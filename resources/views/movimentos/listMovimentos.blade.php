@@ -88,8 +88,6 @@
         </div>
     </div>
 
-   
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     
   </div>
 </form>
@@ -114,10 +112,10 @@
                         </button>
                         
                         <div class="dropdown-menu">
-                        <a class="btn btn-xs btn-primary" href="{{ route('movimentos.create') }}" data-toggle="tooltip" title="Adicionar Movimento">{{ __('Adicionar Movimento') }}</a>   
+                        <a class="btn btn-xs btn-primary" href="{{ route('movimentos.create') }}" data-toggle="tooltip" title="Adicionar Movimento">{{ __('Adicionar Movimento ') }}<i class="fas fa-plus"></i></a>   
                             @if(Auth::user()->isAdmin())
                                 <div class="dropdown-divider"></div>
-                                <a href="#list_confirmacao" class="btn btn-success btn-block" data-toggle="modal" data-target="#list_confirmacao" >{{ __('Confirmar') }}</a>
+                                <a href="#list_confirmacao" class="btn btn-success btn-block" data-toggle="modal" data-target="#list_confirmacao" >{{ __('Confirmar ') }}<i class="far fa-check-circle"></i></a>
                             @endif
                         </div>               
                     @endif
@@ -136,38 +134,38 @@
                         <table class="table table-striped">
                         <thead>
                             <tr>
-                            <th style="width: 7%">ID</th>
-                            <th style="width: 7%">Aeronave</th>
-                            <th style="width: 11%">Data de voo</th>
-                            <th style="width: 8%">Natureza</th>
-                            <th>Piloto</th>
-                            <th style="width: 10%">Partida</th>
-                            <th style="width: 10%">Chegada</th>
-                            <th style="width: 9%">Nº Serviço</th>
-                            <th style="width: 14%">Confirmação</th>
-                            <th style="width: 9%">Ações</th>
+                            <th class="text-center" style="width: 7%">ID</th>
+                            <th class="text-center" style="width: 7%">Aeronave</th>
+                            <th class="text-center" style="width: 11%">Data de voo</th>
+                            <th class="text-center" style="width: 8%">Natureza</th>
+                            <th class="text-center">Piloto</th>
+                            <th class="text-center" style="width: 10%">Partida</th>
+                            <th class="text-center" style="width: 10%">Chegada</th>
+                            <th class="text-center" style="width: 9%">Nº Serviço</th>
+                            <th class="text-center" style="width: 14%">Confirmação</th>
+                            <th class="text-center" style="width: 9%">Ações</th>
                             </tr>
                         </thead>
                     
                         <tbody>
                             @foreach ($movimentos as $movimento)
                                 <tr>
-                                    <td>{{ $movimento->id }}</td>
-                                    <td>{{ $movimento->aeronave }}</td>
-                                    <td>{{ $movimento->data }}</td>
-                                    <td>{{ $movimento->naturezaToStr() }}</td>
-                                    <td>{{ $movimento->pilotos->nome_informal }}</td>
-                                    <td>{{ $movimento->aerodromo_partida }}</td>
-                                    <td>{{ $movimento->aerodromo_chegada }}</td>
-                                    <td>{{ $movimento->num_servico }}</td>
-                                    <td>
+                                    <td class="text-center">{{ $movimento->id }}</td>
+                                    <td class="text-center">{{ $movimento->aeronave }}</td>
+                                    <td class="text-center">{{ $movimento->data }}</td>
+                                    <td class="text-center">{{ $movimento->naturezaToStr() }}</td>
+                                    <td class="text-center">{{ $movimento->pilotos->nome_informal }}</td>
+                                    <td class="text-center">{{ $movimento->aerodromo_partida }}</td>
+                                    <td class="text-center">{{ $movimento->aerodromo_chegada }}</td>
+                                    <td class="text-center">{{ $movimento->num_servico }}</td>
+                                    <td class="text-center">
                                         {{ $movimento->instrucaoConfirmadaToStr() }}
                                         @if(Auth::user()->isAdmin() && $movimento->confirmado=='0')
                                             <input type="checkbox" style="width: 18px; height: 18px; vertical-align:middle;" name="movimento_check_{{$movimento->id}}" value="1" >
                                         @endif 
                                     </td>
 
-                                    <td>
+                                    <td class="text-center">
                                         <div class="btn-group dropright">
                                             <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                                             data-toggle="tooltip" title="Ações">
@@ -178,7 +176,7 @@
                                                 @if(!$movimento->isConfirmado()) 
                                                     @if(Auth::user()->isAdmin() || $movimento->pertencePiloto(Auth::user())) 
                                                     <div class="dropdown-divider"></div>
-                                                        <a class="btn btn-xs btn-primary btn-block" href="{{ route('movimentos.edit', ['id'=> $movimento->id] ) }}">{{ __('Editar') }}</a>
+                                                        <a class="btn btn-xs btn-primary btn-block" href="{{ route('movimentos.edit', ['id'=> $movimento->id] ) }}">{{ __('Editar ') }}<i class="far fa-edit"></i></a>
                                                         @if(Auth::user()->isAdmin())
                                                             <div class="dropdown-divider"></div>
                                                             <form action="{{route('movimentos.destroy',['id'=>$movimento->id])}}" method="post">
@@ -290,14 +288,14 @@
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h4 class="modal-title" id="list_confirmacaoLabel">Confirmação Movimento</h4>
+                                                <h4 class="modal-title" id="list_confirmacaoLabel">Confirmação Movimento(s)</h4>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                Pretende confirmar o(s) movimento(s)? <br>
-                                                <p class="alert alert-danger">Depois não poderá ser alterado.</p>
+                                                <p class="alert alert-danger">Se confirmar o(s) movimento(s) não poderá ser mais alterado.</p>
+                                                Pretende confirmar o(s) movimento(s) selecionado(s)? <br>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
