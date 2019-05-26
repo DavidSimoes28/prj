@@ -11,20 +11,20 @@ US08 - &#10004;\
 US09 - &#10004;\
 US10 - &#10004;\
 US11 - &#10004;\
-US12 - &#10004; Sem teste  &#10140; por testar manualmente\
+US12 - &#10004; Erros nos Testes\
 US13 - &#10006; Grafico &#10140; Fica para o fim\
 US14 - &#10004;\
 US15 - &#10006; &#10140; Erro nos Testes alguns não sei\
-US16 - &#10004; Sem teste  &#10140; por testar manualmente\
-US17 - &#10004; Sem teste  &#10140; por testar manualmente\
+US16 - &#10004; Testes por correr\
+US17 - &#10004; Testes por correr\
 US18 - &#10006;\
 US19 - &#10006;\
-US20 - &#10004; Sem teste  &#10140; por testar manualmente\
+US20 - &#10004; Testes por correr\
 US21 - &#10004;\
 US22 - &#10006;\
 US23 - &#10004;\
 US24 - &#10006; Não entendo o porquê de estar mal mas pronto\
-US25 - &#10006;\
+US25 - &#10004;\
 US26 - &#10004;\
 US27 - &#10004;\
 US28 - &#10006; falta ao remover baixar o conta horas\
