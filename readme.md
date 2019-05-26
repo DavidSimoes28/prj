@@ -17,11 +17,11 @@ US14 - &#10004;\
 US15 - &#10006; &#10140; Erro nos Testes alguns não sei\
 US16 - &#10004; Testes por correr\
 US17 - &#10004; Testes por correr\
-US18 - &#10006;\
-US19 - &#10006;\
+US18 - &#10006; X\
+US19 - &#10006; X\
 US20 - &#10004; Testes por correr\
 US21 - &#10004;\
-US22 - &#10006;\
+US22 - &#10006; X\
 US23 - &#10004;\
 US24 - &#10006; Não entendo o porquê de estar mal mas pronto\
 US25 - &#10004;\
@@ -32,7 +32,7 @@ US29 - &#10006; só falta confirmar os Checks\
 US30 - &#10006; falta adicionar a pesquisa dos movimentos conflituosos\
 US31 - &#10004;\
 US32 - &#10006;\
-US33 - &#10006;
+US33 - &#10006; X\
 
 
 
