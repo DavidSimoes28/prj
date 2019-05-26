@@ -15,16 +15,6 @@
     </div>
     &nbsp;&nbsp;&nbsp;
     <div class="col-xs-2">
-        <label for ="nome_informal_piloto"><strong>{{ __('Piloto') }}</strong></label>
-        <input type="text" class="form-control" name="nome_informal_piloto" value="{{ strval(old('nome_informal_piloto',request()->nome_informal_piloto )) }}">
-    </div>
-    &nbsp;&nbsp;&nbsp;
-    <div class="col-xs-2">
-        <label for ="nome_informal_instrutor"><strong>{{ __('Instrutor') }}</strong></label>
-        <input type="text" class="form-control" name="nome_informal_instrutor" value="{{ strval(old('nome_informal_instrutor',request()->nome_informal_instrutor )) }}">
-    </div>
-    &nbsp;&nbsp;&nbsp;
-    <div class="col-xs-2">
         <label for ="aeronave"><strong>{{ __('Aeronave') }}</strong></label>
         <input type="text" class="form-control" name="aeronave" value="{{ strval(old('aeronave',request()->aeronave )) }}">
     </div>
@@ -34,13 +24,13 @@
     <div class="form-inline">
 
     <div class="col-xs-2">
-        <label for ="data_inicio"><strong>{{ __('Data Inicial') }}</strong></label>
-        <input type="date" class="form-control" name="data_inicio" value="{{ strval(old('data_inicio',request()->data_inicio )) }}">
+        <label for ="data_inf"><strong>{{ __('Data Inicial') }}</strong></label>
+        <input type="date" class="form-control" name="data_inf" value="{{ strval(old('data_inf',request()->data_inf )) }}">
     </div>
     &nbsp;&nbsp;&nbsp;
     <div class="col-xs-2">
         <label for ="data_fim"><strong>{{ __('Data Final') }}</strong></label>
-        <input type="date" class="form-control" name="data_fim" value="{{ strval(old('data_fim',request()->data_fim )) }}">
+        <input type="date" class="form-control" name="data_sup" value="{{ strval(old('data_sup',request()->data_sup )) }}">
     </div>
     &nbsp;&nbsp;&nbsp;
 
@@ -53,19 +43,18 @@
         <option value="E"       {{ strval(old('natureza' ,request()->natureza)) == "E"      ? "selected":"" }} >Especial</option>
         </select>
     </div>
-
     &nbsp;&nbsp;&nbsp;
     <div class="col-xs-2">
-        <label for ="confirmado"><strong>{{ __('Confirmado') }}</strong></label>
-        <select name="confirmado" class="btn btn-xs btn-secondary dropdown-toggle">
-        <option value="AMBOS"   {{ strval(old('confirmado' ,request()->confirmado)) == "AMBOS"  ? "selected":"" }} >--</option>
-        <option value="1"       {{ strval(old('confirmado' ,request()->confirmado)) == "1"      ? "selected":"" }} >Sim</option>
-        <option value="0"       {{ strval(old('confirmado' ,request()->confirmado)) == "0"      ? "selected":"" }} >Não</option>    
-        </select>
+        <label for ="piloto"><strong>{{ __('Piloto') }}</strong></label>
+        <input type="text" class="form-control" name="piloto" value="{{ strval(old('piloto',request()->piloto )) }}">
     </div>
-
     &nbsp;&nbsp;&nbsp;
-    
+    <div class="col-xs-2">
+        <label for ="instrutor"><strong>{{ __('Instrutor') }}</strong></label>
+        <input type="text" class="form-control" name="instrutor" value="{{ strval(old('instrutor',request()->instrutor )) }}">
+    </div>
+    &nbsp;&nbsp;&nbsp;
+
     @if (Auth::user()->tipo_socio == 'P')
     <div class="col-xs-2">
         <label for ="voos_pessoais"><strong>{{ __('Voos pessoais') }}</strong></label>
@@ -79,6 +68,17 @@
 
     &nbsp;&nbsp;&nbsp;
     @endif
+
+    <div class="col-xs-2">
+        <label for ="confirmado"><strong>{{ __('Confirmado') }}</strong></label>
+        <select name="confirmado" class="btn btn-xs btn-secondary dropdown-toggle">
+        <option value="AMBOS"   {{ strval(old('confirmado' ,request()->confirmado)) == "AMBOS"  ? "selected":"" }} >--</option>
+        <option value="1"       {{ strval(old('confirmado' ,request()->confirmado)) == "1"      ? "selected":"" }} >Sim</option>
+        <option value="0"       {{ strval(old('confirmado' ,request()->confirmado)) == "0"      ? "selected":"" }} >Não</option>    
+        </select>
+    </div>
+
+    &nbsp;&nbsp;&nbsp;
 
     <div class="col-xs-2">
         <label>&nbsp;</label>

@@ -133,18 +133,18 @@
                         <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th style="width: 10%">Foto</th>
-                                <th style="width: 4%">Nº Sócio</th>
-                                <th style="width: 6%">Nome Informal</th>
-                                <th>Email</th>
-                                <th style="width: 7%">Telefone</th>
-                                <th style="width: 6%">Nº Licença</th>
-                                <th style="width: 6%">Tipo de Sócio</th>
-                                <th style="width: 6%">Direção</th>
+                                <th class="text-center" style="width: 10%">Foto</th>
+                                <th class="text-center" style="width: 4%">Nº Sócio</th>
+                                <th class="text-center" style="width: 15%">Nome Informal</th>
+                                <th class="text-center">Email</th>
+                                <th class="text-center" style="width: 7%">Telefone</th>
+                                <th class="text-center" style="width: 6%">Nº Licença</th>
+                                <th class="text-center" style="width: 6%">Tipo de Sócio</th>
+                                <th class="text-center" style="width: 6%">Direção</th>
                                 @if(Auth::user()->isAdmin())
-                                    <th style="width: 6%">Ativo</th>
-                                    <th style="width: 6%">Quota</th>
-                                    <th style="width: 6%">Ações</th>
+                                    <th class="text-center" style="width: 6%">Ativo</th>
+                                    <th class="text-center" style="width: 6%">Quota</th>
+                                    <th class="text-center" style="width: 6%">Ações</th>
                                 @endif
                             </tr>
                         </thead>
@@ -152,27 +152,27 @@
                         <tbody>
                             @foreach ($users as $user)
                                 <tr>
-                                    <td>
+                                    <td class="text-center">
                                     @if (!empty($user->foto_url))
                                         <img alt="Photo of {{ $user->nome_informal }}" src="{{ asset('storage/fotos/' . $user->foto_url) }}">
                                     @endif
                                     </td>
-                                    <td>{{ $user->num_socio }}</td>
-                                    <td>{{ $user->nome_informal }}</td>
-                                    <td>{{ $user->email }}</td>
-                                    <td>{{ $user->telefone }}</td>
-                                    <td>
+                                    <td class="text-center">{{ $user->num_socio }}</td>
+                                    <td class="text-center">{{ $user->nome_informal }}</td>
+                                    <td class="text-center">{{ $user->email }}</td>
+                                    <td class="text-center">{{ $user->telefone }}</td>
+                                    <td class="text-center">
                                     @if($user->isPiloto())
                                         {{ $user->num_licenca }}
                                     @endif
-                                    </td>
-                                    <td>{{ $user->tipoSocioToStr() }}</td>
-                                    <td>{{ $user->isDirecaoToStr() }}</td>
+                                    </td class="text-center">
+                                    <td class="text-center">{{ $user->tipoSocioToStr() }}</td>
+                                    <td class="text-center">{{ $user->isDirecaoToStr() }}</td>
                                     @if(Auth::user()->isAdmin())
-                                    <td>{{ $user->isAtivoToStr() }}</td>
-                                    <td>{{ $user->isQuotaPagaToStr() }}</td>
+                                    <td class="text-center">{{ $user->isAtivoToStr() }}</td>
+                                    <td class="text-center">{{ $user->isQuotaPagaToStr() }}</td>
 
-                                    <td>
+                                    <td class="text-center">
                                         <div class="btn-group dropright">
                                             <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                                             data-toggle="tooltip" title="Ações">

@@ -79,13 +79,13 @@ class MovimentosController extends Controller
 
 
         // PROCURA NA DB OS PILOTOS QUE TÊM O NOME INFORMAL IGUAL AO INSERIDO NO FILTRO E QUE PARTICIPARAM EM MOVIMENTOS
-        $piloto_filtro = request()->nome_informal_piloto;
+        $piloto_filtro = request()->piloto;
 
         if ( $piloto_filtro != null ){
 
             $movimentos =  $movimentos->whereHas( 'pilotos', function ( $query ){
 
-                $nome =  request()->nome_informal_piloto;
+                $nome =  request()->piloto;
                 if ( $nome != null ) $query->where( 'nome_informal', 'like' , '%' .$nome. '%');
                 
 
@@ -94,13 +94,13 @@ class MovimentosController extends Controller
 
 
         // PROCURA NA DB OS INSTRUTORES QUE TÊM O NOME INFORMAL IGUAL AO INSERIDO NO FILTRO E QUE PARTICIPARAM EM MOVIMENTOS
-        $instrutor_filtro = request()->nome_informal_instrutor;
+        $instrutor_filtro = request()->instrutor;
 
         if (  $instrutor_filtro != null ){
 
             $movimentos =  $movimentos->whereHas( 'instrutores',function ( $query ){
 
-                $nome =  request()->nome_informal_instrutor;
+                $nome =  request()->instrutor;
                 if ( $nome != null ) $query->where( 'nome_informal', 'like' , '%' .$nome. '%' );
 
         } );
@@ -113,8 +113,8 @@ class MovimentosController extends Controller
 
             $id =  request()->id;
             $aeronave =  request()->aeronave;
-            $data_inicio =  request()->data_inicio;
-            $data_fim =  request()->data_fim;
+            $data_inf =  request()->data_inf;
+            $data_sup =  request()->data_sup;
             $natureza = request()->natureza;
             $confirmado =  request()->confirmado;
 
@@ -122,9 +122,9 @@ class MovimentosController extends Controller
 
             if ( $aeronave != null ) $query->where('aeronave', 'like' , '%' .$aeronave. '%' );
 
-            if ( $data_inicio != null) $query->where('data', ">=" , $data_inicio);
+            if ( $data_inf != null) $query->where('data', ">=" , $data_inf);
             
-            if ($data_fim != null ) $query->where('data', "<=" , $data_fim);
+            if ($data_sup != null ) $query->where('data', "<=" , $data_sup);
 
             //$query->whereBetween('data', array($data_inicio, $data_fim));
 

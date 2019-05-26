@@ -28,8 +28,8 @@ US25 - &#10006;\
 US26 - &#10004;\
 US27 - &#10004;\
 US28 - &#10006; falta ao remover baixar o conta horas\
-US29 - &#10006; falta um pop up da confirmcao da confirmacao E falta as check para confirmar varias de uma so vez\
-US30 - &#10006; falta listar os pilotos com licencas por confirmar\
+US29 - &#10006; só falta confirmar os Checks\
+US30 - &#10006; falta adicionar a pesquisa dos movimentos conflituosos\
 US31 - &#10006;\
 US32 - &#10006;\
 US33 - &#10006;
