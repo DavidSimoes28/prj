@@ -73,7 +73,7 @@ class UserController extends Controller
             if ( !empty($direcao) && $direcao != 'AMBOS' ) $query->where('direcao', $direcao);
                     
             })
-            ->paginate(800)->appends(request()->query());
+            ->paginate(20)->appends(request()->query());
             
             return view('users.listUser', compact('users'));
     }
