@@ -13,7 +13,13 @@
 </div>
 
 <div class="form-group row">
-    <label for="file_licenca" class="col-md-4 col-form-label text-md-right">{{ __('Cópia da Licença') }}</label>
+    <label for="file_licenca" class="col-md-4 col-form-label text-md-right">
+    @if($user->hasLicenca())
+    <a href="{{ route('pilotos.licenca',['id'=>$user->id]) }}" title="licenca" target="_blank"><strong>{{ __('Cópia da Licença') }}&nbsp;</strong><i class="far fa-file-alt"></i></a>
+    @else
+    {{ __('Cópia da Licença') }}
+    @endif
+    </label>
 
     <div class="col-md-6">
         <input type="file" id="file_licenca" name="file_licenca">
@@ -70,7 +76,16 @@
 </div>
 
 <div class="form-group row">
-    <label for="file_certificado" class="col-md-4 col-form-label text-md-right">{{ __('Cópia de Certificado') }}</label>
+    <label for="file_certificado" class="col-md-4 col-form-label text-md-right">
+    
+    
+    @if($user->hasCertificado())
+    <a href="{{ route('pilotos.certificado',['id'=>$user->id]) }}" title="Certificado" target="_blank"><strong>{{ __('Cópia de Certificado') }}&nbsp;</strong><i class="fas fa-file-medical-alt"></i></a>
+    @else
+    {{ __('Cópia de Certificado') }}
+    @endif
+
+    </label>
 
     <div class="col-md-6">
         <input type="file" id="file_certificado" name="file_certificado">

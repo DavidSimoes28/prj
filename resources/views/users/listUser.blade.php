@@ -210,6 +210,15 @@
                                                     <button name="quota_paga" type="submit" class="btn btn-success btn-block">Sócio já pagou&nbsp;<i class="fas fa-coins"></i></button>
                                                     @endif
                                                 </form>
+                                                @if($user->hasCertificado())
+                                                <div class="dropdown-divider"></div>
+                                                <a class="btn btn-info btn-block" href="{{ route('pilotos.certificado',['id'=>$user->id]) }}" title="Certificado" target="_blank"><strong>Ver certificado&nbsp;</strong><i class="fas fa-file-medical-alt"></i></a>
+                                                @endif
+
+                                                @if($user->hasLicenca())
+                                                <div class="dropdown-divider"></div>
+                                                <a class="btn btn-info btn-block" href="{{ route('pilotos.licenca',['id'=>$user->id]) }}" title="licenca" target="_blank"><strong>Ver licença&nbsp;</strong><i class="far fa-file-alt"></i></a>
+                                                @endif
                                             </div>
 
                                         </div>
