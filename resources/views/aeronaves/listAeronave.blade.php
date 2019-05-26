@@ -14,7 +14,7 @@
             <div class="card">
                 <div class="card-header"><h4>Lista de Aeronaves&nbsp;&nbsp;&nbsp;&nbsp;
                     @if(Auth::user()->isAdmin())
-                    <a class="btn btn-success btn-lg" data-toggle="tooltip" title="Adicionar aeronave" href="{{ route('aeronaves.create') }}">{{ __(' + ') }}</a>
+                    <a class="btn btn-primary" data-toggle="tooltip" title="Adicionar aeronave" href="{{ route('aeronaves.create') }}">{{__('Adicionar ')}}<i class="fas fa-plane"></i></a>
                     @endif
                     </h4>
                     </div>
@@ -58,7 +58,7 @@
                                                 {{ __('Ações') }}
                                             </button>
                                             <div class="dropdown-menu">
-                                                <a class="btn btn-primary btn-block" href="{{route('aeronaves.edit',['maticula'=>$aeronave->matricula])}}">Editar</a>
+                                                <a class="btn btn-primary btn-block" href="{{route('aeronaves.edit',['maticula'=>$aeronave->matricula])}}">Editar&nbsp;<i class="far fa-edit"></i></a>
                                                 <div class="dropdown-divider"></div>
 
                                                 <form action="{{route('aeronaves.destroy',['maticula'=>$aeronave->matricula])}}" method="post">
@@ -66,7 +66,7 @@
                                                 @method('DELETE')
 
                                                 <input type="hidden" name="id" value="{{$aeronave->matricula}}">
-                                                <input type="submit" class="btn btn-danger btn-block" value="Apagar">
+                                                <button type="submit" class="btn btn-danger btn-block">Apagar&nbsp;<i class="fas fa-user-times"></i></button>
                                                 </form>  
 
                                             </div>

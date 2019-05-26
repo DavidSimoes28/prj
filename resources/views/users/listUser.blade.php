@@ -101,7 +101,7 @@
                         <form method="post" action="{{route('socios.reset_quotas')}}">
                         @csrf
                         @method('patch')
-                        <input type="submit" class="btn btn-primary btn-block" value="Todas as Quotas por pagar">
+                        <button type ="submit" class="btn btn-primary btn-block">Todas as quotas por pagar&nbsp;<i class="far fa-thumbs-down"></i></button>
                         </form>
 
                         <div class="dropdown-divider"></div>
@@ -109,7 +109,8 @@
                         <form method="post" action="{{route('socios.desativar_sem_quotas')}}">
                         @csrf
                         @method('patch')
-                        <input type="submit" class="btn btn-secundary btn-block" value="Desativar sem quotas pagas">
+                        <button type="submit" class="btn btn-danger btn-block">Desativar sócios com quotas por pagar&nbsp;<i class="far fa-times-circle"></i></button>
+                        
                         </form>
                            
                     </div>
@@ -192,9 +193,9 @@
                                                     @method('patch')
 
                                                     @if($user->isAtivo())
-                                                        <input type="submit" class="btn btn-dark btn-block" name="ativo" value="Desativar">
+                                                        <button type="submit" class="btn btn-dark btn-block"  name="ativo" data-toggle="tooltip"  title="Desativar">Desativar&nbsp;<i class="fas fa-exclamation-triangle"></i></button>
                                                     @else
-                                                        <input type="submit" class="btn btn-dark btn-block" name="ativo" value="Ativar">
+                                                        <button type="submit" class="btn btn-success btn-block"  name="ativo" data-toggle="tooltip"  title="Ativar">Ativar&nbsp;<i class="fas fa-check"></i></button>
                                                     @endif
                                                 </form>
 
