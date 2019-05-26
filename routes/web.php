@@ -30,6 +30,10 @@ Route::middleware(['auth', 'verified', 'ativo'])->group(function () {
     Route::DELETE('/socios/{user}', 'UserController@destroy')->name('socios.destroy');
     Route::GET('/pilotos/{user}/licenca', 'UserController@mostrarLicenca')->name('pilotos.licenca');
     Route::GET('/pilotos/{user}/certificado', 'UserController@mostrarCertificado')->name('pilotos.certificado');
+
+    Route::GET('/pilotos/{user}/licenca', 'UserController@downloadLicenca')->name('pilotos.downloadLicenca');
+    Route::GET('/pilotos/{user}/certificado', 'UserController@downloadCertificado')->name('pilotos.downloadCertificado');
+
     Route::PATCH('/socios/{user}/quota', 'UserController@definirQuotas')->name('socios.quotas');
     Route::PATCH('/socios/{user}/ativo', 'UserController@definirAtivo')->name('socios.ativo');
     Route::PATCH('/socios/reset_quotas', 'UserController@reset_quotas')->name('socios.reset_quotas');
