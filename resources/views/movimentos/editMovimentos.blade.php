@@ -291,8 +291,8 @@
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                Pretende confirmar o movimento?<br>
-                                                <p class="alert alert-danger">Depois não poderá ser alterado.</p>
+                                                    <p class="alert alert-danger">Se confirmar o movimento não poderá ser mais alterado.</p>    
+                                                    Pretende guardar as alterações do movimento?<br>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
