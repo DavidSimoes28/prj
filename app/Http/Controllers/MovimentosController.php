@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreMovimentoRequest;
 use App\Http\Requests\UpdateMovimentoRequest;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class MovimentosController extends Controller
 {
@@ -161,11 +163,23 @@ class MovimentosController extends Controller
         $movimento->hora_descolagem = $data.$hora_descolagem;
         $movimento->hora_aterragem = $data.$hora_aterragem;
 
+        /*conta-horas
+        $start  = new Carbon($movimento->hora_descolagem);
+        $end    = new Carbon($movimento->hora_aterragem);
+
+        $diff_hora = $start->diffInHours($end);
+        $start->addHours($diff_hora);
+        $diff_minutos = $start->diffInMinutes($end);
+        $conta = intval($diff_hora) * 10 + (intval($diff_minutos)*10/60);
+        */
+
         $aeronave = Aeronave::where('matricula',$request->aeronave)->first();
         $movimento->aeronave_movimentos()->associate($aeronave);
 
+        //$aeronave->conta_horas = $aeronave->conta_horas + $conta;
+
         $movimento->tempo_voo=$this->calculaTempoViagem($request->hora_descolagem,$request->hora_aterragem);
-        $movimento->preco_voo=$this->calculaPrecoViagem();
+        $movimento->preco_voo=$this->calculaPrecoViagem($movimento);
 
         $parceiro=Auth::user();
         if($request->is_piloto){
@@ -232,8 +246,22 @@ class MovimentosController extends Controller
     }
 
     ////FALTA IMPLEMENTAR//////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    private function calculaPrecoViagem(){ 
-        return 410.05;
+    private function calculaPrecoViagem(Movimento $movimento){ 
+        $diff = $movimento->conta_horas_fim - $movimento->conta_horas_inicio;
+        $valor = round($dif/5) * 5;
+        $incremento = 1;
+        $preco_aux = 0;
+
+        while($valor>60){
+            $incremento++;
+            $valor = $valor-60;
+        }
+        $precos = DB::table('aeronaves_valores')->where("matricula",$movimento->matricula)->where("minutos",$valor);
+        if($incremento!=1){
+            $aux = DB::table('aeronaves_valores')->where("matricula",$movimento->matricula)->where("minutos",60)
+            $preco_aux = $aux->preco * $incremento;
+        }
+        return $preco_aux + $precos->preco;
     }
 
     public function edit(Movimento $movimento)
@@ -257,9 +285,23 @@ class MovimentosController extends Controller
         
         $movimento->hora_descolagem = $data.$hora_descolagem;
         $movimento->hora_aterragem = $data.$hora_aterragem;
+        
+        /*conta-horas
+        $start  = new Carbon($movimento->hora_descolagem);
+        $end    = new Carbon($movimento->hora_aterragem);
 
+        $diff_hora = $start->diffInHours($end);
+        $start->addHours($diff_hora);
+        $diff_minutos = $start->diffInMinutes($end);
+        $conta = intval($diff_hora) * 10 + (intval($diff_minutos)*10/60);
+        
+        $movimento->conta_horas_fim = $movimento->conta_horas_inicio + $conta;
+        */
         $aeronave = Aeronave::where('matricula',$request->aeronave)->first();
         $movimento->aeronave_movimentos()->associate($aeronave);
+
+        //$aeronave->conta_horas = $aeronave->conta_horas + $conta;
+        //dd($movimento->hora_descolagem,$movimento->hora_aterragem,$conta,$movimento->conta_horas_inicio,$movimento->conta_horas_fim,$aeronave->conta_horas);
 
         $movimento->tempo_voo=$this->calculaTempoViagem($request->hora_descolagem,$request->hora_aterragem);
         $movimento->preco_voo=$this->calculaPrecoViagem();
@@ -311,5 +353,12 @@ class MovimentosController extends Controller
 
     private function diminuirContaHoras(Movimento $movimento){
         // DIMINUIR CONTA HORAS DAS AERONAVES
+        // ->tem de ser alguma coisa assim . guardar os dois ultimos movimentos feitos pela aernove . $dois_movimentos = Movimento::where("matricula",$movimento->matricula)->orderBy('conta_horas_final', 'desc')->take(2)->get();
+        // $aeronave = Aeronave::where("matricula",$movimento->matricula);
+        // $aeronave->contahoras = segundo contahoras final do $dois_movimentos
+        $diff = $movimento->conta_horas_fim - $movimento->conta_horas_inicio
+        $aeronave = Aeronave::where("matricula",$movimento->matricula);
+        $aeronave->conta_horas = $aeronave->conta_horas - $diff;
+        $aeronave->save();
     }
 }
