@@ -272,11 +272,35 @@
                         </div>
 
                         <div class="form-group row mb-0">
-                        
                             <div class="col-md-6 offset-md-4 btn-group">
-                                <button type="submit" class="btn btn-success">
+                                @if(!Auth::user()->isAdmin())
+                                    <button type="submit" class="btn btn-success">
                                     {{ __('Guardar') }}
-                                </button>
+                                    </button>
+                                @else
+                                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
+                                        Guardar
+                                    </button>
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="edit_confimacao" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="edit_confimacao">Modal title</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                ...
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
                                 <a class="btn btn-xs btn-danger" href="{{ route('movimentos') }}">{{ __('Cancelar') }}</a>
                             </div>
                         </div>

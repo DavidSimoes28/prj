@@ -107,17 +107,54 @@
             <div class="card">
                 <div class="card-header"><h4>Lista de Movimentos&nbsp;&nbsp;&nbsp;&nbsp;
                     @if ( Auth::user()->isPiloto() )
-                    <div class="btn-group dropright">
-                    <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                    data-toggle="tooltip">
-                        {{ __('Opções de piloto') }}
-                    </button>
-                    
-                    <div class="dropdown-menu">
-                    <a class="btn btn-xs btn-primary" href="{{ route('movimentos.create') }}" data-toggle="tooltip" title="Adicionar Movimento">{{ __('Adicionar Movimento') }}</a>
-                        <div class="dropdown-divider"></div>
-                           
-                    </div>
+                        <div class="btn-group dropright">
+                        <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                        data-toggle="tooltip">
+                            {{ __('Opções de piloto') }}
+                        </button>
+                        
+                        <div class="dropdown-menu">
+                        <a class="btn btn-xs btn-primary" href="{{ route('movimentos.create') }}" data-toggle="tooltip" title="Adicionar Movimento">{{ __('Adicionar Movimento') }}</a>
+                            <div class="dropdown-divider"></div>   
+                            @if(Auth::user()->isAdmin())
+                            
+                            <li>
+                                </li>
+                                
+                                    <a href="#list_confirmacao" class="btn btn-success btn-block" data-toggle="modal" data-target="#list_confirmacao" >{{ __('Confirmar') }}</a> 
+                                    <button type="button" class="btn btn-success btn-block" data-toggle="modal" data-target="#list_confirmacao">
+                                            Guardar
+                                    </button>
+                                    <li>
+                                    </li>
+                                
+                                    <div class="modal fade" id="list_confirmacao" tabindex="-1" role="dialog" aria-labelledby="list_confirmacaoLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="list_confirmacaoLabel">Modal title</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                ...
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <button type="button" class="btn btn-primary">Save changes</button>
+
+                                                    
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <li>
+                                        </li>
+                            @endif
+                        </div>               
                     @endif
                     </h4>
                     
@@ -142,8 +179,8 @@
                             <th style="width: 10%">Partida</th>
                             <th style="width: 10%">Chegada</th>
                             <th style="width: 9%">Nº Serviço</th>
-                            <th style="width: 12%">Confirmação</th>
-                            <th style="width: 8%">Ações</th>
+                            <th style="width: 14%">Confirmação</th>
+                            <th style="width: 9%">Ações</th>
                             </tr>
                         </thead>
                         
@@ -158,7 +195,12 @@
                                     <td>{{ $movimento->aerodromo_partida }}</td>
                                     <td>{{ $movimento->aerodromo_chegada }}</td>
                                     <td>{{ $movimento->num_servico }}</td>
-                                    <td>{{ $movimento->instrucaoConfirmadaToStr() }}</td>
+                                    <td>
+                                        {{ $movimento->instrucaoConfirmadaToStr() }}
+                                        @if(Auth::user()->isAdmin() && $movimento->confirmado=='0')
+                                            <input type="checkbox" style="width: 18px; height: 18px; vertical-align:middle;" name="movimento_check_{{$movimento->id}}" value="1" >
+                                        @endif 
+                                    </td>
 
                                     <td>
                                         <div class="btn-group dropright">
@@ -173,13 +215,13 @@
                                                     <div class="dropdown-divider"></div>
                                                         <a class="btn btn-xs btn-primary btn-block" href="{{ route('movimentos.edit', ['id'=> $movimento->id] ) }}">{{ __('Editar') }}</a>
                                                         @if(Auth::user()->isAdmin())
-                                                        <div class="dropdown-divider"></div>
-                                                        <form action="{{route('movimentos.destroy',['id'=>$movimento->id])}}" method="post">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <input type="hidden" name="id" value="{{$movimento->id}}">
-                                                        <input type="submit" class="btn btn-xs btn-danger btn-block" value="Remover">
-                                                        </form>
+                                                            <div class="dropdown-divider"></div>
+                                                            <form action="{{route('movimentos.destroy',['id'=>$movimento->id])}}" method="post">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <input type="hidden" name="id" value="{{$movimento->id}}">
+                                                                <input type="submit" class="btn btn-xs btn-danger btn-block" value="Remover">
+                                                            </form>
                                                         @endif
                                                     @endif
                                                 @endif
