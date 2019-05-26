@@ -149,7 +149,7 @@
                                                                                 <td style="width: 40%">
                                                                                     <h5 class="d-inline">
                                                                                     @if(Auth::user()->hasLicenca())
-                                                                                    <a href="{{ route('pilotos.licenca',['id'=>Auth::user()->id]) }}" title="Licenca" target="_blank"> Cópia Digital</a>
+                                                                                    <a href="{{ route('pilotos.licenca',['id'=>Auth::user()->id]) }}" title="Licenca" target="_blank"> Cópia Digital</a>&nbsp;<a href="{{route('pilotos.downloadLicenca',['id'=>Auth::user()->id])}}"><i class="fas fa-file-download"></i></a>
                                                                                     @else
                                                                                     Não possui Cópia Digital
                                                                                     @endif
@@ -176,7 +176,7 @@
                                                                                 <td style="width: 40%">
                                                                                     <h5 class="d-inline">
                                                                                     @if(Auth::user()->hasCertificado())
-                                                                                    <a href="{{ route('pilotos.certificado',['id'=>Auth::user()->id]) }}" title="Certificado" target="_blank"> Cópia Digital</a>
+                                                                                    <a href="{{ route('pilotos.certificado',['id'=>Auth::user()->id]) }}" title="Certificado" target="_blank"> Cópia Digital</a>&nbsp;<a href="{{route('pilotos.downloadCertificado',['id'=>Auth::user()->id])}}"><i class="fas fa-file-download"></i></a>
                                                                                     @else
                                                                                     Não possui Cópia Digital
                                                                                     @endif

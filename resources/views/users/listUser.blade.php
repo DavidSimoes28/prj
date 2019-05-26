@@ -152,6 +152,8 @@
                                     <td style="width: 128px; height:128px" class="text-center">
                                     @if (!empty($user->foto_url))
                                         <img style="width: 128px; height:128px" alt="Photo of {{ $user->nome_informal }}" src="{{ asset('storage/fotos/' . $user->foto_url) }}">
+                                    @else
+                                        <i style="width: 128px; height:128px; color: #00BFFF; opacity: 0.5; filter: alpha(opacity=50)" class="fas fa-user fa-8x"></i>
                                     @endif
                                     </td>
                                     <td class="text-center">{{ $user->num_socio }}</td>

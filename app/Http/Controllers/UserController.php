@@ -14,8 +14,8 @@ use App\Http\Requests\StoreUserRequest;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\SearchUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use Illuminate\Support\Facades\Response;
 use App\Http\Requests\PasswordUserRequest;
-use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller
 {   
@@ -195,7 +195,7 @@ class UserController extends Controller
         abort(403,"Não pode consultar certificados de outros Socios");
     }
     public function downloadLicenca(User $user){
-        return Response::download(asset('storage/app/docs_piloto/' . 'licenca_' . $user->id . '.pdf'));
+        return Response::download(storage_path('app/docs_piloto/' . 'licenca_' . $user->id . '.pdf'));
     }
     public function downloadCertificado(User $user){
         return Response::download(storage_path('app/docs_piloto/' . 'certificado_' . $user->id . '.pdf'));
