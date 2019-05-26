@@ -149,9 +149,9 @@
                         <tbody>
                             @foreach ($users as $user)
                                 <tr>
-                                    <td class="text-center">
+                                    <td style="width: 128px; height:128px" class="text-center">
                                     @if (!empty($user->foto_url))
-                                        <img alt="Photo of {{ $user->nome_informal }}" src="{{ asset('storage/fotos/' . $user->foto_url) }}">
+                                        <img style="width: 128px; height:128px" alt="Photo of {{ $user->nome_informal }}" src="{{ asset('storage/fotos/' . $user->foto_url) }}">
                                     @endif
                                     </td>
                                     <td class="text-center">{{ $user->num_socio }}</td>
