@@ -17,7 +17,7 @@ US14 - &#10004;\
 US15 - &#10004; &#10140; Erro nos Testes alguns não sei\
 US16 - &#10004; Testes por correr\
 US17 - &#10004; Testes por correr\
-US18 - &#10004; &#10140; Não sei se tempo de voo é em minutos/ se for está ok\
+US18 - &#10004;\
 US19 - &#10006; X\
 US20 - &#10004; Testes por correr\
 US21 - &#10004;\
