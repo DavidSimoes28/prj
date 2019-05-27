@@ -14,10 +14,10 @@ US11 - &#10004;\
 US12 - &#10004; Erros nos Testes\
 US13 - &#10006; X Grafico &#10140; Fica para o fim\
 US14 - &#10004;\
-US15 - &#10006; &#10140; Erro nos Testes alguns não sei\
+US15 - &#10004; &#10140; Erro nos Testes alguns não sei\
 US16 - &#10004; Testes por correr\
 US17 - &#10004; Testes por correr\
-US18 - &#10004; ->Não sei se tempo de voo é em minutos/ se for está ok\
+US18 - &#10004; &#10140; Não sei se tempo de voo é em minutos/ se for está ok\
 US19 - &#10006; X\
 US20 - &#10004; Testes por correr\
 US21 - &#10004;\
