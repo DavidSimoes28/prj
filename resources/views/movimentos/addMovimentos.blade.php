@@ -12,7 +12,19 @@
                 <div class="card-body">
                     <form method="POST" action="{{route('movimentos.store')}}">
                         @csrf
-                        
+                        <div class="form-group row">
+                            <label for="piloto_id" class="col-md-4 col-form-label text-md-right">{{ __('Id do Piloto') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="piloto_id" type="number" class="form-control{{ $errors->has('piloto_id') ? ' is-invalid' : '' }}" name="piloto_id" value="{{Auth::user()->id}}" required autofocus>
+
+                                @if ($errors->has('piloto_id'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('piloto_id') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
                         <div class="form-group row">
                             <label for="data" class="col-md-4 col-form-label text-md-right">{{ __('Data do Voo') }}</label>
 
@@ -59,8 +71,11 @@
                             <label for="aeronave" class="col-md-4 col-form-label text-md-right">{{ __('Matrícula Aeronave') }}</label>
 
                             <div class="col-md-6">
-                                <input id="aeronave" type="text" class="form-control{{ $errors->has('aeronave') ? ' is-invalid' : '' }}" name="aeronave" required autofocus>
-
+                                <select class="btn btn-xs btn-primary dropdown-toggle btn-block {{ $errors->has('aeronave') ? ' is-invalid' : '' }}"  name="aeronave">                   
+                                    @foreach ($aeronaves as $aeronave)
+                                        <option value="{{$aeronave->matricula}}">{{ $aeronave->matricula }} </option>
+                                    @endforeach
+                                </select>
                                 @if ($errors->has('aeronave'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('aeronave') }}</strong>
@@ -160,14 +175,14 @@
                                         </div>                     
                                 </div>
                                 <div class="form-group row">
-                                    <label for="nome_informal" class="col-md-4 col-form-label text-md-right">{{ __('Nome do outro Piloto') }}</label>
+                                    <label for="instrutor_id" class="col-md-4 col-form-label text-md-right">{{ __('Instrutor') }}</label>
             
                                     <div class="col-md-6">
-                                        <input id="nome_informal" type="text" class="form-control{{ $errors->has('nome_informal') ? ' is-invalid' : '' }}" name="nome_informal" >
+                                        <input id="instrutor_id" type="text" class="form-control{{ $errors->has('instrutor_id') ? ' is-invalid' : '' }}" name="instrutor_id" >
         
-                                        @if ($errors->has('nome_informal'))
+                                        @if ($errors->has('instrutor_id'))
                                             <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $errors->first('nome_informal') }}</strong>
+                                                <strong>{{ $errors->first('instrutor_id') }}</strong>
                                             </span>
                                         @endif
                                     </div>
@@ -180,7 +195,11 @@
                                 <label for="aerodromo_partida" class="col-md-4 col-form-label text-md-right">{{ __('Aerodromo de Partida') }}</label>
     
                                 <div class="col-md-6">
-                                    <input id="aerodromo_partida" type="text" class="form-control{{ $errors->has('aerodromo_partida') ? ' is-invalid' : '' }}" name="aerodromo_partida" required autofocus>
+                                    <select class="btn btn-xs btn-primary dropdown-toggle btn-block {{ $errors->has('aerodromo_partida') ? ' is-invalid' : '' }}"  name="aerodromo_partida">                   
+                                        @foreach ($aerodromos as $aerodromo)
+                                            <option value="{{$aerodromo->code}}">{{ $aerodromo->code }} </option>
+                                        @endforeach
+                                    </select>
     
                                     @if ($errors->has('aerodromo_partida'))
                                         <span class="invalid-feedback" role="alert">
@@ -194,8 +213,12 @@
                                 <label for="aerodromo_chegada" class="col-md-4 col-form-label text-md-right">{{ __('Aerodromo de Chegada') }}</label>
     
                                 <div class="col-md-6">
-                                    <input id="aerodromo_chegada" type="text" class="form-control{{ $errors->has('aerodromo_chegada') ? ' is-invalid' : '' }}" name="aerodromo_chegada" required autofocus>
-    
+                                    <select class="btn btn-xs btn-primary dropdown-toggle btn-block {{ $errors->has('aerodromo_chegada') ? ' is-invalid' : '' }}"  name="aerodromo_chegada">                   
+                                        @foreach ($aerodromos as $aerodromo)
+                                            <option value="{{$aerodromo->code}}">{{ $aerodromo->code }} </option>
+                                        @endforeach
+                                    </select>
+                                    
                                     @if ($errors->has('aerodromo_chegada'))
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('aerodromo_chegada') }}</strong>
@@ -273,7 +296,34 @@
                                     @endif
                                 </div>
                             </div>
+
+                            <div class="form-group row">
+                                <label for="tempo_voo" class="col-md-4 col-form-label text-md-right">{{ __('Tempo de Voo') }}</label>
     
+                                <div class="col-md-6">
+                                    <input id="tempo_voo" type="number" class="form-control{{ $errors->has('tempo_voo') ? ' is-invalid' : '' }}" name="tempo_voo" required autofocus>
+    
+                                    @if ($errors->has('tempo_voo'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('tempo_voo') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="preco_voo" class="col-md-4 col-form-label text-md-right">{{ __('Preco de Voo') }}</label>
+    
+                                <div class="col-md-6">
+                                    <input id="preco_voo" type="number" class="form-control{{ $errors->has('preco_voo') ? ' is-invalid' : '' }}" name="preco_voo" required autofocus>
+    
+                                    @if ($errors->has('preco_voo'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('preco_voo') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
     
                             <div class="form-group row">
                                 <label for ="modo_pagamento" class="col-md-4 col-form-label text-md-right">{{ __('Modo Pagamento') }}</label>

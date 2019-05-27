@@ -146,13 +146,14 @@ class MovimentosController extends Controller
     public function create(){
         $this->authorize('create',Movimento::class);
         $movimentos = new Movimento();
-        return view('movimentos.addMovimentos',compact('movimentos'));
+        $aerodromos = Aerodromo::all();
+        $aeronaves = Aeronave::all();
+        return view('movimentos.addMovimentos',compact('movimentos','aeronaves','aerodromos'));
     }
 
     public function store (StoreMovimentoRequest $request){ 
         
         $this->authorize('create', Movimento::class);
-
         $movimento = new Movimento();
         $movimento->fill($request->all());
         
@@ -178,10 +179,12 @@ class MovimentosController extends Controller
 
         //$aeronave->conta_horas = $aeronave->conta_horas + $conta;
 
-        $movimento->tempo_voo=$this->calculaTempoViagem($request->hora_descolagem,$request->hora_aterragem);
-        $movimento->preco_voo=$this->calculaPrecoViagem($movimento);
-
-        $parceiro=Auth::user();
+        //$movimento->tempo_voo=$this->calculaTempoViagem($request->hora_descolagem,$request->hora_aterragem);
+        //$movimento->preco_voo=$this->calculaPrecoViagem($movimento);
+        $movimento->tempo_voo = request()->tempo_voo;
+        $movimento->preco_voo = request()->preco_voo;
+        $parceiro=User::where('id',$request->piloto_id)->first();
+        //dd($parceiro);
         if($request->is_piloto){
             $movimento=$this->atribuirPiloto($parceiro,$movimento);
         } else{
@@ -192,7 +195,7 @@ class MovimentosController extends Controller
 
         if($request->natureza=='I'){
 
-            $parceiro = User::where('nome_informal',$request->nome_informal)->first();
+            $parceiro = User::where('id',$request->instrutor_id)->first();
             
 
             if($request->is_piloto){
