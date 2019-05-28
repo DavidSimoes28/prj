@@ -72,22 +72,19 @@ class StoreMovimentoRequest extends FormRequest
             }
         }
         */
-        
-        //$teste = Rule::exists('users')->where('id',10006)->where('tipo_socio','P')->where('instrutor','1');
-        $consulta = User::where('tipo_socio','P')->get()->toArray();
-        $piloto = array();
-        
-        for ($i = 0; $i < count ($consulta); $i++ ){
-            $piloto[] = $consulta[$i]['id'];
+        $is_piloto_aux='0,1';
+        $tipo_instrucao_aux = 'in:D,S';
+        $instrutor_id_aux = '';
+        if($this->natureza=='I'){
+            $instrutor_id_aux = ['integer',Rule::exists('users','id')->where('instrutor','1')];
+        }else{
+            $tipo_instrucao_aux ='nullable|regex:/^$/i';
+            $instrutor_id_aux ='nullable|regex:/^$/i';
         }
-        $consulta = User::where('tipo_socio','P')->where('instrutor','1')->get()->toArray();
-        $instrutor = array();
-        for ($i = 0; $i < count ($consulta); $i++ ){
-            $instrutor[] = $consulta[$i]['id'];
-        }
-        //dd(implode(',', $instrutor));
+        
+
         return [
-            'piloto_id' => ['required','integer','in:'. implode(',', $piloto)],
+            'piloto_id' => ['required','integer',Rule::exists('users','id')->where('tipo_socio','P')],
             'data' => 'required|date',
             'hora_descolagem' => 'required|date_format:H:i',
             'hora_aterragem' => 'required|date_format:H:i',
@@ -95,16 +92,16 @@ class StoreMovimentoRequest extends FormRequest
             'num_diario' =>'required|integer|min:1|max:999 999 999 99',
             'num_servico' => 'required|integer|min:1|max:999 999 999 99',
             'natureza' => 'required|in:I,E,T',
-            'tipo_instrucao' => 'in:D,S',
-            'is_piloto'=>'required|in:0,1',
-            'instrutor_id' => ['integer','in:'. implode(',', $instrutor)],
+            'tipo_instrucao' => $tipo_instrucao_aux,
+            'is_piloto'=>'nullable|in:0,1',
+            'instrutor_id' =>  $instrutor_id_aux,
             'aerodromo_partida' => 'required|string|max:40|exists:aerodromos,code',
             'aerodromo_chegada' =>'required|string|max:40|exists:aerodromos,code',
             'num_aterragens' => 'required|integer|min:1|max:999 999 999 99',
             'num_descolagens' => 'required|integer|min:1|max:999 999 999 99',
             'num_pessoas' => 'required|integer|min:1|max:999 999 999 99',
-            'conta_horas_inicio' => ['required','integer','min:1','max:'. $this->conta_horas_fim],
-            'conta_horas_fim' => ['required','integer','min:'. $this->conta_horas_inicio,'max:999 999 999 99'],
+            'conta_horas_inicio' => 'required|integer|between:0,99999999999',
+            'conta_horas_fim' => 'required|integer|between:0,99999999999|gt:conta_horas_inicio',
             'modo_pagamento' => 'required|in:N,M,T,P',
             'num_recibo' => 'required|string|min:1|max:20',
             'tempo_voo' => 'required|integer|min:1',
