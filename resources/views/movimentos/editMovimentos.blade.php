@@ -330,7 +330,7 @@
                             <label for="observacoes" class="col-md-4 col-form-label text-md-right">{{ __('Observações') }}</label>
 
                             <div class="col-md-6">
-                                <textarea id="observacoes" type="text" class="form-control{{ $errors->has('observacoes') ? ' is-invalid' : '' }}" name="observacoes" value="{{ $movimento->observacoes }}"> </textarea>
+                                <textarea id="observacoes" type="text" class="form-control{{ $errors->has('observacoes') ? ' is-invalid' : '' }}" name="observacoes">{{ $movimento->observacoes }}</textarea>
 
                                 @if ($errors->has('observacoes'))
                                     <span class="invalid-feedback" role="alert">
