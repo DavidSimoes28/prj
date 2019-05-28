@@ -5,9 +5,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-        @if($errors)
             @include("partials.errors")
-        @endif
             <div class="card">
                 <div class="card-header"><h3 class="text-center">{{ __('Editar Movimento') }}<h3></div>
 
@@ -15,12 +13,24 @@
                     <form method="POST" action="{{ route('movimentos.update',['id'=>$movimento->id]) }}">
                         @csrf
                         @method("PUT")
-                        
+                        <div class="form-group row">
+                            <label for="piloto_id" class="col-md-4 col-form-label text-md-right">{{ __('Id do Piloto') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="piloto_id" type="number" class="form-control{{ $errors->has('piloto_id') ? ' is-invalid' : '' }}" name="piloto_id" value="{{$movimento->piloto_id}}" required autofocus>
+
+                                @if ($errors->has('piloto_id'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('piloto_id') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
                         <div class="form-group row">
                             <label for="data" class="col-md-4 col-form-label text-md-right">{{ __('Data do Voo') }}</label>
 
                             <div class="col-md-6">
-                                <input id="data" type="date" class="form-control{{ $errors->has('data') ? ' is-invalid' : '' }}" name="data"  value="{{ $movimento->data }}" required autofocus>
+                                <input id="data" type="date" class="form-control{{ $errors->has('data') ? ' is-invalid' : '' }}" name="data" value="{{ $movimento->data }}" required autofocus>
 
                                 @if ($errors->has('data'))
                                     <span class="invalid-feedback" role="alert">
@@ -34,7 +44,7 @@
                             <label for="hora_descolagem" class="col-md-4 col-form-label text-md-right">{{ __('Hora Descolagem') }}</label>
 
                             <div class="col-md-6">
-                                <input id="hora_descolagem" type="time" class="form-control{{ $errors->has('hora_descolagem') ? ' is-invalid' : '' }}" name="hora_descolagem" autofocus value="{{ date('H:m',strtotime($movimento->hora_descolagem)) }}"  required autofocus >
+                                <input name="hora_descolagem" id="hora_descolagem" type="time" class="form-control{{ $errors->has('hora_descolagem') ? ' is-invalid' : '' }}" value="{{ date('H:i',strtotime($movimento->hora_descolagem)) }}" required autofocus>
 
                                 @if ($errors->has('hora_descolagem'))
                                     <span class="invalid-feedback" role="alert">
@@ -48,7 +58,7 @@
                             <label for="hora_aterragem" class="col-md-4 col-form-label text-md-right">{{ __('Hora Aterragem') }}</label>
 
                             <div class="col-md-6">
-                                <input id="hora_aterragem" type="time" class="form-control{{ $errors->has('hora_aterragem') ? ' is-invalid' : '' }}" name="hora_aterragem"  value="{{ date('H:m',strtotime($movimento->hora_aterragem)) }}" required autofocus>
+                                <input id="hora_aterragem" type="time" class="form-control{{ $errors->has('hora_aterragem') ? ' is-invalid' : '' }}" name="hora_aterragem" value="{{ date('H:i',strtotime($movimento->hora_aterragem)) }}" required autofocus>
 
                                 @if ($errors->has('hora_aterragem'))
                                     <span class="invalid-feedback" role="alert">
@@ -62,8 +72,11 @@
                             <label for="aeronave" class="col-md-4 col-form-label text-md-right">{{ __('Matrícula Aeronave') }}</label>
 
                             <div class="col-md-6">
-                                <input id="aeronave" type="text" class="form-control{{ $errors->has('aeronave') ? ' is-invalid' : '' }}" name="aeronave" value="{{ $movimento->aeronave }}" required autofocus>
-
+                                <select class="btn btn-xs btn-primary dropdown-toggle btn-block {{ $errors->has('aeronave') ? ' is-invalid' : '' }}"  value="{{ $movimento->aeronave }}" name="aeronave">                   
+                                    @foreach ($aeronaves as $aeronave)
+                                        <option value="{{$aeronave->matricula}}" @if($movimento->aeronave == $aeronave->matricula ) selected @endif>{{ $aeronave->matricula }} </option>
+                                    @endforeach
+                                </select>
                                 @if ($errors->has('aeronave'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('aeronave') }}</strong>
@@ -101,13 +114,12 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for ="natureza" class="col-md-4 col-form-label text-md-right">{{ __('Natureza de Voo') }}</label>
+                            <label for ="natureza" class="col-md-4 col-form-label text-md-right">{{ __('Natureza do Voo') }}</label>
                             <div class="col-sm-6">
-                                <select class="btn btn-xs btn-primary dropdown-toggle btn-block {{ $errors->has('natureza') ? ' is-invalid' : '' }}"  name="natureza" >
-
+                                <select class="btn btn-xs btn-primary dropdown-toggle btn-block {{ $errors->has('natureza') ? ' is-invalid' : '' }}"  name="natureza" value="{{ strval(old('natureza',$movimento->natureza )) }}" >
                                 <option value="T"  {{ strval(old('natureza' ,$movimento->natureza)) == "T"  ? "selected":"" }} >Treino</option>
-                                <option value="I"  {{ strval(old('natureza' ,$movimento->natureza)) == "I"  ? "selected":"" }} >Instrução</option>
-                                <option value="E"  {{ strval(old('natureza' ,$movimento->natureza)) == "E"  ? "selected":"" }} >Especial</option>
+                                <option value="I"  {{ strval(old('natureza' ,$movimento->natureza)) == "I"      ? "selected":"" }} >Instrução</option>
+                                <option value="E"  {{ strval(old('natureza' ,$movimento->natureza)) == "E"      ? "selected":"" }} >Especial</option>
                                 </select> 
                                     
                                 @if ($errors->has('natureza'))
@@ -118,19 +130,45 @@
                             </div>                     
                         </div>
 
-                        @if ( Auth::user()->isAdmin() )
-                            @include ('movimentos.direcao.editDirecao')
-                        @elseif ( $movimento->pertencePiloto(Auth::user()) ) 
-                            @include ('movimentos.piloto.editPiloto')
-                        @endif
+                        <div class="form-group row">
+                            <label for ="tipo_instrucao" class="col-md-4 col-form-label text-md-right">{{ __('Tipo de Instrução') }}</label>
+                            <div class="col-sm-6">
+                                <select class="btn btn-xs btn-primary dropdown-toggle btn-block {{ $errors->has('tipo_instrucao') ? ' is-invalid' : '' }}"  name="tipo_instrucao" value="{{ strval(old('tipo_instrucao',$movimento->tipo_instrucao )) }}" >
+                                    <option value="D"  {{ strval(old('tipo_instrucao' ,$movimento->tipo_instrucao)) == ""  ? "selected":"" }} ></option>
+                                    <option value="D"  {{ strval(old('tipo_instrucao' ,$movimento->tipo_instrucao)) == "D"  ? "selected":"" }} >Duplo Comando</option>
+                                    <option value="S"  {{ strval(old('tipo_instrucao' ,$movimento->tipo_instrucao)) == "S"      ? "selected":"" }} >Solo</option>
+                                </select> 
+                                        
+                                @if ($errors->has('tipo_instrucao'))
+                                    <span class="invalid-feedback" role="alert">
+                                        {{ $errors->first('tipo_instrucao') }}
+                                    </span>
+                                @endif   
+                            </div>                     
+                        </div>
+                        <div class="form-group row">
+                            <label for="instrutor_id" class="col-md-4 col-form-label text-md-right">{{ __('Instrutor') }}</label>
+    
+                            <div class="col-md-6">
+                                <input id="instrutor_id" type="text" class="form-control{{ $errors->has('instrutor_id') ? ' is-invalid' : '' }}" name="instrutor_id" value="{{ $movimento->instrutor_id }}">
 
-                        
+                                @if ($errors->has('instrutor_id'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('instrutor_id') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
 
                         <div class="form-group row">
                                 <label for="aerodromo_partida" class="col-md-4 col-form-label text-md-right">{{ __('Aerodromo de Partida') }}</label>
     
                                 <div class="col-md-6">
-                                    <input id="aerodromo_partida" type="text" class="form-control{{ $errors->has('aerodromo_partida') ? ' is-invalid' : '' }}" name="aerodromo_partida" value="{{ $movimento->aerodromo_partida }}" required autofocus>
+                                    <select class="btn btn-xs btn-primary dropdown-toggle btn-block {{ $errors->has('aerodromo_partida') ? ' is-invalid' : '' }}"  name="aerodromo_partida" value="{{ strval(old('aerodromo_partida',$movimento->aerodromo_partida)) }}">                   
+                                        @foreach ($aerodromos as $aerodromo)
+                                            <option value="{{$aerodromo->code}}" @if($movimento->aerodromo_partida == $aerodromo->code) selected @endif >{{ $aerodromo->code }} </option>
+                                        @endforeach
+                                    </select>
     
                                     @if ($errors->has('aerodromo_partida'))
                                         <span class="invalid-feedback" role="alert">
@@ -144,8 +182,12 @@
                                 <label for="aerodromo_chegada" class="col-md-4 col-form-label text-md-right">{{ __('Aerodromo de Chegada') }}</label>
     
                                 <div class="col-md-6">
-                                    <input id="aerodromo_chegada" type="text" class="form-control{{ $errors->has('aerodromo_chegada') ? ' is-invalid' : '' }}" name="aerodromo_chegada" value="{{ $movimento->aerodromo_chegada }}" required autofocus>
-    
+                                    <select class="btn btn-xs btn-primary dropdown-toggle btn-block {{ $errors->has('aerodromo_chegada') ? ' is-invalid' : '' }}"  name="aerodromo_chegada" value="{{ strval(old('aerodromo_chegada',$movimento->aerodromo_chegada)) }}">                   
+                                        @foreach ($aerodromos as $aerodromo)
+                                            <option value="{{$aerodromo->code}}" @if($movimento->aerodromo_chegada == $aerodromo->code) selected @endif>{{ $aerodromo->code }} </option>
+                                        @endforeach
+                                    </select>
+                                    
                                     @if ($errors->has('aerodromo_chegada'))
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('aerodromo_chegada') }}</strong>
@@ -158,7 +200,7 @@
                                 <label for="num_aterragens" class="col-md-4 col-form-label text-md-right">{{ __('Nº Aterragens') }}</label>
     
                                 <div class="col-md-6">
-                                    <input id="num_aterragens" type="number" class="form-control{{ $errors->has('num_aterragens') ? ' is-invalid' : '' }}" name="num_aterragens"  value="{{ $movimento->num_aterragens }}" required autofocus>
+                                    <input id="num_aterragens" type="number" class="form-control{{ $errors->has('num_aterragens') ? ' is-invalid' : '' }}" name="num_aterragens" value="{{ $movimento->num_aterragens }}" required autofocus>
     
                                     @if ($errors->has('num_aterragens'))
                                         <span class="invalid-feedback" role="alert">
@@ -223,12 +265,39 @@
                                     @endif
                                 </div>
                             </div>
+
+                            <div class="form-group row">
+                                <label for="tempo_voo" class="col-md-4 col-form-label text-md-right">{{ __('Tempo de Voo') }}</label>
     
+                                <div class="col-md-6">
+                                    <input id="tempo_voo" type="number" class="form-control{{ $errors->has('tempo_voo') ? ' is-invalid' : '' }}" name="tempo_voo" value="{{ $movimento->tempo_voo }}" required autofocus>
+    
+                                    @if ($errors->has('tempo_voo'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('tempo_voo') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="preco_voo" class="col-md-4 col-form-label text-md-right">{{ __('Preco de Voo') }}</label>
+    
+                                <div class="col-md-6">
+                                    <input id="preco_voo" type="number" class="form-control{{ $errors->has('preco_voo') ? ' is-invalid' : '' }}" name="preco_voo" value="{{ $movimento->preco_voo }}" required autofocus>
+    
+                                    @if ($errors->has('preco_voo'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('preco_voo') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
     
                             <div class="form-group row">
                                 <label for ="modo_pagamento" class="col-md-4 col-form-label text-md-right">{{ __('Modo Pagamento') }}</label>
                                 <div class="col-sm-6">
-                                    <select class="btn btn-xs btn-primary dropdown-toggle btn-block {{ $errors->has('modo_pagamento') ? ' is-invalid' : '' }}"  name="modo_pagamento" >
+                                    <select class="btn btn-xs btn-primary dropdown-toggle btn-block {{ $errors->has('modo_pagamento') ? ' is-invalid' : '' }}"  name="modo_pagamento" value="{{ strval(old('modo_pagamento',$movimento->modo_pagamento )) }}" >
                                     <option value="N"  {{ strval(old('modo_pagamento' ,$movimento->modo_pagamento)) == "N"  ? "selected":"" }} >Numerário</option>
                                     <option value="M"  {{ strval(old('modo_pagamento' ,$movimento->modo_pagamento)) == "M"      ? "selected":"" }} >Multibanco</option>
                                     <option value="T"  {{ strval(old('modo_pagamento' ,$movimento->modo_pagamento)) == "T"      ? "selected":"" }} >Tranferência</option>
@@ -261,7 +330,7 @@
                             <label for="observacoes" class="col-md-4 col-form-label text-md-right">{{ __('Observações') }}</label>
 
                             <div class="col-md-6">
-                                <input id="observacoes" type="text" class="form-control{{ $errors->has('observacoes') ? ' is-invalid' : '' }}" name="observacoes" value="{{ $movimento->observacoes }}" >
+                                <textarea id="observacoes" type="text" class="form-control{{ $errors->has('observacoes') ? ' is-invalid' : '' }}" name="observacoes" value="{{ $movimento->observacoes }}"> </textarea>
 
                                 @if ($errors->has('observacoes'))
                                     <span class="invalid-feedback" role="alert">
@@ -272,44 +341,16 @@
                         </div>
 
                         <div class="form-group row mb-0">
+                        
                             <div class="col-md-6 offset-md-4 btn-group">
-                                @if(!Auth::user()->isAdmin())
-                                    <button type="submit" class="btn btn-success">
-                                    {{ __('Guardar') }}
-                                    </button>
-                                @else
-                                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
-                                        Guardar
-                                    </button>
-                                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="edit_confimacao" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h4 class="modal-title" id="edit_confimacao">Confirmação Movimento</h4>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <p class="alert alert-danger">Se confirmar o movimento não poderá ser mais alterado.</p>    
-                                                    Pretende guardar as alterações do movimento?<br>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                                                    <button type="submit" class="btn btn-success">
-                                                        {{ __('Guardar') }}
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endif
+                                <button type="submit" class="btn btn-success">
+                                    {{ __('Editar') }}
+                                </button>
                                 <a class="btn btn-xs btn-danger" href="{{ route('movimentos') }}">{{ __('Cancelar') }}</a>
                             </div>
                         </div>
-                        
-                    </form>
 
+                    </form>
                 </div>
             </div>
         </div>

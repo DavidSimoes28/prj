@@ -27,117 +27,41 @@ class UpdateMovimentoRequest extends FormRequest
     public function rules()
     {   
 
-        $resultado = array();
-        $aux = array();
-        $logado = Auth::user();
+        $is_piloto_aux='0,1';
+        $tipo_instrucao_aux = 'in:D,S';
+        $instrutor_id_aux = '';
+        if($this->natureza=='I' || $this->instrutor_id!=null){
+            $instrutor_id_aux = ['integer',Rule::exists('users','id')->where('instrutor','1')];
+        }else{
+            $tipo_instrucao_aux ='nullable|regex:/^$/i';
+            $instrutor_id_aux ='nullable|regex:/^$/i';
+        }
+        
 
-        $resultado = [
-            'data' => 'required|date',
-            'natureza' => 'required|in:T,E,I',
-            'hora_descolagem' => 'required',
-            'hora_aterragem' => 'required',
+        return [
+            'piloto_id' => ['required','integer',Rule::exists('users','id')->where('tipo_socio','P')],
+            'data' => 'required|date|date_format:Y-m-d',
+            'hora_descolagem' => 'required|date_format:H:i',
+            'hora_aterragem' => 'required|date_format:H:i',
             'aeronave' => 'required|string|min:1|max:8|exists:aeronaves,matricula',
             'num_diario' =>'required|integer|min:1|max:999 999 999 99',
             'num_servico' => 'required|integer|min:1|max:999 999 999 99',
-            'tipo_instrucao' => 'required|in:D,S',
+            'natureza' => 'required|in:I,E,T',
+            'tipo_instrucao' => $tipo_instrucao_aux,
+            'instrutor_id' =>  $instrutor_id_aux,
             'aerodromo_partida' => 'required|string|max:40|exists:aerodromos,code',
             'aerodromo_chegada' =>'required|string|max:40|exists:aerodromos,code',
             'num_aterragens' => 'required|integer|min:1|max:999 999 999 99',
             'num_descolagens' => 'required|integer|min:1|max:999 999 999 99',
             'num_pessoas' => 'required|integer|min:1|max:999 999 999 99',
-            'conta_horas_inicio' => 'required|integer|min:1|max:999 999 999 99',
-            'conta_horas_fim' => 'required|integer|min:1|max:999 999 999 99',
+            'conta_horas_inicio' => 'required|integer|between:0,99999999999',
+            'conta_horas_fim' => 'required|integer|between:0,99999999999|gt:conta_horas_inicio',
             'modo_pagamento' => 'required|in:N,M,T,P',
-            'num_recibo' => 'required|integer|min:1|max:999 999 999 99',
-            'observacoes' => 'string|nullable'
+            'num_recibo' => 'required|string|min:1|max:20',
+            'tempo_voo' => 'required|integer|min:1',
+            'preco_voo' => 'required|numeric|min:1',
+            'observacoes' => 'string|nullable'           
         ];
-
-        if ( $logado->isAdmin() ){
-            $natureza_aux = '';
-            $nome_informal_piloto_aux = '';
-            $nome_informal_instrutor_aux = '';
-
-            if ($this->natureza != 'I'){
-                $natureza_aux = '|regex:/^$/';
-            }
-
-            $piloto = User::all()
-            ->where('nome_informal',$this->nome_informal_piloto)
-            ->where ('tipo_socio','P')->count(); 
-                
-            if (!$piloto){
-                $nome_informal_piloto_aux='|regex:/^$/';
-            }
-
-            $instrutor = User::all()
-            ->where('nome_informal',$this->nome_informal_piloto)
-            ->where ('tipo_socio','P')
-            ->where('instrutor','1')
-            ->count();
-                
-            if (!$instrutor){
-                $nome_informal_instrutor_aux='|regex:/^$/';
-            }
-
-            $aux = [
-                'nome_informal_piloto' => 'required|string|min:1|max:40|exists:users,nome_informal|different:nome_informal_instrutor' . $nome_informal_piloto_aux,
-                'nome_informal_instrutor' => 'nullable|string|max:40|exists:users,nome_informal|required_unless:natureza,T,E'.$natureza_aux . $nome_informal_instrutor_aux,
-                'confirmado' => 'required|in:0,1'
-            ];
-            $resultado = array_merge($resultado, $aux);
-            
-            return $resultado;
-        }
-
-        
-      
-
-
-        $nome_informal_aux='';
-        $is_piloto_aux='';
-
-        if($this->is_piloto){
-            
-            if($this->natureza=='I'){
-
-                $nome_informal_aux = User::all()
-                ->where('nome_informal',$this->nome_informal)
-                ->where ('tipo_socio','P')
-                ->where('instrutor','1')->count(); 
-                
-                if (!$nome_informal_aux){
-                    $nome_informal_aux='|regex:/^$/';
-                }
-
-                if ($logado->nome_informal == $this->nome_informal){
-                    $nome_informal_aux='|regex:/^$/';
-                }
-                
-
-            }
-        }
-        else {
-
-            if ($this->natureza != 'I'){
-                $is_piloto_aux = '|regex:/^$/';
-            }
-
-        }
-        
-
-
-        
-        
-        $aux = [
-            'is_piloto'=>'required|in:0,1'.$is_piloto_aux,
-            'nome_informal' => 'required_if:natureza,I|max:40'. $nome_informal_aux          
-        ];
-
-        $resultado = array_merge($resultado, $aux);
-
-        return $resultado;
-
-
     }
 }
 

@@ -182,7 +182,8 @@
                                                             <form action="{{route('movimentos.destroy',['id'=>$movimento->id])}}" method="post">
                                                                 @csrf
                                                                 @method('DELETE')
-                                                                <input type="hidden" name="id" value="{{$movimento->id}}"> <button type="submit" class="btn btn-danger btn-block">Remover&nbsp;<i class="far fa-trash-alt"></i></button>
+                                                                <input type="hidden" name="id" value="{{$movimento->id}}">
+                                                                <button type="submit" class="btn btn-danger btn-block" href="{{ route('movimentos.destroy', ['id'=> $movimento->id] ) }}">Remover&nbsp;<i class="far fa-trash-alt"></i></button>
                                                             </form>
                                                         @endif
                                                     @endif
