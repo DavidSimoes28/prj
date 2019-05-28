@@ -10,11 +10,6 @@ class MovimentoPolicy
 {
     use HandlesAuthorization;
 
-    public function before($user, $ability)
-    {
-        
-    }
-
     public function view(User $user, Movimento $movimento)
     {
         return true;
@@ -22,8 +17,7 @@ class MovimentoPolicy
 
     public function create(User $user)
     {
-
-        if ($user->isPiloto()) return true;
+        if ($user->isPiloto() || $user->isAdmin()) return true;
         return false;
     }
 

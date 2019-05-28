@@ -26,56 +26,10 @@ class StoreMovimentoRequest extends FormRequest
      */
     public function rules()
     {
-        //dd('$this->piloto_id',Rule::exists('users')->where('id',$this->piloto_id)->where('tipo_socio','P'));
-        /*
-        $is_piloto_aux='0,1';
-        $nome_informal_aux='';
-        $natureza_aux = 'I,E,T';
-        $aux=User::where('id',Auth::user()->id)->first();
-        if($aux->nome_informal==$this->nome_informal){
-            
-            $nome_informal_aux='regex:/^$/i';
-
-            }else{
-
-            if($this->is_piloto){
-                
-                if($this->natureza=='I'){
-                    $nome_informal_aux='required|string|min:1|max:40|exists:users,nome_informal|';
-                    
-                    $nome_informal_aux.=Rule::exists('users')->where(function($query){
-                        $query->where('nome_informal',$this->nome_informal);
-                        $query->where('tipo_socio','P');
-                        $query->where('instrutor','1');
-                    });
-                    
-
-                }else{
-                    $natureza_aux = 'E,T';
-                    $nome_informal_aux='nullable|regex:/^$/i';
-
-                }
-            }else{
-                //ele é instrutor
-                if($aux->intrutor != null && $aux->intrutor){
-                    $is_piloto_aux='0';
-                }
-                
-                $natureza_aux='I';
-                $nome_informal_aux='required|string|min:1|max:40|exists:users,nome_informal|';
-                $nome_informal_aux.=Rule::exists('users')->where(function($query){
-                    $query->where('nome_informal',$this->nome_informal);
-                    $query->where('tipo_socio','P');
-                });
-                
-            
-            }
-        }
-        */
         $is_piloto_aux='0,1';
         $tipo_instrucao_aux = 'in:D,S';
         $instrutor_id_aux = '';
-        if($this->natureza=='I'){
+        if($this->natureza=='I' || $this->instrutor_id!=null){
             $instrutor_id_aux = ['integer',Rule::exists('users','id')->where('instrutor','1')];
         }else{
             $tipo_instrucao_aux ='nullable|regex:/^$/i';
@@ -85,7 +39,7 @@ class StoreMovimentoRequest extends FormRequest
 
         return [
             'piloto_id' => ['required','integer',Rule::exists('users','id')->where('tipo_socio','P')],
-            'data' => 'required|date',
+            'data' => 'required|date|date_format:Y-m-d',
             'hora_descolagem' => 'required|date_format:H:i',
             'hora_aterragem' => 'required|date_format:H:i',
             'aeronave' => 'required|string|min:1|max:8|exists:aeronaves,matricula',

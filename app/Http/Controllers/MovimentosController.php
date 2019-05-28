@@ -177,34 +177,26 @@ class MovimentosController extends Controller
         $aeronave = Aeronave::where('matricula',$request->aeronave)->first();
         $movimento->aeronave_movimentos()->associate($aeronave);
 
-        //$aeronave->conta_horas = $aeronave->conta_horas + $conta;
-
-        //$movimento->tempo_voo=$this->calculaTempoViagem($request->hora_descolagem,$request->hora_aterragem);
-        //$movimento->preco_voo=$this->calculaPrecoViagem($movimento);
-        $movimento->tempo_voo = request()->tempo_voo;
-        $movimento->preco_voo = request()->preco_voo;
-        $parceiro=User::where('id',$request->piloto_id)->first();
-        //dd($parceiro);
-        if($request->is_piloto){
-            $movimento=$this->atribuirPiloto($parceiro,$movimento);
-        } else{
-            $movimento=$this->atribuirInstrutor($parceiro,$movimento);
-        }       
-
-        $movimento->confirmado=0; 
-
+        
+        $piloto=User::where('id',$request->piloto_id)->first();
+        //$movimento=$this->atribuirPiloto($piloto,$movimento);
+        $movimento->num_licenca_piloto=$piloto->num_licenca;
+        $movimento->validade_licenca_piloto=$piloto->validade_licenca;
+        $movimento->tipo_licenca_piloto=$piloto->tipo_licenca;
+        $movimento->num_certificado_piloto=$piloto->num_certificado;
+        $movimento->validade_certificado_piloto=$piloto->validade_certificado;
+        $movimento->classe_certificado_piloto=$piloto->classe_certificado;
+        
         if($request->natureza=='I'){
 
-            $parceiro = User::where('id',$request->instrutor_id)->first();
-            
-
-            if($request->is_piloto){
-                $movimento=$this->atribuirInstrutor($parceiro,$movimento);
-
-            }else{
-                $movimento=$this->atribuirPiloto($parceiro,$movimento);
-            }
-
+            $instrutor = User::where('id',$request->instrutor_id)->first();
+            //$movimento=$this->atribuirInstrutor($instrutor,$movimento);
+            $movimento->num_licenca_instrutor=$instrutor->num_licenca;
+            $movimento->validade_licenca_instrutor=$instrutor->validade_licenca;
+            $movimento->tipo_licenca_instrutor=$instrutor->tipo_licenca;
+            $movimento->num_certificado_instrutor=$instrutor->num_certificado;
+            $movimento->validade_certificado_instrutor=$instrutor->validade_certificado;
+            $movimento->classe_certificado_instrutor=$instrutor->classe_certificado;
         }else{
             $movimento->instrutor_id=null;
             $movimento->num_licenca_instrutor=null;
@@ -212,9 +204,9 @@ class MovimentosController extends Controller
             $movimento->tipo_licenca_instrutor=null;
             $movimento->num_certificado_instrutor=null;
             $movimento->validade_certificado_instrutor=null;
-            $movimento->classe_certificado_instrutor=null;         
+            $movimento->classe_certificado_instrutor=null;
         }
-
+        $movimento->confirmado=0; 
         $movimento->save();
         return redirect()->route('movimentos')->with("success","Movimento inserido com sucesso.");
     }
