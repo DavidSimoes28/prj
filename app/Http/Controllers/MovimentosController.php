@@ -40,42 +40,14 @@ class MovimentosController extends Controller
 
         if ( $isPiloto ){
 
-            $voos_pessoais =  request()->voos_pessoais;
+            $meus_movimentos =  request()->meus_movimentos;
 
-            if (  $voos_pessoais != null && (  $voos_pessoais=="I" ||  $voos_pessoais=="P" || $voos_pessoais=="TODOS" ) ){
-
-                if ($voos_pessoais=="I"){
-                    $movimentos =  $movimentos->whereHas( 'instrutores',function ( $query ){
-
-                        $nome =  Auth::user()->nome_informal;
-                        $query->where( 'nome_informal', $nome );
-
-                    });
-                }
-                elseif ($voos_pessoais=="P"){
-                    $movimentos =  $movimentos->whereHas( 'pilotos', function ( $query ){
-
-                        $nome =  Auth::user()->nome_informal;
-                        $query->where( 'nome_informal', $nome );
-
-                    });
-                }
-                else{
-
-                    $movimentos_intrutor = $movimentos
-                    ->WhereHas( 'instrutores',function ( $query ){
-
-                        $nome =  Auth::user()->nome_informal;
-                        $query->where( 'nome_informal', $nome );
-
-                    })
-                    ->orWhereHas( 'pilotos', function ( $query ){
-
-                        $nome =  Auth::user()->nome_informal;
-                        $query->where( 'nome_informal', $nome );
-
-                    });                   
-                }
+            if (  $meus_movimentos == 1){
+                $movimentos =  $movimentos->whereHas( 'instrutores',function ( $query ){
+                    $query->where( 'id', Auth::user()->id );
+                })->orWhereHas( 'pilotos', function ( $query ){
+                    $query->where( 'id', Auth::user()->id );
+                });
             }
         }
 
@@ -88,7 +60,7 @@ class MovimentosController extends Controller
             $movimentos =  $movimentos->whereHas( 'pilotos', function ( $query ){
 
                 $nome =  request()->piloto;
-                if ( $nome != null ) $query->where( 'nome_informal', 'like' , '%' .$nome. '%');
+                if ( $nome != null ) $query->where( 'id', $nome);
                 
 
         } );
@@ -103,7 +75,7 @@ class MovimentosController extends Controller
             $movimentos =  $movimentos->whereHas( 'instrutores',function ( $query ){
 
                 $nome =  request()->instrutor;
-                if ( $nome != null ) $query->where( 'nome_informal', 'like' , '%' .$nome. '%' );
+                if ( $nome != null ) $query->where( 'id', $nome );
 
         } );
         }
@@ -233,14 +205,12 @@ class MovimentosController extends Controller
         $valor = round($diff/5) * 5;
         $incremento = 1;
         $preco_aux = 0;
-
+        if ($valor == 0){
+            $valor = 5;
+        }
         while($valor>60){
             $incremento++;
             $valor = $valor-60;
-        }
-
-        if ($valor == 0){
-            $valor = 5;
         }
         
         $precos = DB::table('aeronaves_valores')->where("matricula",$movimento->aeronave)->where("minutos",$valor);
@@ -283,7 +253,6 @@ class MovimentosController extends Controller
         $movimento=$this->atribuirPiloto($piloto,$movimento);
         
         if($request->natureza=='I'){
-
             $instrutor = User::where('id',$request->instrutor_id)->first();
             $movimento=$this->atribuirInstrutor($instrutor,$movimento);
         }else{

@@ -20,12 +20,12 @@
     </div>
     &nbsp;&nbsp;&nbsp;
     <div class="col-xs-2">
-        <label for ="piloto"><strong>{{ __('Piloto') }}</strong></label>
+        <label for ="piloto"><strong>{{ __('Id do Piloto') }}</strong></label>
         <input type="text" class="form-control" name="piloto" value="{{ strval(old('piloto',request()->piloto )) }}">
     </div>
     &nbsp;&nbsp;&nbsp;
     <div class="col-xs-2">
-        <label for ="instrutor"><strong>{{ __('Instrutor') }}</strong></label>
+        <label for ="instrutor"><strong>{{ __('Id do Instrutor') }}</strong></label>
         <input type="text" class="form-control" name="instrutor" value="{{ strval(old('instrutor',request()->instrutor )) }}">
     </div>
     &nbsp;&nbsp;&nbsp;
@@ -55,14 +55,12 @@
     </div>
     &nbsp;&nbsp;&nbsp;
 
-    @if (Auth::user()->tipo_socio == 'P')
+    @if (Auth::user()->isPiloto())
     <div class="col-xs-2">
-        <label for ="voos_pessoais"><strong>{{ __('Voos pessoais') }}</strong></label>
-        <select name= "voos_pessoais" class="btn btn-xs btn-secondary dropdown-toggle">
-        <option value=""        {{ strval(old('voos_pessoais' ,request()->voos_pessoais)) == ""       ? "selected":"" }} >--</option>
-        <option value="I"       {{ strval(old('voos_pessoais' ,request()->voos_pessoais)) == "I"      ? "selected":"" }} >Instrutor</option>
-        <option value="P"       {{ strval(old('voos_pessoais' ,request()->voos_pessoais)) == "P"      ? "selected":"" }} >Piloto</option>  
-        <option value="TODOS"   {{ strval(old('voos_pessoais' ,request()->voos_pessoais)) == "TODOS"  ? "selected":"" }} >Todos</option>
+        <label for ="meus_movimentos"><strong>{{ __('Meus Movimentos') }}</strong></label>
+        <select name="meus_movimentos" class="btn btn-xs btn-secondary dropdown-toggle">
+        <option value="0"       {{ strval(old('meus_movimentos' ,request()->meus_movimentos)) == "0"      ? "selected":"" }} >Não</option>
+        <option value="1"       {{ strval(old('meus_movimentos' ,request()->meus_movimentos)) == "1"      ? "selected":"" }} >Sim</option>
         </select>
     </div>
 

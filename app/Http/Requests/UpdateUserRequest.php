@@ -45,25 +45,78 @@ class UpdateUserRequest extends FormRequest
         for ($i = 0; $i < count ($tipos); $i++ ){
             $tipos2[] = $tipos[$i]['code'];
         }
-
-        //dd($tipos2);
-        //dd($classes);
         
         $resultado = array();
         $aux = array();
 
         $resultado = [
-                    'num_socio' => ['required','integer','max:99999999999','min:1','unique:users,num_socio,'.$user->id],
-                    'name' => ['required','max:255','regex:/^[a-zA-ZçÇáÁéÉíÍóÓúÚàÀèÈìÌòÒùÙãÃõÕâÂêÊîÎôÔûÛ ]+$/'],
-                    'email' => ['required','string', 'max:255', 'email','unique:users,email,'.$user->id],
-                    'data_nascimento' =>'required|date|date_format:Y-m-d|before:today',
-                    'nome_informal' => 'required|string|max:40',
-                    'nif' => 'size:9|regex:/^[1-9][0-9]{8}+$/',
-                    'telefone'=> ['max:20','regex:/^([\+][\d]{3}[ ])?[\d]+$/'],
-                    'file_foto' => 'nullable|mimes:jpeg,bmp,png,gif',
-                    'endereco'=> 'string|max:255|nullable',
-                    'sexo'=>'required|in:M,F',
-                    'tipo_socio' => 'required|string|min:1|in:P,NP,A'
+            'num_socio' => ['required','integer','max:99999999999','min:1','unique:users,num_socio,'.$user->id],//se for normal
+            'name' => ['required','max:255','regex:/^[a-zA-ZçÇáÁéÉíÍóÓúÚàÀèÈìÌòÒùÙãÃõÕâÂêÊîÎôÔûÛ ]+$/'],
+            'email' => ['required','string', 'max:255', 'email','unique:users,email,'.$user->id],
+            'data_nascimento' =>'required|date|date_format:Y-m-d|before:today',
+            'nome_informal' => 'required|string|max:40',
+            'nif' => 'size:9|regex:/^[1-9][0-9]{8}+$/',
+            'telefone'=> ['max:20','regex:/^([\+][\d]{3}[ ])?[\d]+$/'],
+            'file_foto' => 'nullable|mimes:jpeg,bmp,png,gif',
+            'endereco'=> 'string|max:255|nullable',
+            'sexo'=>'required|in:M,F',
+            'tipo_socio' => 'required|string|min:1|in:P,NP,A',
+                'file_certificado' => 'mimes:pdf',//se for piloto
+                'num_certificado' => 'string|max:30|nullable',
+                'validade_certificado' => 'date|nullable',
+                'classe_certificado' => 'nullable|in:'. implode(',', $classes2),
+                'file_licenca' => 'mimes:pdf',
+                'num_licenca' => 'string|max:30|nullable',
+                'validade_licenca' => 'date|nullable',
+                'tipo_licenca' => 'nullable|in:' . implode(',',  $tipos2),
+                'instrutor' => 'in:0,1',
+            'ativo' => [Rule::requiredIf($logado->isAdmin()),'in:0,1'],//se for direção
+            'quota_paga' => [Rule::requiredIf($logado->isAdmin()),'in:0,1'],
+            'direcao' => [Rule::requiredIf($logado->isAdmin()),'in:0,1'],
+            'certificado_confirmado' => [Rule::requiredIf($logado->isAdmin() && $user->isPiloto()),'in:0,1','integer','nullable'],//se for direção e user piloto
+            'licenca_confirmada' => [Rule::requiredIf($logado->isAdmin()  && $user->isPiloto()),'in:0,1','integer','nullable']
+        ];
+
+        return $resultado;
+    }
+}
+
+/*
+public function rules()
+    {
+        $user = $this->route('user');
+        $logado = Auth::user();
+
+        $classes = Classes_certificado::all()->toArray();
+        $tipos = Tipos_licenca::all()->toArray();
+
+        $classes2 = array();
+        $tipos2 = array();
+
+
+        for ($i = 0; $i < count ($classes); $i++ ){
+            $classes2[] = $classes[$i]['code'];
+        }
+
+        for ($i = 0; $i < count ($tipos); $i++ ){
+            $tipos2[] = $tipos[$i]['code'];
+        }
+        
+        $resultado = array();
+        $aux = array();
+
+        $resultado = [
+            'num_socio' => ['required','integer','max:99999999999','min:1','unique:users,num_socio,'.$user->id],
+            'name' => ['required','max:255','regex:/^[a-zA-ZçÇáÁéÉíÍóÓúÚàÀèÈìÌòÒùÙãÃõÕâÂêÊîÎôÔûÛ ]+$/'],
+            'email' => ['required','string', 'max:255', 'email','unique:users,email,'.$user->id],
+            'data_nascimento' =>'required|date|date_format:Y-m-d|before:today',
+            'nome_informal' => 'required|string|max:40',
+            'nif' => 'size:9|regex:/^[1-9][0-9]{8}+$/',
+            'telefone'=> ['max:20','regex:/^([\+][\d]{3}[ ])?[\d]+$/'],
+            'file_foto' => 'nullable|mimes:jpeg,bmp,png,gif',
+            'endereco'=> 'string|max:255|nullable',
+            'sexo'=>'required|in:M,F',
+            'tipo_socio' => 'required|string|min:1|in:P,NP,A'
         ];
 
         if ( $user->isPiloto() ){
@@ -99,44 +152,7 @@ class UpdateUserRequest extends FormRequest
     
                 $resultado = array_merge($resultado, $aux);
             }
-
-
         }
-
-        //$teste = User::all();
-        //$teste = Classes_certificado::all();
-        //$teste = Tipos_licenca::all();
-        //dd($resultado);
-
-
         return $resultado;
     }
-}
-//'in:ALUNO-PPL(A),ALUNO-PU,ATPL,CPL(A),NEWTYPE,PPL(A),PU'
-//in:Class 1,Class 2,LAPL,NEWCLS
-
-//'tipo_licenca' => ['nullable',Rule::in($tipos)],
-//'classe_certificado' => ['nullable',Rule::in($tipos)]
-
-
-
-/* US - 15
-'file_certificado' => 'mimes:pdf',
-'num_certificado' => 'max:30',
-'validade_certificado' => 'date|nullable',
-'file_licenca' => 'mimes:pdf',
-'instrutor' => 'max:1',
-'num_licenca' => 'max:30',
-'validade_licenca' => 'date|nullable',   
-'ativo' => 'nullable|in:0,1',
-'quota_paga' => 'nullable|in:0,1',
-'direcao' => 'nullable|in:0,1',
-'tipo_licenca' => 'nullable|in:' . implode(',', $tipos),
-'classe_certificado' => 'nullable|in:'. implode(',', $classes)
-
-,   
-                'ativo' => 'nullable|in:0,1',
-                'quota_paga' => 'nullable|in:0,1',
-                'direcao' => 'nullable|in:0,1',
-                                'instrutor' => 'max:1',
 */
