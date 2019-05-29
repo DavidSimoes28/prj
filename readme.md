@@ -14,7 +14,7 @@ US11 - &#10004;\
 US12 - &#10004;\
 US13 - &#10006; X Grafico &#10140; Fica para o fim\
 US14 - &#10004;\
-US15 - &#10004; &#10140; Erro nos Testes alguns não sei\
+US15 - &#10004;\
 US16 - &#10004;\
 US17 - &#10004;\
 US18 - &#10004;\
