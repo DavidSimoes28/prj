@@ -11,12 +11,12 @@ US08 - &#10004;\
 US09 - &#10004;\
 US10 - &#10004;\
 US11 - &#10004;\
-US12 - &#10004; Erros nos Testes\
+US12 - &#10004;\
 US13 - &#10006; X Grafico &#10140; Fica para o fim\
 US14 - &#10004;\
 US15 - &#10004; &#10140; Erro nos Testes alguns não sei\
-US16 - &#10004; Testes por correr\
-US17 - &#10004; Testes por correr\
+US16 - &#10004;\
+US17 - &#10004;\
 US18 - &#10004;\
 US19 - &#10006; X\
 US20 - &#10004; Testes por correr\
@@ -27,7 +27,7 @@ US24 - &#10006; Não entendo o porquê de estar mal mas pronto\
 US25 - &#10004;\
 US26 - &#10004;\
 US27 - &#10004;\
-US28 - &#10006; falta ao remover baixar o conta horas\
+US28 - &#10006; Erros nos testes\
 US29 - &#10006; só falta confirmar os Checks\
 US30 - &#10006; falta adicionar a pesquisa dos movimentos conflituosos\
 US31 - &#10004;\
