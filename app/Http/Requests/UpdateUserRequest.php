@@ -56,7 +56,7 @@ class UpdateUserRequest extends FormRequest
                     'num_socio' => ['required','integer','max:99999999999','min:1', Rule::unique('users')->ignore($user->id)],
                     'name' => ['required','max:255','regex:/^[a-zA-ZçÇáÁéÉíÍóÓúÚàÀèÈìÌòÒùÙãÃõÕâÂêÊîÎôÔûÛ ]+$/'],
                     'email' => ['required','string', 'max:255', 'email', Rule::unique('users')->ignore($user->id)],
-                    'data_nascimento' =>'required|date|before:today',
+                    'data_nascimento' =>'required|date|date_format:Y-m-d H:i:s|before:today',
                     'nome_informal' => 'required|string|max:40',
                     'nif' => 'size:9|regex:/^[1-9][0-9]{8}+$/',
                     'telefone'=> ['max:20','regex:/^([\+][\d]{3}[ ])?[\d]+$/'],
