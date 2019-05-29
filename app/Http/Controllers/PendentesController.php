@@ -13,12 +13,12 @@ class PendentesController extends Controller
 
         $licencas = User::where('tipo_socio','P')
         ->whereNotNull('num_licenca')
-        ->whereNull('licenca_confirmada')
+        ->where('licenca_confirmada','0')
         ->get();
 
         $certificados = User::where('tipo_socio','P')
         ->whereNotNull('num_certificado')
-        ->whereNull('certificado_confirmado')
+        ->where('certificado_confirmado','0')
         ->get();
 
         $conflitos=array();
