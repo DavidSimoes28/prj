@@ -46,7 +46,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function movimentos_instrutor()
     {
-        return $this->hasMany('App\Movimento','intrutor_id');
+        return $this->hasMany('App\Movimento','instrutor_id');
     }
 
     public function movimentos_piloto()

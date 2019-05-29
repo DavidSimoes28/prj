@@ -22,7 +22,7 @@ class Ativo
         }
         if(Auth::user()->password_inicial){
             Auth::logout();
-            abort(403);
+            return redirect()->route('login')->withErrors(["errors" => "Utilizador não alterou Password inicial"]);
         }
         return $next($request);
     }

@@ -63,11 +63,11 @@ class UpdateUserRequest extends FormRequest
             'tipo_socio' => 'required|string|min:1|in:P,NP,A',
                 'file_certificado' => 'mimes:pdf',//se for piloto
                 'num_certificado' => 'string|max:30|nullable',
-                'validade_certificado' => 'date|nullable',
+                'validade_certificado' => 'date|date_format:Y-m-d|nullable',
                 'classe_certificado' => 'nullable|in:'. implode(',', $classes2),
                 'file_licenca' => 'mimes:pdf',
                 'num_licenca' => 'string|max:30|nullable',
-                'validade_licenca' => 'date|nullable',
+                'validade_licenca' => 'date|date_format:Y-m-d|nullable',
                 'tipo_licenca' => 'nullable|in:' . implode(',',  $tipos2),
                 'instrutor' => 'in:0,1',
             'ativo' => [Rule::requiredIf($logado->isAdmin()),'in:0,1'],//se for direção

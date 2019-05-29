@@ -117,9 +117,6 @@ class UserController extends Controller
 
     public function update(UpdateUserRequest $request, User $user){
         $this->authorize('update',$user);
-        $validated = $request->all();
-        unset($validated['file_licenca']);
-        unset($validated['file_certificado']);
         
         if($user->num_licenca != $request->num_licenca){
             $user->licenca_confirmada = 0;
@@ -130,27 +127,16 @@ class UserController extends Controller
         }
 
         if(!$user->isAdmin()){
-            unset($validated['num_socio']);
-            unset($validated['ativo']);
-            unset($validated['quota_paga']);
-            unset($validated['sexo']);
-            unset($validated['tipo_socio']);
-            unset($validated['direcao']);
-            unset($validated['instrutor']);
-            unset($validated['aluno']);
-            unset($validated['certificado_confirmado']);
-            unset($validated['licenca_confirmada']);
+            $validated = $request->except(['id','num_socio','ativo','quota_paga','sexo','tipo_socio','direcao','instrutor','aluno','certificado_confirmado','licenca_confirmada']);
         }
-   
-        if(!$user->isPiloto()){
-            unset($validated['num_licenca']);
-            unset($validated['tipo_licenca']);
-            unset($validated['validade_licenca']);
-            unset($validated['num_certificado']);
-            unset($validated['classe_certificado']);
-            unset($validated['validade_certificado']);
+        if(!$user->isPiloto() && $user->isAdmin()){
+            $validated = $request->except(['num_licenca','tipo_licenca','validade_licenca','num_certificado','classe_certificado','validade_certificado']);
+        }elseif(!$user->isAdmin()){
+            $validated = $request->except(['id','num_socio','ativo','quota_paga','sexo','tipo_socio','direcao','instrutor','aluno','certificado_confirmado','licenca_confirmada','num_licenca','tipo_licenca','validade_licenca','num_certificado','classe_certificado','validade_certificado']);
         }
-
+        
+        unset($validated['file_licenca']);
+        unset($validated['file_certificado']);
 
         $user->fill($validated);
         
@@ -183,7 +169,7 @@ class UserController extends Controller
     public function destroy(User $user){
         $this->authorize('delete',$user);
 
-        if ( !$user->movimentos_piloto()->count() ||  !$user->movimentos_instrutor()->count()) $user->forceDelete();
+        if ( !$user->movimentos_piloto()->count() &&  !$user->movimentos_instrutor()->count()) $user->forceDelete();
         else $user->delete();
 
         return redirect()->route('socios')->with("success","Sócio apagado com sucesso.");
