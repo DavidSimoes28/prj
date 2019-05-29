@@ -238,6 +238,11 @@ class MovimentosController extends Controller
             $incremento++;
             $valor = $valor-60;
         }
+
+        if ($valor == 0){
+            $valor = 5;
+        }
+        
         $precos = DB::table('aeronaves_valores')->where("matricula",$movimento->aeronave)->where("minutos",$valor);
         if($incremento!=1){
             $aux = DB::table('aeronaves_valores')->where("matricula",$movimento->aeronave)->where("minutos",60);
