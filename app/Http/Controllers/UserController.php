@@ -121,7 +121,37 @@ class UserController extends Controller
         unset($validated['file_licenca']);
         unset($validated['file_certificado']);
         
-        
+        if($user->num_licenca != $request->num_licenca){
+            $user->licenca_confirmada = 0;
+        }
+
+        if($user->num_certificado != $request->num_certificado){
+            $user->certificado_confirmado = 0;
+        }
+
+        if(!$user->isAdmin()){
+            unset($validated['num_socio']);
+            unset($validated['ativo']);
+            unset($validated['quota_paga']);
+            unset($validated['sexo']);
+            unset($validated['tipo_socio']);
+            unset($validated['direcao']);
+            unset($validated['instrutor']);
+            unset($validated['aluno']);
+            unset($validated['certificado_confirmado']);
+            unset($validated['licenca_confirmada']);
+        }
+   
+        if(!$user->isPiloto()){
+            unset($validated['num_licenca']);
+            unset($validated['tipo_licenca']);
+            unset($validated['validade_licenca']);
+            unset($validated['num_certificado']);
+            unset($validated['classe_certificado']);
+            unset($validated['validade_certificado']);
+        }
+
+
         $user->fill($validated);
         
         if ($request->hasFile('file_foto')) {
@@ -146,13 +176,6 @@ class UserController extends Controller
         }
         unset($validated['file_foto']);
 
-        if($user->licenca_confirmada == 0){
-            $user->licenca_confirmada = null;
-        }
-        if($user->certificado_confirmado == 0){
-            $user->certificado_confirmado = null;
-        }
-        
         $user->save();
         return redirect()->route('socios')->with("success","Sócio atualizado com sucesso.");
     }
