@@ -27,7 +27,7 @@ US24 - &#10006; Não entendo o porquê de estar mal mas pronto\
 US25 - &#10004;\
 US26 - &#10004;\
 US27 - &#10004;\
-US28 - &#10006; Erros nos testes\
+US28 - &#10004;\
 US29 - &#10006; só falta confirmar os Checks\
 US30 - &#10006; falta adicionar a pesquisa dos movimentos conflituosos\
 US31 - &#10004;\
