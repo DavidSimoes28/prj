@@ -125,10 +125,12 @@ class MovimentosController extends Controller
 
     public function store (StoreMovimentoRequest $request){ 
         
-        $this->authorize('create', Movimento::class);
+        $this->authorize('store', Movimento::class);
         $movimento = new Movimento();
         $movimento->fill($request->all());
         
+        if(Auth::user()->id != $request->piloto_id && !Auth::user()->isAdmin()) return redirect()->route('movimentos')->with("errors","Movimento deu merda memo.");
+
         $data=date("Y-m-d ",strtotime($request->data));
         $hora_descolagem=date("H:i:s",strtotime($request->hora_descolagem));
         $hora_aterragem=date("H:i:s",strtotime($request->hora_aterragem));
@@ -153,7 +155,7 @@ class MovimentosController extends Controller
         $piloto=User::where('id',$request->piloto_id)->first();
         $movimento=$this->atribuirPiloto($piloto,$movimento);
         
-        if($request->natureza=='I'){
+        if($request->natureza=='I' || $movimento->instrutor_id != null){
 
             $instrutor = User::where('id',$request->instrutor_id)->first();
             $movimento=$this->atribuirInstrutor($instrutor,$movimento);
@@ -237,7 +239,9 @@ class MovimentosController extends Controller
         $this->authorize('update', $movimento);
 
         $movimento->fill($request->all());
-        
+        //esta verificação precisa de ser feita aqui porque o id para conparar tem de ser o mais recente
+        if(Auth::user()->id != $request->piloto_id && !Auth::user()->isAdmin()) return redirect()->route('movimentos')->with("errors","Movimento deu merda memo.");
+
         $data=date("Y-m-d ",strtotime($request->data));
         $hora_descolagem=date("H:i:s",strtotime($request->hora_descolagem));
         $hora_aterragem=date("H:i:s",strtotime($request->hora_aterragem));
@@ -252,7 +256,7 @@ class MovimentosController extends Controller
         $piloto=User::where('id',$request->piloto_id)->first();
         $movimento=$this->atribuirPiloto($piloto,$movimento);
         
-        if($request->natureza=='I'){
+        if($request->natureza=='I' || $movimento->instrutor_id != null){
             $instrutor = User::where('id',$request->instrutor_id)->first();
             $movimento=$this->atribuirInstrutor($instrutor,$movimento);
         }else{
@@ -270,7 +274,7 @@ class MovimentosController extends Controller
 
     public function destroy(Movimento $movimento){
         $this->authorize('delete',$movimento);
-        $this->diminuirContaHoras($movimento);
+        //$this->diminuirContaHoras($movimento);
         $movimento->delete();
         return redirect()->route('movimentos')->with("success","Movimento apagado com sucesso.");
     }

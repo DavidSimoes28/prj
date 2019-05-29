@@ -20,6 +20,10 @@ class Ativo
             Auth::logout();
             return redirect()->route('login')->withErrors(["errors" => "Utilizador não está ativo"]);
         }
+        if(Auth::user()->password_inicial){
+            Auth::logout();
+            abort(403);
+        }
         return $next($request);
     }
 }
