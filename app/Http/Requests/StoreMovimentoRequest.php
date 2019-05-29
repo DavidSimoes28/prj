@@ -26,19 +26,50 @@ class StoreMovimentoRequest extends FormRequest
      */
     public function rules()
     {
-        $is_piloto_aux='0,1';
+        $is_piloto_aux='';
         $tipo_instrucao_aux = 'in:D,S';
         $instrutor_id_aux = '';
-        if($this->natureza=='I' || $this->instrutor_id!=null){
-            $instrutor_id_aux = ['integer',Rule::exists('users','id')->where('instrutor','1')];
+        $isPiloto = true;
+        $logado = Auth::user();
+
+        if($this->natureza=='I'){
+        
+            $instrutor_id_aux = 'required|integer|'.Rule::exists('users','id')->where('instrutor','1');
+            
+            
+            if (!$logado->isAdmin()){
+
+                if ($logado->isInstrutor()){
+                    $isPiloto =  $logado->id == $this->piloto_id || $logado->id == $this->instrutor_id;
+                }
+                else{
+                    $isPiloto = $logado->id == $this->piloto_id;
+                }
+                
+            }
+           
         }else{
             $tipo_instrucao_aux ='nullable|regex:/^$/i';
             $instrutor_id_aux ='nullable|regex:/^$/i';
+
+            if (!$logado->isAdmin()){
+
+                $isPiloto =  $logado->id == $this->piloto_id;
+                
+            }
+
+        }
+
+        if ($this->natureza=='I' && $this->piloto_id == $this->instrutor_id){
+            $isPiloto = false;
+        }   
+        
+        if (!$isPiloto){
+            $is_piloto_aux ='|regex:/^$/i';
         }
         
-
-        return [
-            'piloto_id' => ['required','integer',Rule::exists('users','id')->where('tipo_socio','P')],
+        $resultado = [
+            'piloto_id' => 'required|integer|'.Rule::exists('users','id')->where('tipo_socio','P').$is_piloto_aux,
             'data' => 'required|date|date_format:Y-m-d',
             'hora_descolagem' => 'required|date_format:H:i',
             'hora_aterragem' => 'required|date_format:H:i',
@@ -48,7 +79,7 @@ class StoreMovimentoRequest extends FormRequest
             'natureza' => 'required|in:I,E,T',
             'tipo_instrucao' => $tipo_instrucao_aux,
             'is_piloto'=>'nullable|in:0,1',
-            'instrutor_id' =>  $instrutor_id_aux,
+            'instrutor_id' =>  $instrutor_id_aux . $is_piloto_aux,
             'aerodromo_partida' => 'required|string|max:40|exists:aerodromos,code',
             'aerodromo_chegada' =>'required|string|max:40|exists:aerodromos,code',
             'num_aterragens' => 'required|integer|min:1|max:999 999 999 99',
@@ -62,5 +93,16 @@ class StoreMovimentoRequest extends FormRequest
             'preco_voo' => 'required|numeric|min:1',
             'observacoes' => 'string|nullable'           
         ];
+
+        $aux = array();
+
+        if (Auth::user()->isAdmin()) {
+            $aux = ['confirmado' => 'required|in:0,1'];
+            $resultado = array_merge($resultado, $aux);
+        }
+
+        return $resultado;
+
+
     }
 }

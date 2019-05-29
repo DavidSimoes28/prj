@@ -159,7 +159,10 @@ class UserController extends Controller
 
     public function destroy(User $user){
         $this->authorize('delete',$user);
-        $user->delete();
+
+        if ( !$user->movimentos_piloto()->count() ||  !$user->movimentos_instrutor()->count()) $user->forceDelete();
+        else $user->delete();
+
         return redirect()->route('socios')->with("success","Sócio apagado com sucesso.");
     }
 

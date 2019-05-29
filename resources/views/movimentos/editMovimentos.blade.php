@@ -134,7 +134,7 @@
                             <label for ="tipo_instrucao" class="col-md-4 col-form-label text-md-right">{{ __('Tipo de Instrução') }}</label>
                             <div class="col-sm-6">
                                 <select class="btn btn-xs btn-primary dropdown-toggle btn-block {{ $errors->has('tipo_instrucao') ? ' is-invalid' : '' }}"  name="tipo_instrucao" value="{{ strval(old('tipo_instrucao',$movimento->tipo_instrucao )) }}" >
-                                    <option value="D"  {{ strval(old('tipo_instrucao' ,$movimento->tipo_instrucao)) == ""  ? "selected":"" }} ></option>
+                                    <option value=""  {{ strval(old('tipo_instrucao' ,$movimento->tipo_instrucao)) == ""  ? "selected":"" }} ></option>
                                     <option value="D"  {{ strval(old('tipo_instrucao' ,$movimento->tipo_instrucao)) == "D"  ? "selected":"" }} >Duplo Comando</option>
                                     <option value="S"  {{ strval(old('tipo_instrucao' ,$movimento->tipo_instrucao)) == "S"      ? "selected":"" }} >Solo</option>
                                 </select> 
@@ -340,16 +340,49 @@
                             </div>
                         </div>
 
+                        @if ( Auth::user()->isAdmin() )
+
+                            @include ('movimentos.direcao.editDirecao')
+
+                        @endif
+
                         <div class="form-group row mb-0">
                         
-                            <div class="col-md-6 offset-md-4 btn-group">
+                        <div class="col-md-6 offset-md-4 btn-group">
+                            @if(!Auth::user()->isAdmin())
                                 <button type="submit" class="btn btn-success">
-                                    {{ __('Editar') }}
+                                {{ __('Guardar') }}
                                 </button>
-                                <a class="btn btn-xs btn-danger" href="{{ route('movimentos') }}">{{ __('Cancelar') }}</a>
-                            </div>
+                            @else
+                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
+                                    Guardar
+                                </button>
+                                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="edit_confimacao" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title" id="edit_confimacao">Confirmação Movimento</h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p class="alert alert-danger">Se confirmar o movimento não poderá ser mais alterado.</p>    
+                                                Pretende guardar as alterações do movimento?<br>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                                                <button type="submit" class="btn btn-success">
+                                                    {{ __('Guardar') }}
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+                            <a class="btn btn-xs btn-danger" href="{{ route('movimentos') }}">{{ __('Cancelar') }}</a>
                         </div>
-
+                    </div>
                     </form>
                 </div>
             </div>
