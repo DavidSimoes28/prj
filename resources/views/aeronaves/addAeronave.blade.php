@@ -96,7 +96,33 @@
                             </div>
                         </div>
 
-                        
+                        <div class="form-group row">
+                            <label for="preco_hora" class="col-md-4 col-form-label text-md-right">{{ __('Lista de Preços') }}</label>
+                            <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Tempo</th>
+                                    <th>Preço</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if(empty($valores))
+                                    @for($i=1;$i<=10;$i++)
+                                    <tr>
+                                        <td align="center"><input type="text" name="tempos[]" value="{{$i*5}}"></td>
+                                        <td align="center"><input type="text" name="precos[]" value=""></td>
+                                    </tr>
+                                    @endfor
+                                @else
+                                    @foreach ($valores as $valor)
+                                    <tr>
+                                        <td align="center"><input type="text" name="tempos[]" value="{{$valor->minutos}}"></td>
+                                        <td align="center"><input type="text" name="precos[]" value="{{$valor->preco}}"></td>
+                                    </tr>
+                                    @endforeach
+                                @endif
+                            </table>
+                        </div>
 
                         <div class="form-group row mb-0">
                         

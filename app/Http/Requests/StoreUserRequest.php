@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreUserRequest extends FormRequest
@@ -23,6 +24,11 @@ class StoreUserRequest extends FormRequest
      */
     public function rules()
     {
+        /*$batota = 'in:0,1'
+        if(Auth::user()->isPiloto() || Auth::user()->isAdmin()){
+        if($this->instrutor == 1 && $this->aluno == 1){
+            $batota = 'in:0';
+        }}*/
         return [
             'name' => ['required','max:255','regex:/^[a-zA-ZçÇáÁéÉíÍóÓúÚàÀèÈìÌòÒùÙãÃõÕâÂêÊîÎôÔûÛ ]+$/'],
             'email' => 'required|string|email|unique:users',
@@ -37,7 +43,9 @@ class StoreUserRequest extends FormRequest
             'telefone'=>['max:20','regex:/^([\+][\d]{3}[ ])?[\d]+$/'],
             'quota_paga'=>'required|in:0,1',
             'direcao'=>'required|in:0,1',
-            'endereco'=>'required|min:1|max:250|nullable'
+            'endereco'=>'required|min:1|max:250|nullable',
+            'instrutor' => 'in:0,1',
+            'aluno' => 'in:0,1'
         ];
     }
 }

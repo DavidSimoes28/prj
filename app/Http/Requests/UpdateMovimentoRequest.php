@@ -48,7 +48,7 @@ class UpdateMovimentoRequest extends FormRequest
             'num_recibo' => 'required|string|min:1|max:20',
             'tempo_voo' => 'required|integer|min:1',
             'preco_voo' => 'required|numeric|min:1',
-            'observacoes' => 'string|nullable'           
+            'observacoes' => 'string|nullable'
         ];
 
 

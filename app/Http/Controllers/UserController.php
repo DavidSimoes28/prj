@@ -117,28 +117,26 @@ class UserController extends Controller
 
     public function update(UpdateUserRequest $request, User $user){
         $this->authorize('update',$user);
-        
-        if($user->num_licenca != $request->num_licenca){
-            $user->licenca_confirmada = 0;
+
+        if($user->isPiloto() && !Auth::user()->isAdmin()){
+            $user->fill($request->except(['id','num_socio','ativo','quota_paga','sexo','tipo_socio','direcao','certificado_confirmado','licenca_confirmada'
+            ,'file_licenca','file_certificado','file_foto']));
+        }elseif(!$user->isAdmin() && !Auth::user()->isPiloto()){
+            $user->fill($request->except(['id','num_socio','ativo','quota_paga','sexo','tipo_socio','direcao','instrutor','aluno','certificado_confirmado','licenca_confirmada'
+            ,'num_licenca','tipo_licenca','validade_licenca','num_certificado','classe_certificado','validade_certificado','file_licenca','file_certificado','file_foto']));
+        }else{
+            $user->fill($request->all());
         }
 
-        if($user->num_certificado != $request->num_certificado){
-            $user->certificado_confirmado = 0;
-        }
+        if($user->isPiloto() && !Auth::user()->isAdmin()){
+            if($user->num_licenca != $request->num_licenca || $user->validade_licenca != $request->validade_licenca){
+                $user->licenca_confirmada = 0;
+            }
 
-        if(!$user->isAdmin()){
-            $validated = $request->except(['id','num_socio','ativo','quota_paga','sexo','tipo_socio','direcao','instrutor','aluno','certificado_confirmado','licenca_confirmada']);
+            if($user->num_certificado != $request->num_certificado|| $user->validade_certificado != $request->validade_certificado){
+                $user->certificado_confirmado = 0;
+            }
         }
-        if(!$user->isPiloto() && $user->isAdmin()){
-            $validated = $request->except(['num_licenca','tipo_licenca','validade_licenca','num_certificado','classe_certificado','validade_certificado']);
-        }elseif(!$user->isAdmin()){
-            $validated = $request->except(['id','num_socio','ativo','quota_paga','sexo','tipo_socio','direcao','instrutor','aluno','certificado_confirmado','licenca_confirmada','num_licenca','tipo_licenca','validade_licenca','num_certificado','classe_certificado','validade_certificado']);
-        }
-        
-        unset($validated['file_licenca']);
-        unset($validated['file_certificado']);
-
-        $user->fill($validated);
         
         if ($request->hasFile('file_foto')) {
             if ($request->file('file_foto')->isValid()) {
@@ -160,7 +158,6 @@ class UserController extends Controller
             if ($user->hasLicenca()) Storage::disk('public')->delete('docs_piloto',$licenca,"licenca_".$user->id.".pdf");
             Storage::putFileAs('docs_piloto',$licenca,"licenca_".$user->id.".pdf");
         }
-        unset($validated['file_foto']);
 
         $user->save();
         return redirect()->route('socios')->with("success","Sócio atualizado com sucesso.");

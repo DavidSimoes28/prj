@@ -74,7 +74,8 @@ class UpdateUserRequest extends FormRequest
             'quota_paga' => [Rule::requiredIf($logado->isAdmin()),'in:0,1'],
             'direcao' => [Rule::requiredIf($logado->isAdmin()),'in:0,1'],
             'certificado_confirmado' => [Rule::requiredIf($logado->isAdmin() && $user->isPiloto()),'in:0,1','integer','nullable'],//se for direção e user piloto
-            'licenca_confirmada' => [Rule::requiredIf($logado->isAdmin()  && $user->isPiloto()),'in:0,1','integer','nullable']
+            'licenca_confirmada' => [Rule::requiredIf($logado->isAdmin()  && $user->isPiloto()),'in:0,1','integer','nullable'],
+            'aluno' => 'in:0,1'
         ];
 
         return $resultado;

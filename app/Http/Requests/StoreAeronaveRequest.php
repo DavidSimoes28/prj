@@ -29,7 +29,9 @@ class StoreAeronaveRequest extends FormRequest
             'modelo' => 'required|max:40',
             'num_lugares' => 'required|integer|min:1|max:99999999999',
             'conta_horas' => 'required|integer|min:1|max:99999999999',
-            'preco_hora'  => 'required|numeric|between:0,99999999999.99'
+            'preco_hora'  => 'required|numeric|between:0,99999999999.99',
+            'tempos.*' => 'integer|min:1|required',
+            'precos.*' => 'numeric|min:1|required'
         ];
     }
 }
