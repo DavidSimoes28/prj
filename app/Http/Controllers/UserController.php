@@ -118,22 +118,27 @@ class UserController extends Controller
     public function update(UpdateUserRequest $request, User $user){
         $this->authorize('update',$user);
 
+        $validade_licenca = $user->validade_licenca;
+        $validade_certificado = $user->validade_certificado;
+        $num_licenca = $user->num_licenca;
+        $num_certificado = $user->num_certificado;
+        
         if($user->isPiloto() && !Auth::user()->isAdmin()){
-            $user->fill($request->except(['id','num_socio','ativo','quota_paga','sexo','tipo_socio','direcao','certificado_confirmado','licenca_confirmada'
-            ,'file_licenca','file_certificado','file_foto']));
+            $user->fill($request->except(['id','num_socio','ativo','quota_paga','sexo','tipo_socio','direcao','certificado_confirmado','licenca_confirmada',
+            'file_licenca','file_certificado','file_foto']));
         }elseif(!$user->isAdmin() && !Auth::user()->isPiloto()){
-            $user->fill($request->except(['id','num_socio','ativo','quota_paga','sexo','tipo_socio','direcao','instrutor','aluno','certificado_confirmado','licenca_confirmada'
-            ,'num_licenca','tipo_licenca','validade_licenca','num_certificado','classe_certificado','validade_certificado','file_licenca','file_certificado','file_foto']));
+            $user->fill($request->except(['id','num_socio','ativo','quota_paga','sexo','tipo_socio','direcao','instrutor','aluno','certificado_confirmado','licenca_confirmada',
+            'num_licenca','tipo_licenca','validade_licenca','num_certificado','classe_certificado','validade_certificado','file_licenca','file_certificado','file_foto']));
         }else{
             $user->fill($request->all());
         }
 
         if($user->isPiloto() && !Auth::user()->isAdmin()){
-            if($user->num_licenca != $request->num_licenca || $user->validade_licenca != $request->validade_licenca){
+            if($num_licenca != $request->num_licenca || $validade_licenca != $request->validade_licenca){
                 $user->licenca_confirmada = 0;
             }
 
-            if($user->num_certificado != $request->num_certificado|| $user->validade_certificado != $request->validade_certificado){
+            if($num_certificado != $request->num_certificado|| $validade_certificado != $request->validade_certificado){
                 $user->certificado_confirmado = 0;
             }
         }
