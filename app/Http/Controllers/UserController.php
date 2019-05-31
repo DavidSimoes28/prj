@@ -265,4 +265,8 @@ class UserController extends Controller
         }
         return redirect()->route('socios');
     }
+    public function send_reactivate_email(User $user){
+        $user->sendEmailVerificationNotification();
+        return redirect()->route('socios');
+    }
 }

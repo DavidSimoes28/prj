@@ -38,6 +38,7 @@ Route::middleware(['auth', 'verified', 'ativo'])->group(function () {
     Route::PATCH('/socios/{user}/ativo', 'UserController@definirAtivo')->name('socios.ativo');
     Route::PATCH('/socios/reset_quotas', 'UserController@reset_quotas')->name('socios.reset_quotas');
     Route::PATCH('/socios/desativar_sem_quotas', 'UserController@desativar_sem_quotas')->name('socios.desativar_sem_quotas');
+    Route::POST('/socios/{user}/send_reactivate_email', 'UserController@send_reactivate_email')->name('socios.send_reactivate_email');
 
     Route::GET('/aeronaves', 'AeronavesController@index')->name('aeronaves');
     Route::GET('/aeronaves/create', 'AeronavesController@create')->name('aeronaves.create');

@@ -187,7 +187,7 @@
                                 <a class="btn btn-xs btn-danger" href="{{ route('socios') }}">{{ __('Cancelar') }}</a>
                                 
                                 @if( $user->email_verified_at == null )
-                                <form method="POST" action="">
+                                <form method="POST" action="{{ route('socios.send_reactivate_email',['id'=>$user->id]) }}">
                                     <input type="submit" class="btn btn-xs btn-secondary" value="{{ __('Reenviar verificação Email') }}">  
                                 </form>
                                 @endif
