@@ -93,7 +93,7 @@ class UserController extends Controller
         if($request->tipo_socio == "P" && !Auth::user()->isAdmin()){
             $user->fill($request->except(['id','num_socio','ativo','quota_paga','sexo','tipo_socio','direcao','certificado_confirmado','licenca_confirmada',
             'file_licenca','file_certificado','file_foto']));
-        }elseif(!$request->direcao == 1 && !Auth::user()->isPiloto()){
+        }elseif(!$request->direcao == 1 && !Auth::user()->isAdmin()){
             $user->fill($request->except(['id','num_socio','ativo','quota_paga','sexo','tipo_socio','direcao','instrutor','aluno','certificado_confirmado','licenca_confirmada',
             'num_licenca','tipo_licenca','validade_licenca','num_certificado','classe_certificado','validade_certificado','file_licenca','file_certificado','file_foto']));
         }else{
@@ -148,10 +148,10 @@ class UserController extends Controller
         $num_certificado = $user->num_certificado;
         
         if($user->isPiloto() && !Auth::user()->isAdmin()){
-            $user->fill($request->except(['id','num_socio','ativo','quota_paga','sexo','tipo_socio','direcao','certificado_confirmado','licenca_confirmada',
+            $user->fill($request->except(['num_socio','ativo','quota_paga','sexo','tipo_socio','direcao','certificado_confirmado','licenca_confirmada',
             'file_licenca','file_certificado','file_foto']));
-        }elseif(!$user->isAdmin() && !Auth::user()->isPiloto()){
-            $user->fill($request->except(['id','num_socio','ativo','quota_paga','sexo','tipo_socio','direcao','instrutor','aluno','certificado_confirmado','licenca_confirmada',
+        }elseif(!$user->isAdmin() && !Auth::user()->isAdmin()){
+            $user->fill($request->except(['num_socio','ativo','quota_paga','sexo','tipo_socio','direcao','instrutor','aluno','certificado_confirmado','licenca_confirmada',
             'num_licenca','tipo_licenca','validade_licenca','num_certificado','classe_certificado','validade_certificado','file_licenca','file_certificado','file_foto']));
         }else{
             $user->fill($request->all());
