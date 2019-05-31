@@ -214,6 +214,7 @@ class UserController extends Controller
         }
         $user = User::findOrFail(Auth::user()->id);
         $user->password=Hash::make($request->password);
+        $user->password_inicial = 0;
         $user->save();
         return redirect()->route('socios')->with("success","Password atualizada com sucesso.");
     }

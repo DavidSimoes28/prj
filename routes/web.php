@@ -16,12 +16,12 @@ Route::GET('/', function () {
 
 Auth::routes(['verify'=> true, "register"=>false]);
 
+Route::GET('/password','UserController@showPass')->name('password.showPass')->middleware('auth');
+Route::PATCH('/password','UserController@updatePass')->name('password.updatePass')->middleware('auth');
+Route::GET('/home', 'HomeController@index')->name('home');
 
 Route::middleware(['auth', 'verified', 'ativo'])->group(function () {
-    Route::GET('/password','UserController@showPass')->name('password.showPass');
-    Route::PATCH('/password','UserController@updatePass')->name('password.updatePass');
 
-    Route::GET('/home', 'HomeController@index')->name('home');
     Route::GET('/socios', 'UserController@index')->name('socios');
     Route::GET('/socios/create', 'UserController@create')->name('socios.create');
     Route::POST('/socios', 'UserController@store')->name('socios.store');
