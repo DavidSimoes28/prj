@@ -113,8 +113,8 @@
                                 @if(empty($valores))
                                     @for($i=1;$i<=10;$i++)
                                     <tr>
-                                        <td align="center"><input type="text" name="tempos[]" value="{{$i*5}}"></td>
-                                        <td align="center"><input type="text" name="precos[]" value=""></td>
+                                        <td align="center"><input type="text" name="tempos[]"></td>
+                                        <td align="center"><input type="text" name="precos[]"></td>
                                     </tr>
                                     @endfor
                                 @else

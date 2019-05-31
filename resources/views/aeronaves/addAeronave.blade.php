@@ -109,15 +109,15 @@
                                 @if(empty($valores))
                                     @for($i=1;$i<=10;$i++)
                                     <tr>
-                                        <td align="center"><input type="text" name="tempos[]" value="{{$i*5}}"></td>
-                                        <td align="center"><input type="text" name="precos[]" value=""></td>
+                                        <td align="center"><input type="text" name="tempos[$i]" value="{{$i*5}}"></td>
+                                        <td align="center"><input type="text" name="precos[$i]" value=""></td>
                                     </tr>
                                     @endfor
                                 @else
-                                    @foreach ($valores as $valor)
+                                    @foreach ($valores as $valor => $i)
                                     <tr>
-                                        <td align="center"><input type="text" name="tempos[]" value="{{$valor->minutos}}"></td>
-                                        <td align="center"><input type="text" name="precos[]" value="{{$valor->preco}}"></td>
+                                        <td align="center"><input type="text" name="tempos[$i+1]" value="{{$valor->minutos}}"></td>
+                                        <td align="center"><input type="text" name="precos[$i+1]" value="{{$valor->preco}}"></td>
                                     </tr>
                                     @endforeach
                                 @endif
