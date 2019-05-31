@@ -69,13 +69,21 @@ class UpdateUserRequest extends FormRequest
                 'num_licenca' => 'string|max:30|nullable',
                 'validade_licenca' => 'date|date_format:Y-m-d|nullable',
                 'tipo_licenca' => 'nullable|in:' . implode(',',  $tipos2),
-                'instrutor' => 'in:0,1',
+                'instrutor' => ['in:0,1',function ($attribute, $value, $fail) {
+                    if ($value == 1 && $this->aluno == 1) {
+                        $fail('Não pode ser Aluno e Instrutor em simultânio');
+                    }
+                }],
             'ativo' => [Rule::requiredIf($logado->isAdmin()),'in:0,1'],//se for direção
             'quota_paga' => [Rule::requiredIf($logado->isAdmin()),'in:0,1'],
             'direcao' => [Rule::requiredIf($logado->isAdmin()),'in:0,1'],
             'certificado_confirmado' => [Rule::requiredIf($logado->isAdmin() && $user->isPiloto()),'in:0,1','integer','nullable'],//se for direção e user piloto
             'licenca_confirmada' => [Rule::requiredIf($logado->isAdmin()  && $user->isPiloto()),'in:0,1','integer','nullable'],
-            'aluno' => 'in:0,1'
+            'aluno' => ['in:0,1',function ($attribute, $value, $fail) {
+                if ($value == 1 && $this->instrutor == 1) {
+                    $fail('Não pode ser Aluno e Instrutor em simultânio');
+                }
+            }]
         ];
 
         return $resultado;

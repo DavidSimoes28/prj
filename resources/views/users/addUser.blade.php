@@ -150,6 +150,205 @@
                             </div>
                         </div>
 
+
+                        <div class="form-group row">
+                            <label for="endereco" class="col-md-4 col-form-label text-md-right">{{ __('Endereço') }}</label>
+
+                            <div class="col-md-6">
+                                <textarea id="endereco" class="form-control{{ $errors->has('endereco') ? ' is-invalid' : '' }}" name="endereco"> </textarea>
+
+                                @if ($errors->has('endereco'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('endereco') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+
+                        <!--                                 PILOTOS                                             -->
+                        <div class="form-group row">
+                            <label for="num_licenca" class="col-md-4 col-form-label text-md-right">{{ __('Nº Licença') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="num_licenca" type="text" class="form-control{{ $errors->has('num_licenca') ? ' is-invalid' : '' }}" name="num_licenca" value="{{ $user->num_licenca }}" autofocus>
+
+                                @if ($errors->has('num_licenca'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('num_licenca') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="file_licenca" class="col-md-4 col-form-label text-md-right">
+                            @if($user->hasLicenca())
+                            <a href="{{ route('pilotos.licenca',['id'=>$user->id]) }}" title="licenca" target="_blank"><strong>{{ __('Cópia da Licença') }}&nbsp;</strong><i class="far fa-file-alt"></i></a>
+                            @else
+                            {{ __('Cópia da Licença') }}
+                            @endif
+                            </label>
+
+                            <div class="col-md-6">
+                                <input type="file" id="file_licenca" name="file_licenca">
+                                @if ($errors->has('file_licenca'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('file_licenca') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="tipo_licenca" class="col-md-4 col-form-label text-md-right">{{ __('Tipo Licença') }}</label>
+                            <div class="col-md-6">
+                                <select class="btn btn-xs btn-primary dropdown-toggle btn-block {{ $errors->has('tipo_licenca') ? ' is-invalid' : '' }}"  name="tipo_licenca">                   
+                                    @foreach ($licencas as $tipo)
+                                        <option value="{{$tipo->code}}" {{ strval(old('tipo_licenca',$tipo->code)) == $user->tipo_licenca ?"selected":"" }}>{{ $tipo->code }} </option>
+                                    @endforeach
+                                </select>
+                                @if ($errors->has('tipo_licenca'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('tipo_licenca') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="validade_licenca" class="col-md-4 col-form-label text-md-right">{{ __('Validade Licença') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="validade_licenca" type="date" class="form-control{{ $errors->has('validade_licenca') ? ' is-invalid' : '' }}" name="validade_licenca" value="{{ $user->validade_licenca }}" autofocus>
+
+                                @if ($errors->has('validade_licenca'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('validade_licenca') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="num_certificado" class="col-md-4 col-form-label text-md-right">{{ __('Nº Certificado') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="num_certificado" type="text" class="form-control{{ $errors->has('num_certificado') ? ' is-invalid' : '' }}" name="num_certificado" value="{{ $user->num_certificado }}" autofocus>
+
+                                @if ($errors->has('num_certificado'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('num_certificado') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="file_certificado" class="col-md-4 col-form-label text-md-right">
+                            
+                            
+                            @if($user->hasCertificado())
+                            <a href="{{ route('pilotos.certificado',['id'=>$user->id]) }}" title="Certificado" target="_blank"><strong>{{ __('Cópia de Certificado') }}&nbsp;</strong><i class="fas fa-file-medical-alt"></i></a>
+                            @else
+                            {{ __('Cópia de Certificado') }}
+                            @endif
+
+                            </label>
+
+                            <div class="col-md-6">
+                                <input type="file" id="file_certificado" name="file_certificado">
+                                @if ($errors->has('file_certificado'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('file_certificado') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="classe_certificado" class="col-md-4 col-form-label text-md-right">{{ __('Classe de Certificado') }}</label>
+                            <div class="col-md-6">
+                                <select class="btn btn-xs btn-primary dropdown-toggle btn-block {{ $errors->has('classe_certificado') ? ' is-invalid' : '' }}"  name="classe_certificado" >                   
+                                    @foreach ($certificados as $classe)
+                                        <option value="{{$classe->code}}" {{ strval(old('classe_certificado',$classe->code)) == $user->classe_certificado ?"selected":"" }}>{{ $classe->code }} </option>
+                                    @endforeach
+                                </select>
+                                @if ($errors->has('classe_certificado'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('classe_certificado') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="validade_certificado" class="col-md-4 col-form-label text-md-right">{{ __('Validade Certificado') }}</label>
+                            <div class="col-md-6">
+                                <input id="validade_certificado" type="date" class="form-control{{ $errors->has('validade_certificado') ? ' is-invalid' : '' }}" name="validade_certificado" autofocus>
+                                @if ($errors->has('validade_certificado'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('validade_certificado') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="instrutor" class="col-md-4 col-form-label text-md-right">{{ __('Instrutor') }}</label>
+                            <div class="col-md-6">
+                                <input type="radio" class="form{{ $errors->has('instrutor') ? ' is-invalid' : '' }}" name="instrutor" value="0" checked> Não <br>
+                                <input type="radio" class="form{{ $errors->has('instrutor') ? ' is-invalid' : '' }}" name="instrutor" value="1"> Sim <br>
+                                @if ($errors->has('instrutor'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('instrutor') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="aluno" class="col-md-4 col-form-label text-md-right">{{ __('Aluno') }}</label>
+                            <div class="col-md-6">
+                                <input type="radio" class="form{{ $errors->has('aluno') ? ' is-invalid' : '' }}" name="aluno" value="0" checked> Não <br>
+                                <input type="radio" class="form{{ $errors->has('aluno') ? ' is-invalid' : '' }}" name="aluno" value="1"> Sim <br>
+                                @if ($errors->has('aluno'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('aluno') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <!--                                         DIREÇÃO                                           -->
+
+                        <div class="form-group row">
+                            <label for="certificado_confirmado" class="col-md-4 col-form-label text-md-right">{{ __('Certificado confirmado') }}</label>
+                            <div class="col-md-6">
+                                <input type="radio" class="form{{ $errors->has('certificado_confirmado') ? ' is-invalid' : '' }}" name="certificado_confirmado" value="0" checked> Não <br>
+                                <input type="radio" class="form{{ $errors->has('certificado_confirmado') ? ' is-invalid' : '' }}" name="certificado_confirmado" value="1"> Sim <br>
+                                @if ($errors->has('certificado_confirmado'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('certificado_confirmado') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="licenca_confirmada" class="col-md-4 col-form-label text-md-right">{{ __('Licença confirmada') }}</label>
+                            <div class="col-md-6">
+                                <input type="radio" class="form{{ $errors->has('licenca_confirmada') ? ' is-invalid' : '' }}" name="licenca_confirmada" value="0" checked> Não <br>
+                                <input type="radio" class="form{{ $errors->has('licenca_confirmada') ? ' is-invalid' : '' }}" name="licenca_confirmada" value="1"> Sim <br>
+                                @if ($errors->has('licenca_confirmada'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('licenca_confirmada') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        
                         <div class="form-group row">
                             <label for="quota_paga" class="col-md-4 col-form-label text-md-right">{{ __('Quota Paga') }}</label>
                             <div class="col-md-6">
@@ -167,8 +366,8 @@
                         <div class="form-group row">
                             <label for="direcao" class="col-md-4 col-form-label text-md-right">{{ __('Direção') }}</label>
                             <div class="col-md-6">
-                                <input type="radio" class="form{{ $errors->has('direcao') ? ' is-invalid' : '' }}" name="direcao" value="0" {{ intval(old('direcao',$user->direcao)) == 0?"checked":"" }}> Não <br>
-                                <input type="radio" class="form{{ $errors->has('direcao') ? ' is-invalid' : '' }}" name="direcao" value="1" {{ intval(old('direcao',$user->direcao)) == 1?"checked":"" }}> Sim <br>
+                                <input type="radio" class="form{{ $errors->has('direcao') ? ' is-invalid' : '' }}" name="direcao" value="0" checked> Não <br>
+                                <input type="radio" class="form{{ $errors->has('direcao') ? ' is-invalid' : '' }}" name="direcao" value="1"> Sim <br>
                                 @if ($errors->has('direcao'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('direcao') }}</strong>
@@ -185,20 +384,6 @@
                                 @if ($errors->has('ativo'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('ativo') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="endereco" class="col-md-4 col-form-label text-md-right">{{ __('Endereço') }}</label>
-
-                            <div class="col-md-6">
-                                <textarea id="endereco" class="form-control{{ $errors->has('endereco') ? ' is-invalid' : '' }}" name="endereco"> </textarea>
-
-                                @if ($errors->has('endereco'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('endereco') }}</strong>
                                     </span>
                                 @endif
                             </div>

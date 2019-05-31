@@ -81,13 +81,37 @@ class UserController extends Controller
     public function create(){
         $this->authorize('create', User::class);
         $user = new User();
-        return view('users.addUser',compact('user'));
+        $certificados = $this->certificados;
+        $licencas = $this->licencas;
+        return view('users.addUser',compact('user','certificados','licencas'));
     }
 
     public function store(StoreUserRequest $request){
         $this->authorize('create', User::class);
         $user = new User();
-        $user->fill($request->all());
+
+        if($request->tipo_socio == "P" && !Auth::user()->isAdmin()){
+            $user->fill($request->except(['id','num_socio','ativo','quota_paga','sexo','tipo_socio','direcao','certificado_confirmado','licenca_confirmada',
+            'file_licenca','file_certificado','file_foto']));
+        }elseif(!$request->direcao == 1 && !Auth::user()->isPiloto()){
+            $user->fill($request->except(['id','num_socio','ativo','quota_paga','sexo','tipo_socio','direcao','instrutor','aluno','certificado_confirmado','licenca_confirmada',
+            'num_licenca','tipo_licenca','validade_licenca','num_certificado','classe_certificado','validade_certificado','file_licenca','file_certificado','file_foto']));
+        }else{
+            $user->fill($request->all());
+        }
+
+        if($request->file_certificado!=NULL){
+            $certificado = $request->file('file_certificado');
+            if ($user->hasCertificado()) Storage::disk('public')->delete('docs_piloto',$certificado,"certificado_".$user->id.".pdf");
+            Storage::putFileAs('docs_piloto',$certificado,"certificado_".$user->id.".pdf");
+        }
+
+        if($request->file_licenca!=NULL){
+            $licenca = $request->file('file_licenca');
+            if ($user->hasLicenca()) Storage::disk('public')->delete('docs_piloto',$licenca,"licenca_".$user->id.".pdf");
+            Storage::putFileAs('docs_piloto',$licenca,"licenca_".$user->id.".pdf");
+        }
+
         $user->password=Hash::make($user->data_nascimento);
         $user->save();
 

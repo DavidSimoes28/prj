@@ -2,6 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Tipos_licenca;
+use App\Classes_certificado;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -24,11 +27,26 @@ class StoreUserRequest extends FormRequest
      */
     public function rules()
     {
-        /*$batota = 'in:0,1'
-        if(Auth::user()->isPiloto() || Auth::user()->isAdmin()){
-        if($this->instrutor == 1 && $this->aluno == 1){
-            $batota = 'in:0';
-        }}*/
+        $logado = Auth::user();
+
+        $classes = Classes_certificado::all()->toArray();
+        $tipos = Tipos_licenca::all()->toArray();
+
+        $classes2 = array();
+        $tipos2 = array();
+
+
+        for ($i = 0; $i < count ($classes); $i++ ){
+            $classes2[] = $classes[$i]['code'];
+        }
+
+        for ($i = 0; $i < count ($tipos); $i++ ){
+            $tipos2[] = $tipos[$i]['code'];
+        }
+        
+        $resultado = array();
+        $aux = array();
+
         return [
             'name' => ['required','max:255','regex:/^[a-zA-ZçÇáÁéÉíÍóÓúÚàÀèÈìÌòÒùÙãÃõÕâÂêÊîÎôÔûÛ ]+$/'],
             'email' => 'required|string|email|unique:users',
@@ -45,7 +63,29 @@ class StoreUserRequest extends FormRequest
             'direcao'=>'required|in:0,1',
             'endereco'=>'required|min:1|max:250|nullable',
             'instrutor' => 'in:0,1',
-            'aluno' => 'in:0,1'
+                'file_certificado' => 'mimes:pdf',//se for piloto
+                'num_certificado' => 'string|max:30|nullable',
+                'validade_certificado' => 'date|date_format:Y-m-d|nullable',
+                'classe_certificado' => 'nullable|in:'. implode(',', $classes2),
+                'file_licenca' => 'mimes:pdf',
+                'num_licenca' => 'string|max:30|nullable',
+                'validade_licenca' => 'date|date_format:Y-m-d|nullable',
+                'tipo_licenca' => 'nullable|in:' . implode(',',  $tipos2),
+                'instrutor' => ['in:0,1',function ($attribute, $value, $fail) {
+                    if ($value == 1 && $this->aluno == 1) {
+                        $fail('Não pode ser Aluno e Instrutor em simultânio');
+                    }
+                }],
+            'ativo' => [Rule::requiredIf($logado->isAdmin()),'in:0,1'],//se for direção
+            'quota_paga' => [Rule::requiredIf($logado->isAdmin()),'in:0,1'],
+            'direcao' => [Rule::requiredIf($logado->isAdmin()),'in:0,1'],
+            'certificado_confirmado' => [Rule::requiredIf($logado->isAdmin() && $this->tipo_socio == "P"),'in:0,1','integer','nullable'],//se for direção e user piloto
+            'licenca_confirmada' => [Rule::requiredIf($logado->isAdmin()  && $this->tipo_socio == "P"),'in:0,1','integer','nullable'],
+            'aluno' => ['in:0,1',function ($attribute, $value, $fail) {
+                if ($value == 1 && $this->instrutor == 1) {
+                    $fail('Não pode ser Aluno e Instrutor em simultâneo');
+                }
+            }]
         ];
     }
 }

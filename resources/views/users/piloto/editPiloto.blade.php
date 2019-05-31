@@ -137,3 +137,16 @@
         @endif
     </div>
 </div>
+
+<div class="form-group row">
+<label for="aluno" class="col-md-4 col-form-label text-md-right">{{ __('Aluno') }}</label>
+<div class="col-md-6">
+    <input type="radio" class="form{{ $errors->has('aluno') ? ' is-invalid' : '' }}" name="aluno" value="0" {{ intval(old('aluno',$user->aluno)) == 0?"checked":"" }}> Não <br>
+    <input type="radio" class="form{{ $errors->has('aluno') ? ' is-invalid' : '' }}" name="aluno" value="1" {{ intval(old('aluno',$user->aluno)) == 0?"checked":"" }}> Sim <br>
+    @if ($errors->has('aluno'))
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $errors->first('aluno') }}</strong>
+        </span>
+    @endif
+</div>
+</div>
