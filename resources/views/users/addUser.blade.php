@@ -139,6 +139,11 @@
                         <div class="form-group row">
                             <label for="tipo_socio" class="col-md-4 col-form-label text-md-right">{{ __('Tipo de Sócio') }}</label>
                             <div class="col-md-6">
+                                <!--<select class="btn btn-xs btn-primary dropdown-toggle btn-block {{ $errors->has('tipo_socio') ? ' is-invalid' : '' }}"  name="tipo_socio">
+                                    <option value="P">Piloto</option>
+                                    <option value="NP">Não Piloto</option>
+                                    <option value="A">Aeromodelista</option>
+                                </select>-->
                                 <input type="radio" class="form{{ $errors->has('tipo_socio') ? ' is-invalid' : '' }}" name="tipo_socio" value="P" checked required> Piloto<br>
                                 <input type="radio" class="form{{ $errors->has('tipo_socio') ? ' is-invalid' : '' }}" name="tipo_socio" value="NP" required> Não Piloto<br>
                                 <input type="radio" class="form{{ $errors->has('tipo_socio') ? ' is-invalid' : '' }}" name="tipo_socio" value="A" required> Aeromodelista
@@ -205,7 +210,7 @@
                             <div class="col-md-6">
                                 <select class="btn btn-xs btn-primary dropdown-toggle btn-block {{ $errors->has('tipo_licenca') ? ' is-invalid' : '' }}"  name="tipo_licenca">                   
                                     @foreach ($licencas as $tipo)
-                                        <option value="{{$tipo->code}}" {{ strval(old('tipo_licenca',$tipo->code)) == $user->tipo_licenca ?"selected":"" }}>{{ $tipo->code }} </option>
+                                        <option value="{{$tipo->code}}">{{ $tipo->code }} </option>
                                     @endforeach
                                 </select>
                                 @if ($errors->has('tipo_licenca'))
@@ -271,7 +276,7 @@
                             <div class="col-md-6">
                                 <select class="btn btn-xs btn-primary dropdown-toggle btn-block {{ $errors->has('classe_certificado') ? ' is-invalid' : '' }}"  name="classe_certificado" >                   
                                     @foreach ($certificados as $classe)
-                                        <option value="{{$classe->code}}" {{ strval(old('classe_certificado',$classe->code)) == $user->classe_certificado ?"selected":"" }}>{{ $classe->code }} </option>
+                                        <option value="{{$classe->code}}">{{ $classe->code }} </option>
                                     @endforeach
                                 </select>
                                 @if ($errors->has('classe_certificado'))
@@ -297,6 +302,10 @@
                         <div class="form-group row">
                             <label for="instrutor" class="col-md-4 col-form-label text-md-right">{{ __('Instrutor') }}</label>
                             <div class="col-md-6">
+                                <!--<select class="btn btn-xs btn-primary dropdown-toggle btn-block {{ $errors->has('instrutor') ? ' is-invalid' : '' }}"  name="instrutor">
+                                    <option value="0">Não</option>
+                                    <option value="1">Sim</option>
+                                </select>-->
                                 <input type="radio" class="form{{ $errors->has('instrutor') ? ' is-invalid' : '' }}" name="instrutor" value="0" checked> Não <br>
                                 <input type="radio" class="form{{ $errors->has('instrutor') ? ' is-invalid' : '' }}" name="instrutor" value="1"> Sim <br>
                                 @if ($errors->has('instrutor'))
@@ -310,6 +319,10 @@
                         <div class="form-group row">
                             <label for="aluno" class="col-md-4 col-form-label text-md-right">{{ __('Aluno') }}</label>
                             <div class="col-md-6">
+                                <!--<select class="btn btn-xs btn-primary dropdown-toggle btn-block {{ $errors->has('aluno') ? ' is-invalid' : '' }}"  name="aluno">
+                                    <option value="0">Não</option>
+                                    <option value="1">Sim</option>
+                                </select> -->
                                 <input type="radio" class="form{{ $errors->has('aluno') ? ' is-invalid' : '' }}" name="aluno" value="0" checked> Não <br>
                                 <input type="radio" class="form{{ $errors->has('aluno') ? ' is-invalid' : '' }}" name="aluno" value="1"> Sim <br>
                                 @if ($errors->has('aluno'))
@@ -325,6 +338,10 @@
                         <div class="form-group row">
                             <label for="certificado_confirmado" class="col-md-4 col-form-label text-md-right">{{ __('Certificado confirmado') }}</label>
                             <div class="col-md-6">
+                                <!--<select class="btn btn-xs btn-primary dropdown-toggle btn-block {{ $errors->has('certificado_confirmado') ? ' is-invalid' : '' }}"  name="certificado_confirmado">
+                                    <option value="0">Não</option>
+                                    <option value="1">Sim</option>
+                                </select> -->
                                 <input type="radio" class="form{{ $errors->has('certificado_confirmado') ? ' is-invalid' : '' }}" name="certificado_confirmado" value="0" checked> Não <br>
                                 <input type="radio" class="form{{ $errors->has('certificado_confirmado') ? ' is-invalid' : '' }}" name="certificado_confirmado" value="1"> Sim <br>
                                 @if ($errors->has('certificado_confirmado'))
@@ -338,6 +355,10 @@
                         <div class="form-group row">
                             <label for="licenca_confirmada" class="col-md-4 col-form-label text-md-right">{{ __('Licença confirmada') }}</label>
                             <div class="col-md-6">
+                                <!--<select class="btn btn-xs btn-primary dropdown-toggle btn-block {{ $errors->has('licenca_confirmada') ? ' is-invalid' : '' }}"  name="licenca_confirmada">
+                                    <option value="0">Não</option>
+                                    <option value="1">Sim</option>
+                                </select> -->
                                 <input type="radio" class="form{{ $errors->has('licenca_confirmada') ? ' is-invalid' : '' }}" name="licenca_confirmada" value="0" checked> Não <br>
                                 <input type="radio" class="form{{ $errors->has('licenca_confirmada') ? ' is-invalid' : '' }}" name="licenca_confirmada" value="1"> Sim <br>
                                 @if ($errors->has('licenca_confirmada'))
@@ -352,6 +373,10 @@
                         <div class="form-group row">
                             <label for="quota_paga" class="col-md-4 col-form-label text-md-right">{{ __('Quota Paga') }}</label>
                             <div class="col-md-6">
+                                <!--<select class="btn btn-xs btn-primary dropdown-toggle btn-block {{ $errors->has('quota_paga') ? ' is-invalid' : '' }}"  name="quota_paga">
+                                    <option value="0">Não</option>
+                                    <option value="1" selected>Sim</option>
+                                </select> -->
                                 <input type="radio" class="form{{ $errors->has('quota_paga') ? ' is-invalid' : '' }}" name="quota_paga" value="1" checked required> Sim<br>
                                 <input type="radio" class="form{{ $errors->has('quota_paga') ? ' is-invalid' : '' }}" name="quota_paga" value="0" required> Não<br>
                                 
@@ -366,6 +391,10 @@
                         <div class="form-group row">
                             <label for="direcao" class="col-md-4 col-form-label text-md-right">{{ __('Direção') }}</label>
                             <div class="col-md-6">
+                                <!--<select class="btn btn-xs btn-primary dropdown-toggle btn-block {{ $errors->has('direcao') ? ' is-invalid' : '' }}"  name="direcao">
+                                    <option value="0">Não</option>
+                                    <option value="1">Sim</option>
+                                </select> -->
                                 <input type="radio" class="form{{ $errors->has('direcao') ? ' is-invalid' : '' }}" name="direcao" value="0" checked> Não <br>
                                 <input type="radio" class="form{{ $errors->has('direcao') ? ' is-invalid' : '' }}" name="direcao" value="1"> Sim <br>
                                 @if ($errors->has('direcao'))
@@ -379,8 +408,12 @@
                         <div class="form-group row">
                             <label for="ativo" class="col-md-4 col-form-label text-md-right">{{ __('Sócio Ativo') }}</label>
                             <div class="col-md-6">
+                                <!--<select class="btn btn-xs btn-primary dropdown-toggle btn-block {{ $errors->has('ativo') ? ' is-invalid' : '' }}"  name="ativo">
+                                    <option value="0">Não</option>
+                                    <option value="1">Sim</option>
+                                </select> -->
                                 <input type="radio" class="form{{ $errors->has('ativo') ? ' is-invalid' : '' }}" name="ativo" value="1" checked required> Sim <br>
-                                <input type="radio" class="form-{{ $errors->has('ativo') ? ' is-invalid' : '' }}" name="ativo" value="0" required> Não 
+                                <input type="radio" class="form-{{ $errors->has('ativo') ? ' is-invalid' : '' }}" name="ativo" value="0" required> Não -->
                                 @if ($errors->has('ativo'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('ativo') }}</strong>
