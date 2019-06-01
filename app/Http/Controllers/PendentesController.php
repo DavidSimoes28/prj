@@ -21,7 +21,7 @@ class PendentesController extends Controller
         ->where('certificado_confirmado','0')
         ->get();
 
-        $conflitos=array();
+        $conflitos=Movimento::where('confirmado','0')->orWhereNotNull('tipo_conflito')->get();
 
         return view('pendentes.listPendentes', compact('movimentos','certificados','licencas','conflitos'));
     }
