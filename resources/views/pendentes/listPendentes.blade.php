@@ -66,6 +66,8 @@
                         <thead>
                             <tr>
                             <th class="text-center" style="width: 20%">Tipo</th>
+                            <th class="text-center" style="width: 25%">Aeronave</th>
+                            <th class="text-center" style="width: 30%">Piloto</th>
 
                             </tr>
                         </thead>
@@ -73,7 +75,9 @@
                         <tbody>
                             @foreach ($conflitos as $conflito)
                                 <tr>
-                                    <td class="text-center"><a href="{{ route('movimentos.edit', ['id'=> $conflito->id] ) }}">Conflito&nbsp;<i class="far fa-edit"></i></a></td>
+                                    <td class="text-center"><a href="{{ route('movimentos.edit', ['id'=> $conflito->id] ) }}">{{$conflito->tipoConflitoToStr()}}&nbsp;<i class="far fa-edit"></i></a></td>
+                                    <td class="text-center">{{$conflito->aeronave}}</td>
+                                    <td class="text-center">{{$conflito->pilotos->nome_informal}}</td>
                                 </tr>
                             @endforeach
                         </tbody>

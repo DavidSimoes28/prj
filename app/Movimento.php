@@ -137,4 +137,18 @@ class Movimento extends Authenticatable
         return false;
     }
 
+    public function tipoConflitoToStr()
+    {
+        switch ($this->tipo_conflito) {
+            case 'B':
+                return 'Buraco';
+            case 'S':
+                return 'Sobreposto';
+ 
+        }
+        return 'Unknown';
+    }
+
+    
+
 }
