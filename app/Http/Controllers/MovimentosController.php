@@ -286,7 +286,36 @@ class MovimentosController extends Controller
         $aeronave->save();
     }
 
-    private function confirmar_todos(){
-        
+    public function confirmar_todos(){
+
+        $array = $_POST;
+
+        if(Auth::user()->isAdmin()){
+
+            foreach ($array as $id => $value){
+
+                if ($value){
+
+                    $movimento = Movimento::where('id',$id)->first();
+
+                    if (!$movimento->isConfirmado()){
+                        
+                    $movimento->confirmado="1";
+                    $movimento->save();
+
+                    }
+
+                }else{
+                    break;
+                }
+
+
+            }
+        }
+
+        return redirect()->route('movimentos');
+
     }
+
+
 }

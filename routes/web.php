@@ -53,7 +53,7 @@ Route::middleware(['auth', 'verified', 'ativo'])->group(function () {
     Route::GET('/movimentos/{movimento}/edit', 'MovimentosController@edit')->name('movimentos.edit');
     Route::PUT('/movimentos/{movimento}', 'MovimentosController@update')->name('movimentos.update');
     Route::DELETE('/movimentos/{movimento}', 'MovimentosController@destroy')->name('movimentos.destroy');
-    Route::PATCH('/movimentos/confirmar', 'MovimentosController@confirmar_todos')->name('movimentos.confirmar_todos');
+    Route::POST('/movimentos/confirmar', 'MovimentosController@confirmar_todos')->name('movimentos.confirmar_todos');
 
     Route::GET('/pendentes', 'PendentesController@index')->name('pendentes');
     

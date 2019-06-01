@@ -159,7 +159,7 @@
                                     <td class="text-center">
                                         {{ $movimento->instrucaoConfirmadaToStr() }}
                                         @if(Auth::user()->isAdmin() && $movimento->confirmado=='0')
-                                            <input type="checkbox" style="width: 18px; height: 18px; vertical-align:middle;" name="movimento_check_{{$movimento->id}}" value="1" >
+                                            <input type="checkbox" style="width: 18px; height: 18px; vertical-align:middle;" id="{{$movimento->id}}">
                                         @endif 
                                     </td>
 
@@ -296,12 +296,55 @@
                                                 Pretende confirmar o(s) movimento(s) selecionado(s)? <br>
                                             </div>
                                             <div class="modal-footer">
+                                                <form method="post" action="{{route('movimentos.confirmar_todos')}}" id="form_confirm">
+                                                @csrf
                                                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                                                <form action="" method="post">
-                                                    @csrf
-                                                    <input type="submit" class="btn btn-xs btn-success" value="Guardar">
+                                                <a onclick="myFunction()" class="btn btn-primary"><span style="color: white;">Guardar</span></a>
                                                 </form>
+                                                <script>
 
+                                                function myFunction() {
+
+                                                
+
+                                                var i = 0;
+                                                var movimentos = <?php echo json_encode($movimentos); ?>;
+                                                
+                                                
+                                                var form =  document.getElementById ('form_confirm');
+
+                                                for (var key in movimentos["data"]){
+
+                                                    if (movimentos["data"][key]["confirmado"]){
+                                                        continue;
+                                                    }
+                                                    
+
+                                                    var id = movimentos["data"][key]["id"];
+                                                    console.log (id);
+                                                    var bool = document.getElementById(id).checked;
+                                                    console.log (bool);
+
+                                                    if (bool){
+                                                        myvar = document.createElement('input');
+                                                        myvar.setAttribute('name', id);
+                                                        myvar.setAttribute('type', 'hidden');
+                                                        myvar.setAttribute('value', "1");
+                                                        form.appendChild(myvar);
+                                                    }
+
+                                                }
+
+                                                myvar = document.createElement('input');
+                                                myvar.setAttribute('name', "parar");
+                                                myvar.setAttribute('type', 'hidden');
+                                                myvar.setAttribute('value', "0");
+                                                form.appendChild(myvar);
+
+                                                form.submit(); 
+                                        
+                                                }
+                                                </script>
                                                 
 
                                             </div>
