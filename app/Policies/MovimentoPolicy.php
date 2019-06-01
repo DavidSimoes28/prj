@@ -18,12 +18,14 @@ class MovimentoPolicy
 
     public function create(User $user)
     {
+        if($user->password_inicial) return false;
         if ($user->isPiloto() || $user->isAdmin()) return true;
         return false;
     }
 
     public function store(User $user)
     {
+        if($user->password_inicial) return false;
         if ($user->isPiloto() || $user->isAdmin()) return true;
         return false;
     }
@@ -31,6 +33,7 @@ class MovimentoPolicy
     public function update(User $user, Movimento $movimento)
     {
         if($movimento->isConfirmado()) return false;
+        if($user->password_inicial) return false;
         if($user->isAdmin() || $user->id === $movimento->piloto_id) return true;
         if(!$user->isPiloto()) return false;
         return false;
@@ -38,6 +41,7 @@ class MovimentoPolicy
 
     public function delete(User $user, Movimento $movimento)
     {   
+        if($user->password_inicial) return false;
         if($movimento->isConfirmado()) return false;
         if($user->isAdmin() || $user->id === $movimento->piloto_id) return true; 
         return false;

@@ -21,7 +21,8 @@ class Ativo
             return redirect()->route('login')->withErrors(["errors" => "Utilizador não está ativo"]);
         }
         if(Auth::user()->password_inicial){
-            return redirect()->route('home');
+            Auth::logout();
+            return redirect()->route('login')->withErrors(["errors" => "Utilizador não alterou Password inicial"]);
         }
         return $next($request);
     }

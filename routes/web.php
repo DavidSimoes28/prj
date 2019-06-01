@@ -18,7 +18,7 @@ Auth::routes(['verify'=> true, "register"=>false]);
 
 Route::GET('/password','UserController@showPass')->name('password.showPass')->middleware('auth');
 Route::PATCH('/password','UserController@updatePass')->name('password.updatePass')->middleware('auth');
-Route::GET('/home', 'HomeController@index')->name('home');
+Route::GET('/home', 'HomeController@index')->name('home')->middleware('auth');
 
 Route::middleware(['auth', 'verified', 'ativo'])->group(function () {
 
