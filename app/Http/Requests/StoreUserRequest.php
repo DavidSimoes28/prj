@@ -29,7 +29,7 @@ class StoreUserRequest extends FormRequest
     {
         $logado = Auth::user();
 
-        $classes = Classes_certificado::all()->toArray();
+        /*$classes = Classes_certificado::all()->toArray();
         $tipos = Tipos_licenca::all()->toArray();
 
         $classes2 = array();
@@ -45,7 +45,7 @@ class StoreUserRequest extends FormRequest
         }
         
         $resultado = array();
-        $aux = array();
+        $aux = array();*/
 
         return [
             'name' => ['required','max:255','regex:/^[a-zA-ZçÇáÁéÉíÍóÓúÚàÀèÈìÌòÒùÙãÃõÕâÂêÊîÎôÔûÛ ]+$/'],
@@ -66,11 +66,11 @@ class StoreUserRequest extends FormRequest
                 'file_certificado' => 'mimes:pdf',//se for piloto
                 'num_certificado' => 'string|max:30|nullable',
                 'validade_certificado' => 'date|date_format:Y-m-d|nullable',
-                'classe_certificado' => 'nullable|in:'. implode(',', $classes2),
+                'classe_certificado' => 'nullable|exists:classes_certificados,code', //implode(',', $classes2)
                 'file_licenca' => 'mimes:pdf',
                 'num_licenca' => 'string|max:30|nullable',
                 'validade_licenca' => 'date|date_format:Y-m-d|nullable',
-                'tipo_licenca' => 'nullable|in:' . implode(',',  $tipos2),
+                'tipo_licenca' => 'nullable|exists:tipos_licencas,code',
                 'instrutor' => ['in:0,1',function ($attribute, $value, $fail) {
                     if ($value == 1 && $this->aluno == 1) {
                         $fail('Não pode ser Aluno e Instrutor em simultânio');
