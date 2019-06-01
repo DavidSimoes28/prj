@@ -146,7 +146,7 @@ class Movimento extends Authenticatable
                 return 'Sobreposto';
  
         }
-        return 'Unknown';
+        return 'Conflito';
     }
 
     
