@@ -95,35 +95,37 @@
                                 @endif
                             </div>
                         </div>
-
+                        <br>
                         <div class="form-group row">
-                            <label for="preco_hora" class="col-md-4 col-form-label text-md-right">{{ __('Lista de Preços') }}</label>
-                            <table class="table table-striped">
+                            <table align="center" style="width: 60%">
                             <thead>
+                            <tr>
+                            <th class="text-center" colspan="2"><h4>{{ __('Lista de Preços') }}</h4></th>
+                            </tr>
                                 <tr>
-                                    <th>Tempo</th>
-                                    <th>Preço</th>
+                                    <th class="text-center"><h5>Tempo</h5></th>
+                                    <th class="text-center"><h5>Preço</h5></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @if(empty($valores))
                                     @for($i=1;$i<=10;$i++)
                                     <tr>
-                                        <td align="center"><input type="text" name="tempos[$i]" value="{{$i*5}}"></td>
-                                        <td align="center"><input type="text" name="precos[$i]" value=""></td>
+                                        <td class="text-center" ><input type="text" name="tempos[$i]" class="form-control" value="{{$i*5}}"></td>
+                                        <td class="text-center"><input type="text" name="precos[$i]" class="form-control" value=""></td>
                                     </tr>
                                     @endfor
                                 @else
                                     @foreach ($valores as $valor => $i)
                                     <tr>
-                                        <td align="center"><input type="text" name="tempos[$i+1]" value="{{$valor->minutos}}"></td>
-                                        <td align="center"><input type="text" name="precos[$i+1]" value="{{$valor->preco}}"></td>
+                                        <td class="text-center"><input type="text" name="tempos[$i+1]" class="form-control" value="{{$valor->minutos}}"></td>
+                                        <td class="text-center"><input type="text" name="precos[$i+1]" class="form-control" value="{{$valor->preco}}"></td>
                                     </tr>
                                     @endforeach
                                 @endif
                             </table>
                         </div>
-
+                        <br>
                         <div class="form-group row mb-0">
                         
                             <div class="col-md-6 offset-md-4 btn-group">

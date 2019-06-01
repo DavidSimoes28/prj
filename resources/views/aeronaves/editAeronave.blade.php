@@ -99,34 +99,37 @@
                                 @endif
                             </div>
                         </div>
-
+                        <br>
                         <div class="form-group row">
-                            <label for="preco_hora" class="col-md-4 col-form-label text-md-right">{{ __('Lista de Preços') }}</label>
-                            <table class="table table-striped">
+                        <table align="center" style="width: 60%">
                             <thead>
+                            <tr>
+                            <th class="text-center" colspan="2"><h4>{{ __('Lista de Preços') }}</h4></th>
+                            </tr>
                                 <tr>
-                                    <th>Tempo</th>
-                                    <th>Preço</th>
+                                    <th class="text-center"><h5>Tempo</h5></th>
+                                    <th class="text-center"><h5>Preço</h5></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @if(empty($valores))
                                     @for($i=1;$i<=10;$i++)
                                     <tr>
-                                        <td align="center"><input type="text" name="tempos[]"></td>
-                                        <td align="center"><input type="text" name="precos[]"></td>
+                                        <td class="text-center"><input type="text" name="tempos[]" class="form-control"></td>
+                                        <td class="text-center"><input type="text" name="precos[]" class="form-control"></td>
                                     </tr>
                                     @endfor
                                 @else
                                     @foreach ($valores as $valor)
                                     <tr>
-                                        <td align="center"><input type="text" name="tempos[]" value="{{$valor->minutos}}"></td>
-                                        <td align="center"><input type="text" name="precos[]" value="{{$valor->preco}}"></td>
+                                        <td class="text-center"><input type="text" name="tempos[]" value="{{$valor->minutos}}" class="form-control"></td>
+                                        <td class="text-center"><input type="text" name="precos[]" value="{{$valor->preco}}" class="form-control"></td>
                                     </tr>
                                     @endforeach
                                 @endif
                             </table>
                         </div>
+                        <br>
 
                         <div class="form-group row mb-0">
                         
