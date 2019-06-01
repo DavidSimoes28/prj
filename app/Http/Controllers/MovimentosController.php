@@ -285,4 +285,8 @@ class MovimentosController extends Controller
         $aeronave->conta_horas = $aeronave->conta_horas - $diff;
         $aeronave->save();
     }
+
+    private function confirmar_todos(){
+        
+    }
 }
